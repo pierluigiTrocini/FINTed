@@ -1,5 +1,7 @@
 package it.unical.demacs.enterprise.fintedapp.data.entities;
 
+import java.sql.Date;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -23,6 +25,9 @@ public class Offer {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	private User user;
+	
+	@Column(name = "publish_date")
+	private Date publishDate;
 	
 	@Column
 	private Long offer;
