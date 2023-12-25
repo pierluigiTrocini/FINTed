@@ -17,4 +17,5 @@ public class DateManager {
     public Date currentDate(){
         return new Date(Calendar.getInstance().getTime().getTime());
     }
+ 
 }

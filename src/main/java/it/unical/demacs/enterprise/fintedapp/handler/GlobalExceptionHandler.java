@@ -32,11 +32,8 @@ public class GlobalExceptionHandler {
 
 	@Data
 	@AllArgsConstructor
+	@SuppressWarnings(value = { "unused" })
 	public class ServiceError {
-		public ServiceError(Date date, String requestURI, String message2) {
-			// TODO Auto-generated constructor stub
-		}
-
 		@JsonFormat(shape = Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
 		private Date timestamp;
 		private String url;
@@ -47,7 +44,7 @@ public class GlobalExceptionHandler {
 	private ServiceError errorResponse(WebRequest req, String message) {
 		HttpServletRequest httpreq = (HttpServletRequest) req.resolveReference("request");
 		final ServiceError output = new ServiceError(new Date(), httpreq.getRequestURI(), message);
-		System.err.println("Exception handler :::: {}" + output.toString());
+		log.error("Exception handler :::: {}" + output.toString());
 		return output;
 
 	}

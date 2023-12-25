@@ -31,7 +31,7 @@ public class User {
 	@Column(name = "last_name")
 	private String lastName;
 	
-	@Column
+	@Column(unique = true)
 	private String username;
 	
 	@Column(name = "registration_date")
@@ -39,6 +39,9 @@ public class User {
 	
 	@Column(name = "account_disabled_date", nullable = true)
 	private Date accountDisableDate = null;
+	
+	@Column(name = "balance")
+	private Long balance;
 	
     @Embedded
     @AttributeOverrides({
