@@ -29,69 +29,64 @@ import lombok.extern.slf4j.Slf4j;
 @RestControllerAdvice
 @Slf4j
 public class GlobalExceptionHandler {
-	
+
 	@Data
 	@AllArgsConstructor
 	public class ServiceError {
-	    public ServiceError(Date date, String requestURI, String message2) {
+		public ServiceError(Date date, String requestURI, String message2) {
 			// TODO Auto-generated constructor stub
 		}
+
 		@JsonFormat(shape = Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
-	    private Date timestamp;
-	    private String url;
-	    private String message;
+		private Date timestamp;
+		private String url;
+		private String message;
 	}
-	
-	
-    @SuppressWarnings(value = { "all" })
-    private ServiceError errorResponse (WebRequest req, String message) {
-        HttpServletRequest httpreq = (HttpServletRequest) req.resolveReference("request");
-        final ServiceError output = new ServiceError(new Date(), httpreq.getRequestURI(), message);
-        System.err.println("Exception handler :::: {}" + output.toString());
-        return output;
 
-    }
-    
-    @ExceptionHandler(
-        {CredentialsAlreadyUsedException.class, 
-            NullFieldException.class,
-            MethodArgumentTypeMismatchException.class,
-            MissingServletRequestParameterException.class,
-            ValidationException.class,
-            InvalidArgumentException.class})
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ServiceError badRequest(WebRequest req, Exception ex){
-        LoggerFactory.getLogger(ConsoleAppender.class).error(ex.getMessage(), ex);
-        return errorResponse(req, ex.getMessage());
-    }
+	@SuppressWarnings(value = { "all" })
+	private ServiceError errorResponse(WebRequest req, String message) {
+		HttpServletRequest httpreq = (HttpServletRequest) req.resolveReference("request");
+		final ServiceError output = new ServiceError(new Date(), httpreq.getRequestURI(), message);
+		System.err.println("Exception handler :::: {}" + output.toString());
+		return output;
 
-    @ExceptionHandler({ElementNotFoundException.class})
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ServiceError elementNotFound(WebRequest req, Exception ex){
-        LoggerFactory.getLogger(ConsoleAppender.class).error(ex.getMessage(), ex);
-        return errorResponse(req, ex.getMessage());
-    }
+	}
 
-    @ExceptionHandler(value={AccessDeniedException.class})
-    @ResponseStatus(HttpStatus.UNAUTHORIZED)
-    public ServiceError handleDeniedAccessException(WebRequest req, AccessDeniedException ex) {
-        LoggerFactory.getLogger(ConsoleAppender.class).error(ex.getMessage(), ex);
-        return errorResponse(req, ex.getMessage());
-    }
+	@ExceptionHandler({ CredentialsAlreadyUsedException.class, NullFieldException.class,
+			MethodArgumentTypeMismatchException.class, MissingServletRequestParameterException.class,
+			ValidationException.class, InvalidArgumentException.class })
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	public ServiceError badRequest(WebRequest req, Exception ex) {
+		LoggerFactory.getLogger(ConsoleAppender.class).error(ex.getMessage(), ex);
+		return errorResponse(req, ex.getMessage());
+	}
 
-    @ExceptionHandler(value={Exception.class})
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ServiceError handleException(WebRequest req, Exception ex) {
-        LoggerFactory.getLogger(ConsoleAppender.class).error(ex.getMessage(), ex);
-        return errorResponse(req, ex.getMessage());
-    }
+	@ExceptionHandler({ ElementNotFoundException.class })
+	@ResponseStatus(HttpStatus.NOT_FOUND)
+	public ServiceError elementNotFound(WebRequest req, Exception ex) {
+		LoggerFactory.getLogger(ConsoleAppender.class).error(ex.getMessage(), ex);
+		return errorResponse(req, ex.getMessage());
+	}
 
-    @ExceptionHandler(value = {UnsupportedOperationException.class})
-    @ResponseStatus(HttpStatus.NOT_IMPLEMENTED)
-    public ServiceError handleUnsupportedOperationException(WebRequest req, Exception ex){
-        LoggerFactory.getLogger(ConsoleAppender.class).error(ex.getMessage(), ex);
-        return errorResponse(req, ex.getMessage());
-    }
-	
-	
+	@ExceptionHandler(value = { AccessDeniedException.class })
+	@ResponseStatus(HttpStatus.UNAUTHORIZED)
+	public ServiceError handleDeniedAccessException(WebRequest req, AccessDeniedException ex) {
+		LoggerFactory.getLogger(ConsoleAppender.class).error(ex.getMessage(), ex);
+		return errorResponse(req, ex.getMessage());
+	}
+
+	@ExceptionHandler(value = { Exception.class })
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	public ServiceError handleException(WebRequest req, Exception ex) {
+		LoggerFactory.getLogger(ConsoleAppender.class).error(ex.getMessage(), ex);
+		return errorResponse(req, ex.getMessage());
+	}
+
+	@ExceptionHandler(value = { UnsupportedOperationException.class })
+	@ResponseStatus(HttpStatus.NOT_IMPLEMENTED)
+	public ServiceError handleUnsupportedOperationException(WebRequest req, Exception ex) {
+		LoggerFactory.getLogger(ConsoleAppender.class).error(ex.getMessage(), ex);
+		return errorResponse(req, ex.getMessage());
+	}
+
 }
