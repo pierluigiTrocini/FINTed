@@ -1,6 +1,5 @@
 package it.unical.demacs.enterprise.fintedapp.data.services;
 
-import java.sql.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,11 +27,11 @@ public class ReviewServiceImpl implements ReviewService {
 	public ReviewDto save(ReviewDto review) throws ElementNotFoundException {
 		if(!userDao.existsById(review.getAuthor().getId()))
 			throw new ElementNotFoundException("User [author] not found");
-		if(!userDao.existsById(review.getUser().getId()))
+		if(!userDao.existsById(review.getTarget().getId()))
 			throw new ElementNotFoundException("User [user] not found");
 		
 		Review newReview = modelMapper.map(review, Review.class);
-		newReview.setPublishedDate((Date) DateManager.getInstance().currentDate());
+		newReview.setPublishedDate(DateManager.getInstance().currentDateSQLFormat());
 		
 		return modelMapper.map(reviewDao.save(newReview), ReviewDto.class);		
 	}

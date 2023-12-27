@@ -14,6 +14,7 @@ import it.unical.demacs.enterprise.fintedapp.data.entities.Post;
 import it.unical.demacs.enterprise.fintedapp.dto.PostDto;
 import it.unical.demacs.enterprise.fintedapp.exception.ElementNotFoundException;
 import it.unical.demacs.enterprise.fintedapp.exception.NullFieldException;
+import it.unical.demacs.enterprise.fintedapp.handler.DateManager;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -29,7 +30,10 @@ public class PostServiceImpl implements PostService {
 		if(!userDao.existsById(post.getSeller().getId()))
 			throw new ElementNotFoundException("User [seller] not found");
 		
-		return modelMapper.map(postDao.save(modelMapper.map(post, Post.class)), PostDto.class);
+		Post newPost =  modelMapper.map(postDao.save(modelMapper.map(post, Post.class)), Post.class);
+		newPost.setPublishedDate(DateManager.getInstance().currentDateSQLFormat());
+		
+		return modelMapper.map(postDao.save(newPost), PostDto.class);
 	}
 
 	@Override

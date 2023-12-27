@@ -1,6 +1,5 @@
 package it.unical.demacs.enterprise.fintedapp.data.services;
 
-import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -36,7 +35,10 @@ public class OfferServiceImpl implements OfferService {
 			throw new ElementNotFoundException("User not found");
 		
 		Offer newOffer = modelMapper.map(offer, Offer.class);
-		newOffer.setPublishDate((Date) DateManager.getInstance().currentDate());
+		
+		newOffer.setPost(postDao.findById(offer.getPost().getId()).orElseThrow(() -> new ElementNotFoundException("Post not found")));
+		newOffer.setUser(userDao.findById(offer.getUser().getId()).orElseThrow(() -> new ElementNotFoundException("User not found")));
+		newOffer.setPublishDate(DateManager.getInstance().currentDateSQLFormat());
 		
 		return modelMapper.map(offerDao.save(newOffer), OfferDto.class);
 	}

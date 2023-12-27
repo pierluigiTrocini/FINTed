@@ -13,16 +13,16 @@ import lombok.ToString;
 @SuppressWarnings(value = { "unused" })
 public class UserDto {
 
-	@NotEmpty
+
 	private Long id;
 	
-	@NotEmpty
+
 	private String firstName;
 	
-	@NotEmpty
+
 	private String lastName;
 	
-	@NotEmpty
+
 	private String username;
 	
 	private Date registrationDate;

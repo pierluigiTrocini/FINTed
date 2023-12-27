@@ -29,7 +29,7 @@ public class Post {
 	private String title;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	private User user;
+	private User seller;
 	
 	@Column(name = "published_date")
 	private Date publishedDate;

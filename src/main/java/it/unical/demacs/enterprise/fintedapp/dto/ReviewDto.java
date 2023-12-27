@@ -19,7 +19,7 @@ public class ReviewDto {
     private UserDto author;
 
     @NotNull
-    private UserDto user;
+    private UserDto target;
 
     @NotEmpty
     private Date publishDate;

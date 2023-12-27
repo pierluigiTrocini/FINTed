@@ -59,7 +59,7 @@ public class User {
     })
     private Address address;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "seller", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Post> publishedPosts;
     
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)

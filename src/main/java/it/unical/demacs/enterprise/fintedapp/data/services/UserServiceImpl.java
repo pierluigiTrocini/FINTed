@@ -1,6 +1,5 @@
 package it.unical.demacs.enterprise.fintedapp.data.services;
 
-import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
