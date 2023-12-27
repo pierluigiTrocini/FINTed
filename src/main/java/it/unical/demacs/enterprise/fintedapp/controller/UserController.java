@@ -40,7 +40,7 @@ public class UserController {
 		userService.delete(id);
 	}
 	
-	@GetMapping("/{page}")
+	@GetMapping("/all/{page}")
 	public ResponseEntity<List<UserProfileDto>> getAll(@PathVariable("page") Integer page){
 		return ResponseEntity.ok(userService.getAll(page));
 	}

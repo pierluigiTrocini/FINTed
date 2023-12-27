@@ -28,7 +28,7 @@ public class PostController {
 	private final PostService postService;
 	
 	@PostMapping("/")
-	public ResponseEntity<PostDto> save(@RequestBody PostDto post) throws CredentialsAlreadyUsedException, NullFieldException{
+	public ResponseEntity<PostDto> save(@RequestBody PostDto post) throws CredentialsAlreadyUsedException, NullFieldException, ElementNotFoundException{
 		return ResponseEntity.ok(postService.save(post));
 	}
 	
@@ -37,7 +37,7 @@ public class PostController {
 		postService.delete(id);
 	}
 	
-	@GetMapping("/{page}")
+	@GetMapping("/all/{page}")
 	public ResponseEntity<List<PostDto>> getAll(@PathVariable("page") Integer page){
 		return ResponseEntity.ok(postService.getAll(page));
 	}

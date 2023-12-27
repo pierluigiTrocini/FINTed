@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import it.unical.demacs.enterprise.fintedapp.data.dao.PostDao;
+import it.unical.demacs.enterprise.fintedapp.data.dao.UserDao;
 import it.unical.demacs.enterprise.fintedapp.data.entities.Post;
 import it.unical.demacs.enterprise.fintedapp.dto.PostDto;
 import it.unical.demacs.enterprise.fintedapp.exception.ElementNotFoundException;
@@ -19,10 +20,15 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class PostServiceImpl implements PostService {
 	private final PostDao postDao;
+	private final UserDao userDao;
+	
 	private final ModelMapper modelMapper;
 
 	@Override
-	public PostDto save(PostDto post) {
+	public PostDto save(PostDto post) throws ElementNotFoundException {
+		if(!userDao.existsById(post.getSeller().getId()))
+			throw new ElementNotFoundException("User [seller] not found");
+		
 		return modelMapper.map(postDao.save(modelMapper.map(post, Post.class)), PostDto.class);
 	}
 

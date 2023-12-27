@@ -30,9 +30,9 @@ public class OfferServiceImpl implements OfferService {
 	
 	@Override
 	public OfferDto save(OfferDto offer) throws ElementNotFoundException {
-		if(postDao.existsById(offer.getPost().getId()))
+		if(!postDao.existsById(offer.getPost().getId()))
 			throw new ElementNotFoundException("Post not found");
-		if(userDao.existsById(offer.getUser().getId()))
+		if(!userDao.existsById(offer.getUser().getId()))
 			throw new ElementNotFoundException("User not found");
 		
 		Offer newOffer = modelMapper.map(offer, Offer.class);

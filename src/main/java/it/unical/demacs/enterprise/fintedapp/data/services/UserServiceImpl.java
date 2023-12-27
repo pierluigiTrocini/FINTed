@@ -35,15 +35,15 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserProfileDto save(UserRegistrationDto user) throws CredentialsAlreadyUsedException, NullFieldException {
-		if (userDao.existsByCredentialsEmail(user.getCredentialsEmail().toString()))
+		if (!userDao.existsByCredentialsEmail(user.getCredentialsEmail().toString()))
 			throw new CredentialsAlreadyUsedException("Email already used");
-		if (userDao.existsByUsername(user.getUsername().toString()))
+		if (!userDao.existsByUsername(user.getUsername().toString()))
 			throw new CredentialsAlreadyUsedException("Username already used");
 
 		User newUser = modelMapper.map(user, User.class);
 
-		newUser.getCredentials().setPassword(BCrypt.hashpw(user.getCredentialsPassword(), "12"));
-		newUser.setRegistrationDate((Date) DateManager.getInstance().currentDate());
+		newUser.getCredentials().setPassword(BCrypt.hashpw(user.getCredentialsPassword(), BCrypt.gensalt(12)));
+		newUser.setRegistrationDate(DateManager.getInstance().currentDateSQLFormat());
 		newUser.setBalance((long) 500);
 
 		return modelMapper.map(userDao.save(newUser), UserProfileDto.class);

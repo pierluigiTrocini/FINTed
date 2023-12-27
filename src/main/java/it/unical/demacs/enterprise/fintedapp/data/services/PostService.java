@@ -8,7 +8,7 @@ import it.unical.demacs.enterprise.fintedapp.exception.NullFieldException;
 
 public interface PostService {
 
-	PostDto save(PostDto post);
+	PostDto save(PostDto post) throws ElementNotFoundException;
 	
 	void delete(Long id);
 	
