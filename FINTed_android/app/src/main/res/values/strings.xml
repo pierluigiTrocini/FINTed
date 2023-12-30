@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">FINTed_android</string>
+    <string name="home">home</string>
+    <string name="sell">vendi</string>
+    <string name="chat">chat</string>
+    <string name="profile">profilo</string>
+    <string name="offers">offerte</string>
+    <string name="find">cerca</string>
+    <string name="search">cerca</string>
+    <string name="title">FINTed</string>
 </resources>
