@@ -129,19 +129,33 @@ fun Homepage(){
 
     Scaffold(
         topBar = {
-            TopBar();
+            TopBar( selectedIndex );
         },
         bottomBar = { BottomBar(selectedIndex = selectedIndex) }
     ) {
         Box(modifier = Modifier.padding(it)) {
-
+            if(selectedIndex.value == 0){
+                HomepageActivity()
+            }
+            if(selectedIndex.value == 1){
+                SellActivity()
+            }
+            if(selectedIndex.value == 2){
+                MailBoxActivity()
+            }
+            if(selectedIndex.value == 3){
+                OfferListActivity()
+            }
+            if(selectedIndex.value == 4){
+                ProfileActivity()
+            }
         }
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopBar() {
+fun TopBar( selectedIndex: MutableState<Int> ) {
     var queryString = remember { mutableStateOf("") }
     var isActive = remember { mutableStateOf(false) }
     val contextForToast = LocalContext.current.applicationContext
