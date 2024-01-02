@@ -16,4 +16,7 @@
     <string name="postList">post</string>
     <string name="reviewList">recensioni</string>
     <string name="edit">modifica</string>
+    <string name="publishDate">"pubblicato il: "</string>
+    <string name="makeOffer">fai un\'offerta</string>
+    <string name="postImage">[immagine]</string>
 </resources>

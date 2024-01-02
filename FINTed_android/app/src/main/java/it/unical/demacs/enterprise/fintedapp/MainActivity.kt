@@ -116,7 +116,7 @@ fun BottomBar( selectedIndex: MutableState<Int> ){
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Homepage(){
-    val selectedIndex = remember { mutableStateOf(4) }
+    val selectedIndex = remember { mutableStateOf(0) }
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
 
     var text = remember { mutableStateOf("") }
