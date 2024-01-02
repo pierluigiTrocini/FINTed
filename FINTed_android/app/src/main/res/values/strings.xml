@@ -8,4 +8,12 @@
     <string name="find">cerca</string>
     <string name="search">cerca</string>
     <string name="title">FINTed</string>
+    <string name="postTitle">titolo</string>
+    <string name="postAddImage">aggiungi un\' immagine</string>
+    <string name="portStartingPrice">prezzo</string>
+    <string name="publish">pubblica</string>
+    <string name="profilePic">immagine profilo</string>
+    <string name="postList">post</string>
+    <string name="reviewList">recensioni</string>
+    <string name="edit">modifica</string>
 </resources>
