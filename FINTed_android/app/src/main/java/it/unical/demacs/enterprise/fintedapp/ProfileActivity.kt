@@ -1,6 +1,5 @@
 package it.unical.demacs.enterprise.fintedapp
 
-import android.content.Context
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -25,14 +24,10 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Icon
-import it.unical.demacs.enterprise.fintedapp.models.UserPersonalProfileDto
-
-private enum class typeList{
-    POSTS, REVIEWS
-}
+import it.unical.demacs.enterprise.fintedapp.models.UserProfileDto
 
 @Composable
-fun ProfileActivity(context: Context, selectedIndex: MutableState<Index>, profile: UserPersonalProfileDto?) {
+fun ProfileActivity(selectedIndex: MutableState<Int>, profile: UserProfileDto) {
     var debugListValue = remember{ mutableStateOf("") }
 
     Column(modifier = Modifier.fillMaxWidth()) {

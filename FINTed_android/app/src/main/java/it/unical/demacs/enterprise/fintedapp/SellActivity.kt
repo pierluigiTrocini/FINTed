@@ -24,7 +24,7 @@ import androidx.wear.compose.material.Text
 @Composable
 fun SellActivity(
     context: Context,
-    selectedIndex: MutableState<Int>
+    selectedIndex: MutableState<Index>
 ){
     var title = remember { mutableStateOf("") }
     var startingPrice = remember { mutableStateOf("") }
@@ -70,7 +70,7 @@ fun SellActivity(
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End){
             Button(onClick = {
                 makeToast(context, "articolo venduto")
-                selectedIndex.value = 0
+                selectedIndex.value = Index.HOMEPAGE
             }) {
                 Text(stringResource(id = R.string.publish))
             }

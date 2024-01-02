@@ -56,12 +56,12 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun BottomBar( selectedIndex: MutableState<Int> ){
+fun BottomBar( selectedIndex: MutableState<Index> ){
     BottomAppBar() {
         NavigationBar {
             NavigationBarItem(
-                selected = selectedIndex.value == 0,
-                onClick = { selectedIndex.value = 0 },
+                selected = selectedIndex.value == Index.HOMEPAGE,
+                onClick = { selectedIndex.value = Index.HOMEPAGE },
                 icon = {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         Icon(Icons.Filled.Home, contentDescription = stringResource(R.string.home))
@@ -70,8 +70,8 @@ fun BottomBar( selectedIndex: MutableState<Int> ){
                 }
             )
             NavigationBarItem(
-                selected = selectedIndex.value == 1,
-                onClick = { selectedIndex.value = 1 },
+                selected = selectedIndex.value == Index.SELL,
+                onClick = { selectedIndex.value = Index.SELL },
                 icon = {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         Icon(Icons.Filled.AddCircle, contentDescription = stringResource(R.string.sell))
@@ -80,8 +80,8 @@ fun BottomBar( selectedIndex: MutableState<Int> ){
                 }
             )
             NavigationBarItem(
-                selected = selectedIndex.value == 2,
-                onClick = { selectedIndex.value = 2 },
+                selected = selectedIndex.value == Index.MAILBOX,
+                onClick = { selectedIndex.value = Index.MAILBOX },
                 icon = {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         Icon(Icons.Filled.MailOutline, contentDescription = stringResource(R.string.chat))
@@ -90,8 +90,8 @@ fun BottomBar( selectedIndex: MutableState<Int> ){
                 }
             )
             NavigationBarItem(
-                selected = selectedIndex.value == 3,
-                onClick = { selectedIndex.value = 3 },
+                selected = selectedIndex.value == Index.OFFERLIST,
+                onClick = { selectedIndex.value = Index.OFFERLIST },
                 icon = {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         Icon(Icons.Filled.List, contentDescription = stringResource(R.string.offers))
@@ -100,8 +100,8 @@ fun BottomBar( selectedIndex: MutableState<Int> ){
                 }
             )
             NavigationBarItem(
-                selected = selectedIndex.value == 4,
-                onClick = { selectedIndex.value = 4 },
+                selected = selectedIndex.value == Index.PERSONALPROFILE,
+                onClick = { selectedIndex.value = Index.PERSONALPROFILE },
                 icon = {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         Icon(Icons.Filled.Person, contentDescription = stringResource(R.string.profile))
@@ -116,7 +116,7 @@ fun BottomBar( selectedIndex: MutableState<Int> ){
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Homepage(){
-    val selectedIndex = remember { mutableStateOf(0) }
+    val selectedIndex = remember { mutableStateOf(Index.HOMEPAGE) }
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
 
     var text = remember { mutableStateOf("") }
@@ -130,19 +130,19 @@ fun Homepage(){
         bottomBar = { BottomBar(selectedIndex = selectedIndex) }
     ) {
         Box(modifier = Modifier.padding(it)) {
-            if(selectedIndex.value == 0){
+            if(selectedIndex.value == Index.HOMEPAGE){
                 HomepageActivity(context, selectedIndex)
             }
-            if(selectedIndex.value == 1){
+            if(selectedIndex.value == Index.SELL){
                 SellActivity(context, selectedIndex)
             }
-            if(selectedIndex.value == 2){
+            if(selectedIndex.value == Index.MAILBOX){
                 MailBoxActivity(context, selectedIndex)
             }
-            if(selectedIndex.value == 3){
+            if(selectedIndex.value == Index.OFFERLIST){
                 OfferListActivity(context, selectedIndex)
             }
-            if(selectedIndex.value == 4){
+            if(selectedIndex.value == Index.PERSONALPROFILE){
                 ProfileActivity(context, selectedIndex, null)
             }
         }
@@ -151,7 +151,7 @@ fun Homepage(){
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopBar( selectedIndex: MutableState<Int> ) {
+fun TopBar(selectedIndex: MutableState<Index>) {
     var queryString = remember { mutableStateOf("") }
     var isActive = remember { mutableStateOf(false) }
     val contextForToast = LocalContext.current.applicationContext

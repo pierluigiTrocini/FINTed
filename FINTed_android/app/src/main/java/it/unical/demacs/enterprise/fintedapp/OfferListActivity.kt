@@ -7,6 +7,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.wear.compose.material.Text
 
 @Composable
-fun OfferListActivity(context: Context, selectedIndex: MutableState<Int>) {
+fun OfferListActivity(context: Context, selectedIndex: MutableState<Index>) {
     Text(text = stringResource(id = R.string.offers))
 }
