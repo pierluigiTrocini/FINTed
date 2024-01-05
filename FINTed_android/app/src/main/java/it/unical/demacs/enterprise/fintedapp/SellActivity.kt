@@ -69,7 +69,7 @@ fun SellActivity(
 
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End){
             Button(onClick = {
-                makeToast(context, "articolo venduto")
+                makeToast(context, context.resources.getString(R.string.postPublished))
                 selectedIndex.value = Index.HOMEPAGE
             }) {
                 Text(stringResource(id = R.string.publish))

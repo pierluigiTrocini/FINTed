@@ -28,4 +28,8 @@
     <string name="balance">il tuo saldo:\t</string>
     <string name="currency">€</string>
     <string name="emailLabel">email: \t</string>
+    <string name="postPublished">Post pubblicato con successo!</string>
+    <string name="makeOfferLabel">La tua offerta</string>
+    <string name="offerTitle">Fai un\'offerta!</string>
+    <string name="offerPublishedToast">Offerta pubblicata!</string>
 </resources>
