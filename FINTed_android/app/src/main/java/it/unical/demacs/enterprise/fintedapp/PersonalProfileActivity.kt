@@ -27,13 +27,10 @@ import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Icon
 import it.unical.demacs.enterprise.fintedapp.models.UserPersonalProfileDto
 
-private enum class typeList{
-    POSTS, REVIEWS
-}
 
 @Composable
-fun ProfileActivity(context: Context, selectedIndex: MutableState<Index>, profile: UserPersonalProfileDto?) {
-    var debugListValue = remember{ mutableStateOf("") }
+fun PersonalProfileActivity(context: Context, selectedIndex: MutableState<Index>, profile: UserPersonalProfileDto?) {
+    var debugListValue = remember{ mutableStateOf(ProfileIndex.POSTS) }
 
     Column(modifier = Modifier.fillMaxWidth()) {
         Card(
@@ -71,9 +68,12 @@ fun ProfileActivity(context: Context, selectedIndex: MutableState<Index>, profil
                         Text(text = profile?.firstName.toString() + "\t" + profile?.lastName.toString(),
                             style = MaterialTheme.typography.bodyMedium)
 
-                        Text(text = profile?.credentialsEmail.toString(),
+                        Text(text = stringResource(id = R.string.emailLabel) + profile?.credentialsEmail.toString(),
                             modifier = Modifier.padding(vertical = 10.dp),
                             style = MaterialTheme.typography.bodySmall)
+                    }
+                    Column() {
+                        Text(text = stringResource(id = R.string.balance) + stringResource(id = R.string.currency))
                     }
                 }
                 Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Start) {
@@ -87,18 +87,18 @@ fun ProfileActivity(context: Context, selectedIndex: MutableState<Index>, profil
             }
         }
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center){
-            Button(onClick = { debugListValue.value = "[DEBUG] lista dei post" }, modifier = Modifier.padding(horizontal = 20.dp)) {
+            Button(onClick = { debugListValue.value = ProfileIndex.POSTS }, modifier = Modifier.padding(horizontal = 20.dp)) {
                 Text(text = stringResource(id = R.string.postList), color = MaterialTheme.colorScheme.inversePrimary)
             }
 
-            Button(onClick = { debugListValue.value = "[DEBUG] lista delle recensioni" }, modifier = Modifier.padding(horizontal = 20.dp)) {
+            Button(onClick = { debugListValue.value = ProfileIndex.REVIEWS }, modifier = Modifier.padding(horizontal = 20.dp)) {
                 Text(text = stringResource(id = R.string.reviewList), color = MaterialTheme.colorScheme.inversePrimary)
             }
         }
         Row(modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 20.dp), horizontalArrangement = Arrangement.Center) {
-            Text(text = debugListValue.value)
+            Text(text = debugListValue.value.toString())
         }
     }
 }

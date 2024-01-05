@@ -1,5 +1,6 @@
 package it.unical.demacs.enterprise.fintedapp
 
+import android.content.Context
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -24,10 +25,10 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Icon
-import it.unical.demacs.enterprise.fintedapp.models.UserProfileDto
+import it.unical.demacs.enterprise.fintedapp.models.UserPersonalProfileDto
 
 @Composable
-fun ProfileActivity(selectedIndex: MutableState<Int>, profile: UserProfileDto) {
+fun ProfileActivity(context: Context, selectedIndex: MutableState<Index>, profile: UserPersonalProfileDto?) {
     var debugListValue = remember{ mutableStateOf("") }
 
     Column(modifier = Modifier.fillMaxWidth()) {
@@ -69,14 +70,6 @@ fun ProfileActivity(selectedIndex: MutableState<Int>, profile: UserProfileDto) {
                         Text(text = profile?.credentialsEmail.toString(),
                             modifier = Modifier.padding(vertical = 10.dp),
                             style = MaterialTheme.typography.bodySmall)
-                    }
-                }
-                Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Start) {
-                    Button(onClick = { /*TODO*/ }) {
-                        Icon(imageVector = Icons.Default.Edit,
-                            contentDescription = stringResource(id = R.string.edit),
-                            modifier = Modifier.padding(vertical = 5.dp)
-                        )
                     }
                 }
             }

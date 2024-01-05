@@ -116,7 +116,7 @@ fun BottomBar( selectedIndex: MutableState<Index> ){
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Homepage(){
-    val selectedIndex = remember { mutableStateOf(Index.HOMEPAGE) }
+    val selectedIndex = remember { mutableStateOf(Index.PERSONALPROFILE) }
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
 
     var text = remember { mutableStateOf("") }
@@ -143,7 +143,7 @@ fun Homepage(){
                 OfferListActivity(context, selectedIndex)
             }
             if(selectedIndex.value == Index.PERSONALPROFILE){
-                ProfileActivity(context, selectedIndex, null)
+                PersonalProfileActivity(context, selectedIndex, null)
             }
         }
     }

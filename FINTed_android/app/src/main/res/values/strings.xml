@@ -19,4 +19,13 @@
     <string name="publishDate">"pubblicato il: "</string>
     <string name="makeOffer">fai un\'offerta</string>
     <string name="postImage">[immagine]</string>
+    <string name="username">[username]</string>
+    <string name="offerLabel">[offer]</string>
+    <string name="usernameLabel">[username]</string>
+    <string name="postLabel">[post title]</string>
+    <string name="acceptOffer">Accetta</string>
+    <string name="acceptedOffer">Offerta accettata!</string>
+    <string name="balance">il tuo saldo:\t</string>
+    <string name="currency">€</string>
+    <string name="emailLabel">email: \t</string>
 </resources>
