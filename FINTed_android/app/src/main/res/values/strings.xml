@@ -32,4 +32,6 @@
     <string name="makeOfferLabel">La tua offerta</string>
     <string name="offerTitle">Fai un\'offerta!</string>
     <string name="offerPublishedToast">Offerta pubblicata!</string>
+    <string name="noReviews">Nessuna recensione trovata</string>
+    <string name="makeReview">Lascia una recensione</string>
 </resources>

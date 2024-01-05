@@ -98,7 +98,9 @@ fun PersonalProfileActivity(context: Context, selectedIndex: MutableState<Index>
         Row(modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 20.dp), horizontalArrangement = Arrangement.Center) {
-            Text(text = debugListValue.value.toString())
+            if(debugListValue.value == ProfileIndex.REVIEWS){
+                ReviewActivity(context = context, selectedIndex = selectedIndex, profileIndex = debugListValue, reviews = null, personalReviews = true)
+            }
         }
     }
 }
