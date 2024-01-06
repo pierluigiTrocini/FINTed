@@ -34,4 +34,6 @@
     <string name="offerPublishedToast">Offerta pubblicata!</string>
     <string name="noReviews">Nessuna recensione trovata</string>
     <string name="makeReview">Lascia una recensione</string>
+    <string name="reviewTitle">Lascia qui la tua recensione!</string>
+    <string name="reviewPublishedToast">Recensione pubblicata!</string>
 </resources>

@@ -1,10 +1,7 @@
 package it.unical.demacs.enterprise.fintedapp
 
 import android.content.Context
-import android.content.Intent
 import android.widget.Toast
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -17,7 +14,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.rememberModalBottomSheetState
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
@@ -25,65 +22,56 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.wear.compose.material.Text
-import it.unical.demacs.enterprise.fintedapp.models.OfferDto
-import it.unical.demacs.enterprise.fintedapp.models.PostDto
+import it.unical.demacs.enterprise.fintedapp.models.ReviewDto
+import it.unical.demacs.enterprise.fintedapp.models.UserDto
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun OfferActivity(
+fun ReviewFormActivity(
     sheetState: MutableState<Boolean>,
-    post: PostDto?,
     context: Context,
     selectedIndex: MutableState<Index>,
-    coroutineScope: CoroutineScope
+    coroutineScope: CoroutineScope,
+    author: UserDto?,
+    target: UserDto?
 ){
-    val offerPrice = remember { mutableStateOf("") }
+    val text = remember { mutableStateOf("") }
 
-    ModalBottomSheet(
-        onDismissRequest = { sheetState.value = false },
-    ) {
+    ModalBottomSheet(onDismissRequest = { sheetState.value = false }) {
         Column(modifier = Modifier.padding(20.dp)) {
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Start) {
-                androidx.compose.material3.Text(
-                    text = stringResource(id = R.string.offerTitle),
+                Text(
+                    text = stringResource(id = R.string.reviewTitle),
                     style = MaterialTheme.typography.titleLarge,
                     modifier = Modifier.padding(10.dp)
                 )
             }
-            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Start) {
+            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Start){
                 OutlinedTextField(
-                    value = offerPrice.value,
+                    value = text.value,
                     onValueChange = {
-                            v ->
-                        if(v.all{ it.isDigit() }){
-                            offerPrice.value = v
-                        }
+                        v -> text.value = v
                     },
-                    label = { Text(stringResource(id = R.string.makeOfferLabel)) },
-                    maxLines = 1
+                    maxLines = 10
                 )
             }
             Spacer(modifier = Modifier.height(20.dp))
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End){
                 Button(onClick = {
-                    selectedIndex.value = Index.HOMEPAGE
                     coroutineScope.launch {
                         sheetState.value = false
-                        makeToast(context, context.resources.getString(R.string.offerPublishedToast))
+                        makeToast(context, context.resources.getString(R.string.reviewPublishedToast))
                     }
                 }) {
-                    Text(stringResource(id = R.string.publish))
+                    androidx.wear.compose.material.Text(stringResource(id = R.string.publish))
                 }
             }
+            Spacer(modifier = Modifier.height(200.dp))
         }
-        Spacer(modifier = Modifier.height(100.dp))
     }
 }
-
-
 
 private fun makeToast(context: Context, string: String){
     Toast.makeText(context, string, Toast.LENGTH_LONG).show()

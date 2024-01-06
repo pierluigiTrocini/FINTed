@@ -19,7 +19,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.key
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -35,6 +37,9 @@ fun ReviewActivity(
     reviews: List<ReviewDto>?,
     personalReviews: Boolean
 ){
+    val coroutineScope = rememberCoroutineScope();
+    val sheetState = remember { mutableStateOf(false) }
+
     if(reviews != null){
         //todo implementare la lazy column
         LazyColumn{
@@ -80,13 +85,23 @@ fun ReviewActivity(
                 Icon(imageVector = Icons.Filled.Email, contentDescription = null, modifier = Modifier.size(50.dp) )
                 Text(text = stringResource(id = R.string.noReviews))
 
-                if(!personalReviews){
-                    Button(onClick = { /*TODO*/ }) {
+                if(personalReviews){
+                    Button(onClick = { sheetState.value = true }) {
                         Text(text = stringResource(id = R.string.makeReview))
                     }
                 }
             }
         }
     }
-    
+
+    if(sheetState.value){
+        ReviewFormActivity(
+            sheetState = sheetState,
+            context = context,
+            selectedIndex = selectedIndex,
+            coroutineScope = coroutineScope,
+            author = null,
+            target = null
+        )
+    }
 }
