@@ -25,12 +25,11 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SearchBar
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -56,7 +55,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun BottomBar( selectedIndex: MutableState<Index> ){
+fun BottomBar(selectedIndex: MutableState<Index>) {
     BottomAppBar() {
         NavigationBar {
             NavigationBarItem(
@@ -74,7 +73,10 @@ fun BottomBar( selectedIndex: MutableState<Index> ){
                 onClick = { selectedIndex.value = Index.SELL },
                 icon = {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Icon(Icons.Filled.AddCircle, contentDescription = stringResource(R.string.sell))
+                        Icon(
+                            Icons.Filled.AddCircle,
+                            contentDescription = stringResource(R.string.sell)
+                        )
                         Text(stringResource(R.string.sell))
                     }
                 }
@@ -84,7 +86,10 @@ fun BottomBar( selectedIndex: MutableState<Index> ){
                 onClick = { selectedIndex.value = Index.MAILBOX },
                 icon = {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Icon(Icons.Filled.MailOutline, contentDescription = stringResource(R.string.chat))
+                        Icon(
+                            Icons.Filled.MailOutline,
+                            contentDescription = stringResource(R.string.chat)
+                        )
                         Text(stringResource(R.string.chat))
                     }
                 }
@@ -94,7 +99,10 @@ fun BottomBar( selectedIndex: MutableState<Index> ){
                 onClick = { selectedIndex.value = Index.OFFERLIST },
                 icon = {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Icon(Icons.Filled.List, contentDescription = stringResource(R.string.offers))
+                        Icon(
+                            Icons.Filled.List,
+                            contentDescription = stringResource(R.string.offers)
+                        )
                         Text(stringResource(R.string.offers))
                     }
                 }
@@ -104,46 +112,58 @@ fun BottomBar( selectedIndex: MutableState<Index> ){
                 onClick = { selectedIndex.value = Index.PERSONALPROFILE },
                 icon = {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Icon(Icons.Filled.Person, contentDescription = stringResource(R.string.profile))
+                        Icon(
+                            Icons.Filled.Person,
+                            contentDescription = stringResource(R.string.profile)
+                        )
                         Text(stringResource(R.string.profile))
                     }
                 }
             )
-            }
         }
     }
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Homepage(){
-    val selectedIndex = remember { mutableStateOf(Index.PERSONALPROFILE) }
-    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
+fun Homepage() {
+    val coroutineScope = rememberCoroutineScope()
+    val sheetState = remember { mutableStateOf(false) }
 
-    var text = remember { mutableStateOf("") }
+    val selectedIndex = remember { mutableStateOf(Index.PERSONALPROFILE) }
+    val accountState = remember { mutableStateOf(AccountState.NO_ACCOUNT) }
 
     val context = LocalContext.current
 
     Scaffold(
         topBar = {
-            TopBar( selectedIndex );
+            TopBar(selectedIndex);
         },
         bottomBar = { BottomBar(selectedIndex = selectedIndex) }
     ) {
         Box(modifier = Modifier.padding(it)) {
-            if(selectedIndex.value == Index.HOMEPAGE){
-                HomepageActivity(context, selectedIndex)
+            if (selectedIndex.value == Index.HOMEPAGE) {
+                HomepageActivity(
+                    context,
+                    selectedIndex,
+                    coroutineScope,
+                    sheetState)
             }
-            if(selectedIndex.value == Index.SELL){
+            if (selectedIndex.value == Index.SELL) {
                 SellActivity(context, selectedIndex)
             }
-            if(selectedIndex.value == Index.MAILBOX){
+            if (selectedIndex.value == Index.MAILBOX) {
                 MailBoxActivity(context, selectedIndex)
             }
-            if(selectedIndex.value == Index.OFFERLIST){
+            if (selectedIndex.value == Index.OFFERLIST) {
                 OfferListActivity(context, selectedIndex)
             }
-            if(selectedIndex.value == Index.PERSONALPROFILE){
-                PersonalProfileActivity(context, selectedIndex, null)
+            if (selectedIndex.value == Index.PERSONALPROFILE) {
+                PersonalProfileActivity(context,
+                    selectedIndex,
+                    null,
+                    accountState,
+                    coroutineScope)
             }
         }
     }
@@ -164,12 +184,12 @@ fun TopBar(selectedIndex: MutableState<Index>) {
         placeholder = { Text(text = stringResource(id = R.string.search)) },
         leadingIcon = { Icon(imageVector = Icons.Default.Search, contentDescription = null) },
         active = isActive.value,
-        onActiveChange = {
-            value -> isActive.value = value
+        onActiveChange = { value ->
+            isActive.value = value
         },
         onSearch = {
             isActive.value = false
             // qui la funzione per chiamare la ricerca
         }
-    ){}
+    ) {}
 }

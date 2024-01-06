@@ -36,4 +36,7 @@
     <string name="makeReview">Lascia una recensione</string>
     <string name="reviewTitle">Lascia qui la tua recensione!</string>
     <string name="reviewPublishedToast">Recensione pubblicata!</string>
+    <string name="noProfileTitle">È arrivato il momento di liberare l’armadio!</string>
+    <string name="loginLabel">Accedi</string>
+    <string name="registrationLabel">Registrati</string>
 </resources>
