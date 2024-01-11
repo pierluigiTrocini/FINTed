@@ -39,4 +39,11 @@
     <string name="noProfileTitle">È arrivato il momento di liberare l’armadio!</string>
     <string name="loginLabel">Accedi</string>
     <string name="registrationLabel">Registrati</string>
+    <string name="registrationFName">Nome</string>
+    <string name="registrationLName">Cognome</string>
+    <string name="registrationTitle">Crea il tuo account</string>
+    <string name="registrationUsername">username</string>
+    <string name="registrationEmail">email</string>
+    <string name="registrationEmailSample">es. mario.rossi@gmail.com</string>
+    <string name="registrationPassword">password</string>
 </resources>

@@ -38,7 +38,7 @@ fun PersonalProfileActivity(
 ) {
     var debugListValue = remember { mutableStateOf(ProfileIndex.POSTS) }
 
-    var bottomSheetChoice = remember { mutableStateOf(ProfileBottomSheet.NONE) }
+    var bottomSheetChoice = remember { mutableStateOf(ProfileBottomSheet.REGISTRATION) }
 
     if (accountState.value == AccountState.LOGGED) {
         Column(modifier = Modifier.fillMaxWidth()) {
