@@ -95,8 +95,8 @@ fun BottomBar(selectedIndex: MutableState<Index>) {
                 }
             )
             NavigationBarItem(
-                selected = selectedIndex.value == Index.OFFERLIST,
-                onClick = { selectedIndex.value = Index.OFFERLIST },
+                selected = selectedIndex.value == Index.OFFER_LIST,
+                onClick = { selectedIndex.value = Index.OFFER_LIST },
                 icon = {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         Icon(
@@ -108,8 +108,8 @@ fun BottomBar(selectedIndex: MutableState<Index>) {
                 }
             )
             NavigationBarItem(
-                selected = selectedIndex.value == Index.PERSONALPROFILE,
-                onClick = { selectedIndex.value = Index.PERSONALPROFILE },
+                selected = selectedIndex.value == Index.PERSONAL_PROFILE,
+                onClick = { selectedIndex.value = Index.PERSONAL_PROFILE },
                 icon = {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         Icon(
@@ -130,7 +130,7 @@ fun Homepage() {
     val coroutineScope = rememberCoroutineScope()
     val sheetState = remember { mutableStateOf(false) }
 
-    val selectedIndex = remember { mutableStateOf(Index.PERSONALPROFILE) }
+    val selectedIndex = remember { mutableStateOf(Index.PERSONAL_PROFILE) }
     val accountState = remember { mutableStateOf(AccountState.NO_ACCOUNT) }
 
     val context = LocalContext.current
@@ -155,10 +155,10 @@ fun Homepage() {
             if (selectedIndex.value == Index.MAILBOX) {
                 MailBoxActivity(context, selectedIndex)
             }
-            if (selectedIndex.value == Index.OFFERLIST) {
+            if (selectedIndex.value == Index.OFFER_LIST) {
                 OfferListActivity(context, selectedIndex)
             }
-            if (selectedIndex.value == Index.PERSONALPROFILE) {
+            if (selectedIndex.value == Index.PERSONAL_PROFILE) {
                 PersonalProfileActivity(context,
                     selectedIndex,
                     null,

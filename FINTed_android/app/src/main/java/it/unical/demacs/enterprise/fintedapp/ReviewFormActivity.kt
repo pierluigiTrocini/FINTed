@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
@@ -22,6 +24,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
 import it.unical.demacs.enterprise.fintedapp.models.ReviewDto
 import it.unical.demacs.enterprise.fintedapp.models.UserDto
 import kotlinx.coroutines.CoroutineScope
@@ -39,36 +42,39 @@ fun ReviewFormActivity(
 ){
     val text = remember { mutableStateOf("") }
 
-    ModalBottomSheet(onDismissRequest = { sheetState.value = false }) {
-        Column(modifier = Modifier.padding(20.dp)) {
-            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Start) {
-                Text(
-                    text = stringResource(id = R.string.reviewTitle),
-                    style = MaterialTheme.typography.titleLarge,
-                    modifier = Modifier.padding(10.dp)
-                )
-            }
-            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Start){
-                OutlinedTextField(
-                    value = text.value,
-                    onValueChange = {
-                        v -> text.value = v
-                    },
-                    maxLines = 10
-                )
-            }
-            Spacer(modifier = Modifier.height(20.dp))
-            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End){
-                Button(onClick = {
-                    coroutineScope.launch {
-                        sheetState.value = false
-                        makeToast(context, context.resources.getString(R.string.reviewPublishedToast))
-                    }
-                }) {
-                    androidx.wear.compose.material.Text(stringResource(id = R.string.publish))
+    Dialog(onDismissRequest = { sheetState.value = false }) {
+        Card(modifier = Modifier.padding(5.dp),
+            colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primaryContainer)) {
+            Column(modifier = Modifier.padding(20.dp)) {
+                Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Start) {
+                    Text(
+                        text = stringResource(id = R.string.reviewTitle),
+                        style = MaterialTheme.typography.titleLarge,
+                        modifier = Modifier.padding(10.dp)
+                    )
                 }
+                Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Start){
+                    OutlinedTextField(
+                        value = text.value,
+                        onValueChange = {
+                                v -> text.value = v
+                        },
+                        maxLines = 10
+                    )
+                }
+                Spacer(modifier = Modifier.height(20.dp))
+                Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End){
+                    Button(onClick = {
+                        coroutineScope.launch {
+                            sheetState.value = false
+                            makeToast(context, context.resources.getString(R.string.reviewPublishedToast))
+                        }
+                    }) {
+                        androidx.wear.compose.material.Text(stringResource(id = R.string.publish))
+                    }
+                }
+                Spacer(modifier = Modifier.height(200.dp))
             }
-            Spacer(modifier = Modifier.height(200.dp))
         }
     }
 }

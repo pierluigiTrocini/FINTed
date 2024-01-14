@@ -28,6 +28,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
 import androidx.wear.compose.material.Text
 import it.unical.demacs.enterprise.fintedapp.models.UserPersonalProfileDto
 import kotlinx.coroutines.CoroutineScope
@@ -52,10 +53,7 @@ fun RegistrationActivity(
     val addressNumber  = remember { mutableStateOf("") }
     val addressCity = remember { mutableStateOf("") }
 
-    ModalBottomSheet(
-        onDismissRequest = { bottomSheetChoice.value = ProfileBottomSheet.NONE },
-        windowInsets = WindowInsets.ime
-        ) {
+    Dialog(onDismissRequest = { bottomSheetChoice.value = ProfileBottomSheet.NONE }) {
         Card(modifier = Modifier.padding(5.dp)) {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
