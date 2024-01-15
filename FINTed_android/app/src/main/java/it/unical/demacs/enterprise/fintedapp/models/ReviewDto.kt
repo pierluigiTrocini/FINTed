@@ -26,7 +26,7 @@ data class ReviewDto (
     val id: kotlin.Long? = null,
     val author: UserDto,
     val target: UserDto,
-    val publishDate: java.time.LocalDateTime,
+    val publishDate: java.time.LocalDateTime?,
     val content: kotlin.String
 ) {
 }

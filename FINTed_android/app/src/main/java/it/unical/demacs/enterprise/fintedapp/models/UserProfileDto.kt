@@ -29,7 +29,6 @@ import it.unical.demacs.enterprise.fintedapp.models.ReviewDto
  * @param receivedReviews 
  */
 data class UserProfileDto (
-
     val id: kotlin.Long? = null,
     val firstName: kotlin.String? = null,
     val lastName: kotlin.String? = null,
@@ -41,5 +40,4 @@ data class UserProfileDto (
     val addressCity: kotlin.String? = null,
     val publishedPosts: kotlin.Array<PostDto>? = null,
     val receivedReviews: kotlin.Array<ReviewDto>? = null
-) {
-}
+)
