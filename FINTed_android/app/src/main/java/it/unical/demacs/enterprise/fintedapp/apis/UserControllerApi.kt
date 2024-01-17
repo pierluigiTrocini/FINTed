@@ -19,7 +19,7 @@ import it.unical.demacs.enterprise.fintedapp.models.UserRegistrationDto
 
 import it.unical.demacs.enterprise.fintedapp.infrastructure.*
 
-class UserControllerApi(basePath: kotlin.String = "http://localhost:8080") : ApiClient(basePath) {
+class UserControllerApi(basePath: kotlin.String = ApiResources().backendUrl) : ApiClient(basePath) {
 
     /**
      * 

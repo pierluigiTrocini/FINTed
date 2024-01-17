@@ -16,7 +16,7 @@ import it.unical.demacs.enterprise.fintedapp.models.ServiceError
 
 import it.unical.demacs.enterprise.fintedapp.infrastructure.*
 
-class OfferControllerApi(basePath: kotlin.String = "http://localhost:8080") : ApiClient(basePath) {
+class OfferControllerApi(basePath: String = ApiResources().backendUrl) : ApiClient(basePath) {
 
     /**
      * 

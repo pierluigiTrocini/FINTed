@@ -16,7 +16,7 @@ import it.unical.demacs.enterprise.fintedapp.models.ServiceError
 
 import it.unical.demacs.enterprise.fintedapp.infrastructure.*
 
-class ReviewControllerApi(basePath: kotlin.String = "http://localhost:8080") : ApiClient(basePath) {
+class ReviewControllerApi(basePath: kotlin.String = ApiResources().backendUrl) : ApiClient(basePath) {
 
     /**
      * 

@@ -16,7 +16,7 @@ import it.unical.demacs.enterprise.fintedapp.models.ServiceError
 
 import it.unical.demacs.enterprise.fintedapp.infrastructure.*
 
-class PostControllerApi(basePath: kotlin.String = "http://localhost:8080") : ApiClient(basePath) {
+class PostControllerApi(basePath: kotlin.String = ApiResources().backendUrl) : ApiClient(basePath) {
 
     /**
      * 
