@@ -8,22 +8,11 @@ services:
     ports:
       - 5432:5432
 
-  db_mongodb:
-    image: mongo
-    restart: always
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: root
-    ports:
-      - 27017:27017
-
 #  spring_backend:
 #    build:
 #      context: .
 #      dockerfile: Dockerfile
-#    command: [ "/bin/sh", "-c", "./wait-for-it.sh db_postgres:5432 -- ./wait-for-it.sh db_mongodb:27017 -- java -jar finted-backend.jar" ]
 #    depends_on:
 #      - db_postgres
-#      - db_mongodb
 #    ports:
 #      - 8080:8080
