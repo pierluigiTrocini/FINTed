@@ -29,6 +29,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.Text
 import it.unical.demacs.enterprise.fintedapp.models.UserPersonalProfileDto
 import kotlinx.coroutines.CoroutineScope
@@ -112,11 +113,44 @@ fun RegistrationActivity(
                         modifier = Modifier.fillMaxWidth()
                     )
                 }
-
+                Row(modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceEvenly){
+                    OutlinedTextField(
+                        value = addressRoute.value,
+                        onValueChange = { v -> addressRoute.value = v },
+                        label = { Text(stringResource(R.string.addressRoute)) },
+                        singleLine = true,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                }
+                Row(modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceEvenly){
+                    OutlinedTextField(
+                        value = addressNumber.value,
+                        onValueChange = {
+                                        v ->
+                            if(v.all{ it.isDigit() }){
+                                addressNumber.value = v
+                            }
+                        },
+                        label = { Text(stringResource(R.string.addressNumber)) },
+                        singleLine = true,
+                        modifier = Modifier.weight(1f)
+                    )
+                    OutlinedTextField(
+                        value = addressCity.value,
+                        onValueChange = { v -> addressCity.value = v },
+                        label = { Text(stringResource(R.string.addressCity)) },
+                        singleLine = true,
+                        modifier = Modifier.weight(2f)
+                    )
+                }
+                Button(onClick = { /*TODO*/ }) {
+                    Text(text = stringResource(id = R.string.registration))
+                }
 
             }
         }
-        Spacer(modifier = Modifier.height(400.dp))
     }
 }
 

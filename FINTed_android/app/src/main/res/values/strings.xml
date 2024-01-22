@@ -10,7 +10,7 @@
     <string name="title">FINTed</string>
     <string name="postTitle">titolo</string>
     <string name="postAddImage">aggiungi un\' immagine</string>
-    <string name="portStartingPrice">prezzo</string>
+    <string name="postStartingPrice">prezzo</string>
     <string name="publish">pubblica</string>
     <string name="profilePic">immagine profilo</string>
     <string name="postList">post</string>
@@ -46,4 +46,13 @@
     <string name="registrationEmail">email</string>
     <string name="registrationEmailSample">es. mario.rossi@gmail.com</string>
     <string name="registrationPassword">password</string>
+    <string name="registration">Registrati</string>
+    <string name="addressRoute">via</string>
+    <string name="addressNumber">n°</string>
+    <string name="addressCity">città</string>
+    <string name="noPosts">Nessun post disponibile!</string>
+    <string name="postPublishing">il post verrà caricato a breve!</string>
+    <string name="userId">"il tuo id: "</string>
+    <string name="noImage">Nessuna immagine</string>
+    <string name="image">immagine</string>
 </resources>

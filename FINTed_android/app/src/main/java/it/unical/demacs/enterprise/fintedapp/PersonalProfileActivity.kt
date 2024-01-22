@@ -4,11 +4,16 @@ import android.content.Context
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
@@ -25,20 +30,23 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Icon
-import it.unical.demacs.enterprise.fintedapp.models.UserPersonalProfileDto
+import it.unical.demacs.enterprise.fintedapp.viewmodels.UserViewModel
 import kotlinx.coroutines.CoroutineScope
 
 @Composable
 fun PersonalProfileActivity(
     context: Context,
     selectedIndex: MutableState<Index>,
-    profile: UserPersonalProfileDto?,
     accountState: MutableState<AccountState>,
     coroutineScope: CoroutineScope,
+    userViewModel: UserViewModel
 ) {
-    var debugListValue = remember { mutableStateOf(ProfileIndex.POSTS) }
+    val profile = userViewModel.personalProfile.value
+    val userPosts = userViewModel.personalProfile.value.publishedPosts
 
-    var bottomSheetChoice = remember { mutableStateOf(ProfileBottomSheet.REGISTRATION) }
+    accountState.value = AccountState.LOGGED
+
+    var bottomSheetChoice = remember { mutableStateOf(ProfileBottomSheet.NONE) }
 
     if (accountState.value == AccountState.LOGGED) {
         Column(modifier = Modifier.fillMaxWidth()) {
@@ -68,27 +76,28 @@ fun PersonalProfileActivity(
                         }
                         Column(
                             modifier = Modifier
-                                .weight(1f)
-                                .padding(horizontal = 12.dp, vertical = 4.dp),
+                                .weight(2f)
+                                .padding(horizontal = 12.dp, vertical = 4.dp)
+                                .fillMaxWidth(),
                             verticalArrangement = Arrangement.Center
                         ) {
                             Text(
                                 text = profile?.username.toString(),
                                 style = MaterialTheme.typography.headlineMedium
                             )
-                            Text(
-                                text = profile?.firstName.toString() + "\t" + profile?.lastName.toString(),
-                                style = MaterialTheme.typography.bodyMedium
-                            )
-
+                            Row(modifier = Modifier.fillMaxWidth()){
+                                Text(
+                                    text = profile?.firstName.toString() + "   " + profile?.lastName.toString(),
+                                    style = MaterialTheme.typography.bodyMedium
+                                )
+                            }
                             Text(
                                 text = stringResource(id = R.string.emailLabel) + profile?.credentialsEmail.toString(),
                                 modifier = Modifier.padding(vertical = 10.dp),
                                 style = MaterialTheme.typography.bodySmall
                             )
-                        }
-                        Column {
-                            Text(text = stringResource(id = R.string.balance) + stringResource(id = R.string.currency))
+                            Text(text = stringResource(id = R.string.balance) + "\t" + profile?.balance.toString() + "\t" + stringResource(id = R.string.currency))
+                            Text(text = stringResource(id = R.string.userId) + "\t #" + profile?.id.toString(), style = MaterialTheme.typography.bodySmall)
                         }
                     }
                     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Start) {
@@ -103,40 +112,32 @@ fun PersonalProfileActivity(
                 }
             }
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
-                Button(
-                    onClick = { debugListValue.value = ProfileIndex.POSTS },
-                    modifier = Modifier.padding(horizontal = 20.dp)
-                ) {
-                    Text(
-                        text = stringResource(id = R.string.postList),
-                        color = MaterialTheme.colorScheme.inversePrimary
-                    )
+                if( userPosts != null && userPosts.isEmpty() ){
+                    Spacer(modifier = Modifier.height(40.dp))
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Icon(imageVector = Icons.Filled.List,
+                            contentDescription = stringResource(id = R.string.postList),
+                            modifier = Modifier.size(75.dp))
+                        Text(text = stringResource(id = R.string.noPosts))
+                        Button(onClick = { selectedIndex.value = Index.SELL  }) {
+                            Text(text = stringResource(id = R.string.sell))
+                        }
+                    }
                 }
-
-                Button(
-                    onClick = { debugListValue.value = ProfileIndex.REVIEWS },
-                    modifier = Modifier.padding(horizontal = 20.dp)
-                ) {
-                    Text(
-                        text = stringResource(id = R.string.reviewList),
-                        color = MaterialTheme.colorScheme.inversePrimary
-                    )
-                }
-            }
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 20.dp),
-                horizontalArrangement = Arrangement.Center
-            ) {
-                if (debugListValue.value == ProfileIndex.REVIEWS) {
-                    ReviewActivity(
-                        context = context,
-                        selectedIndex = selectedIndex,
-                        profileIndex = debugListValue,
-                        reviews = null,
-                        personalReviews = true
-                    )
+                else{
+                    LazyColumn(
+                        verticalArrangement = Arrangement.SpaceEvenly,
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ){
+                        if (userPosts != null) {
+                            items(
+                                items = userPosts.toList(),
+                                key = { post -> post.id!! }
+                            ){
+                                post -> PostActivity(post = post, sheetState = null)
+                            }
+                        }
+                    }
                 }
             }
         }

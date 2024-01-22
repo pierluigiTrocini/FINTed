@@ -8,9 +8,12 @@ import it.unical.demacs.enterprise.fintedapp.models.UserDto
 import it.unical.demacs.enterprise.fintedapp.models.UserPersonalProfileDto
 import it.unical.demacs.enterprise.fintedapp.models.UserProfileDto
 import it.unical.demacs.enterprise.fintedapp.models.UserRegistrationDto
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 
 data class UserRegistrationState(
@@ -52,6 +55,8 @@ class UserViewModel: ViewModel() {
     val personalProfile: MutableState<UserPersonalProfileDto> = mutableStateOf(
         UserPersonalProfileDto())
 
+    val basicUser: MutableState<UserDto> = mutableStateOf(UserDto())
+
     fun registration(): UserDto {
         return userApi.save(
             UserRegistrationDto(
@@ -83,12 +88,16 @@ class UserViewModel: ViewModel() {
         )
     }
 
-    fun getPersonalProfile(id: Long){
-        personalProfile.value = userApi.getPersonalProfile(id)
+    fun getPersonalProfile(id: Long) {
+        CoroutineScope(Dispatchers.IO).launch {
+            personalProfile.value = userApi.getPersonalProfile(id)
+        }
     }
 
-    fun getUser(id: Long): UserDto {
-        return userApi.get(id);
+    fun getUser(id: Long) {
+        CoroutineScope(Dispatchers.IO).launch {
+            basicUser.value = userApi.get(id);
+        }
     }
 
     fun getUserList(page: Int) {

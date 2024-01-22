@@ -7,32 +7,43 @@ import it.unical.demacs.enterprise.fintedapp.apis.OfferControllerApi
 import it.unical.demacs.enterprise.fintedapp.models.OfferDto
 import it.unical.demacs.enterprise.fintedapp.models.PostDto
 import it.unical.demacs.enterprise.fintedapp.models.UserDto
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class OfferViewModel: ViewModel() {
     private val offerApi: OfferControllerApi = OfferControllerApi()
 
     val offerList: MutableState<List<OfferDto>> = mutableStateOf(listOf())
 
-    fun save(postId: Long, userId: Long, offer: Long ): OfferDto {
-        return offerApi.save3(
-            OfferDto(
-                post = PostDto(id = postId),
-                user = UserDto(id = userId),
-                offer = offer
+    fun save(postId: Long, userId: Long, offer: Long ) {
+        CoroutineScope(Dispatchers.IO).launch {
+            offerApi.save3(
+                OfferDto(
+                    post = PostDto(id = postId),
+                    user = UserDto(id = userId),
+                    offer = offer
+                )
             )
-        )
+        }
     }
 
     fun delete(offerId: Long){
-        offerApi.delete3(offerId)
+        CoroutineScope(Dispatchers.IO).launch {
+            offerApi.delete3(offerId)
+        }
     }
 
     fun getPostOffers(postId: Long){
-        offerList.value = offerApi.getPostOffers(postId).toList()
+        CoroutineScope(Dispatchers.IO).launch {
+            offerList.value = offerApi.getPostOffers(postId).toList()
+        }
     }
 
     fun getUserOffers(userId: Long){
-        offerList.value = offerApi.getUserOffers(userId).toList()
+        CoroutineScope(Dispatchers.IO).launch {
+            offerList.value = offerApi.getUserOffers(userId).toList()
+        }
     }
 
 }

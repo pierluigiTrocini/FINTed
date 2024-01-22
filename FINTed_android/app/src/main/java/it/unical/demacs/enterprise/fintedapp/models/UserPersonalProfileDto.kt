@@ -36,11 +36,12 @@ data class UserPersonalProfileDto (
     val firstName: kotlin.String? = null,
     val lastName: kotlin.String? = null,
     val username: kotlin.String? = null,
-    val registrationDate: java.time.LocalDateTime? = null,
+    val registrationDate: java.util.Date? = null,
     val credentialsEmail: kotlin.String? = null,
     val addressRoute: kotlin.String? = null,
     val addressNumber: kotlin.String? = null,
     val addressCity: kotlin.String? = null,
+    val balance: kotlin.Long? = null,
     val publishedPosts: kotlin.Array<PostDto>? = null,
     val receivedReviews: kotlin.Array<ReviewDto>? = null,
     val offersPublished: kotlin.Array<OfferDto>? = null

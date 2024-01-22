@@ -36,6 +36,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import it.unical.demacs.enterprise.fintedapp.ui.theme.FINTed_androidTheme
+import it.unical.demacs.enterprise.fintedapp.viewmodels.PostViewModel
+import it.unical.demacs.enterprise.fintedapp.viewmodels.UserViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,7 +49,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Homepage();
+                    Homepage()
                 }
             }
         }
@@ -124,20 +126,24 @@ fun BottomBar(selectedIndex: MutableState<Index>) {
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Homepage() {
     val coroutineScope = rememberCoroutineScope()
     val sheetState = remember { mutableStateOf(false) }
 
-    val selectedIndex = remember { mutableStateOf(Index.PERSONAL_PROFILE) }
+    val selectedIndex = remember { mutableStateOf(Index.HOMEPAGE) }
     val accountState = remember { mutableStateOf(AccountState.NO_ACCOUNT) }
+
+    var userViewModel = remember { mutableStateOf(UserViewModel()) }
+    userViewModel.value.getPersonalProfile(1)
 
     val context = LocalContext.current
 
+    val postViewModel = remember { mutableStateOf(PostViewModel()) }
+
     Scaffold(
         topBar = {
-            TopBar(selectedIndex);
+            TopBar()
         },
         bottomBar = { BottomBar(selectedIndex = selectedIndex) }
     ) {
@@ -150,7 +156,12 @@ fun Homepage() {
                     sheetState)
             }
             if (selectedIndex.value == Index.SELL) {
-                SellActivity(context, selectedIndex)
+                SellActivity(
+                    context = context,
+                    selectedIndex = selectedIndex,
+                    userViewModel = userViewModel.value,
+                    postViewModel = postViewModel.value
+                )
             }
             if (selectedIndex.value == Index.MAILBOX) {
                 MailBoxActivity(context, selectedIndex)
@@ -159,11 +170,13 @@ fun Homepage() {
                 OfferListActivity(context, selectedIndex)
             }
             if (selectedIndex.value == Index.PERSONAL_PROFILE) {
-                PersonalProfileActivity(context,
-                    selectedIndex,
-                    null,
-                    accountState,
-                    coroutineScope)
+                PersonalProfileActivity(
+                    context = context,
+                    selectedIndex = selectedIndex,
+                    accountState = accountState,
+                    coroutineScope = coroutineScope,
+                    userViewModel = userViewModel.value
+                )
             }
         }
     }
@@ -171,10 +184,10 @@ fun Homepage() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopBar(selectedIndex: MutableState<Index>) {
-    var queryString = remember { mutableStateOf("") }
-    var isActive = remember { mutableStateOf(false) }
-    val contextForToast = LocalContext.current.applicationContext
+fun TopBar() {
+    val queryString = remember { mutableStateOf("") }
+    val isActive = remember { mutableStateOf(false) }
+    LocalContext.current.applicationContext
     SearchBar(
         modifier = Modifier
             .fillMaxWidth()

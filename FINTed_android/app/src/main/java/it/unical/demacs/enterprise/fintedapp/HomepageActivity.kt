@@ -1,60 +1,48 @@
 package it.unical.demacs.enterprise.fintedapp
 
 import android.content.Context
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
+import it.unical.demacs.enterprise.fintedapp.viewmodels.PostViewModel
 import kotlinx.coroutines.CoroutineScope
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomepageActivity(
     context: Context,
     selectedIndex: MutableState<Index>,
     coroutineScope: CoroutineScope,
-    sheetState: MutableState<Boolean>
+    sheetState: MutableState<Boolean>,
+    postViewModel: PostViewModel = PostViewModel()
 ) {
-    Column(modifier = Modifier.fillMaxWidth()) {
-        Card(
-            modifier = Modifier.padding(16.dp),
-            shape = MaterialTheme.shapes.medium,
-            elevation = CardDefaults.cardElevation(4.dp)
+    val page = remember { mutableStateOf(0) }
+    postViewModel.getAll(page.value)
+
+    if(postViewModel.postList.value.isEmpty()){
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Column(modifier = Modifier.padding(16.dp)) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text(text = "username", style = MaterialTheme.typography.bodyLarge)
-                    Spacer(modifier = Modifier.weight(1f))
-                }
-                Text(text = stringResource(id = R.string.publishDate) + "../../..", style = MaterialTheme.typography.bodySmall)
-                Spacer(modifier = Modifier.height(8.dp))
-                Text(text = "Titolo", style = MaterialTheme.typography.headlineMedium)
-                Spacer(modifier = Modifier.height(8.dp))
-                Row(modifier = Modifier.padding(vertical = 20.dp)) {
-                    Text(text = stringResource(id = R.string.postImage))
-                }
-                Row {
-                    Button(onClick = {
-                        sheetState.value = true
-                    }) {
-                        Text(stringResource(id = R.string.makeOffer), color = Color.Black)
-                    }
-                }
+            Text(text = stringResource(id = R.string.noPosts))
+        }
+    }
+    else{
+        LazyColumn(
+            verticalArrangement = Arrangement.SpaceEvenly,
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ){
+            items(
+                items = postViewModel.postList.value,
+                key = { post -> post.id!! }
+            ){
+                post -> PostActivity(post = post, sheetState = sheetState)
             }
         }
     }
