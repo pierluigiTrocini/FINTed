@@ -3,6 +3,8 @@ package it.unical.demacs.enterprise.fintedapp.data.entities;
 import java.sql.Date;
 import java.util.List;
 
+import org.hibernate.annotations.Type;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

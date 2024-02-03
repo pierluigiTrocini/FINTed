@@ -32,6 +32,7 @@ import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Icon
 import it.unical.demacs.enterprise.fintedapp.viewmodels.UserViewModel
 import kotlinx.coroutines.CoroutineScope
+import java.text.SimpleDateFormat
 
 @Composable
 fun PersonalProfileActivity(
@@ -96,6 +97,7 @@ fun PersonalProfileActivity(
                                 modifier = Modifier.padding(vertical = 10.dp),
                                 style = MaterialTheme.typography.bodySmall
                             )
+                            Text(text = stringResource(id = R.string.registrationDate) + "\t" + SimpleDateFormat("dd/MM/yyy").format(profile?.registrationDate).toString(), style = MaterialTheme.typography.bodySmall)
                             Text(text = stringResource(id = R.string.balance) + "\t" + profile?.balance.toString() + "\t" + stringResource(id = R.string.currency))
                             Text(text = stringResource(id = R.string.userId) + "\t #" + profile?.id.toString(), style = MaterialTheme.typography.bodySmall)
                         }

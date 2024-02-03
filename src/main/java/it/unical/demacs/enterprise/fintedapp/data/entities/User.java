@@ -69,7 +69,7 @@ public class User {
     private List<Review> receivedReviews;
     
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Offer> publihedOffers;
+    private List<Offer> publishedOffers;
 }
 
 

@@ -1,8 +1,10 @@
 package it.unical.demacs.enterprise.fintedapp.dto;
 
+import java.util.Date;
 import java.util.List;
 
 import jakarta.validation.constraints.Email;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -10,10 +12,19 @@ import lombok.ToString;
 
 @Data
 @NoArgsConstructor
-@ToString
-@EqualsAndHashCode(callSuper = true)
 @SuppressWarnings(value = { "unused" })
-public class UserProfileDto extends UserDto{
+@ToString
+public class UserProfileDto {
+	
+	private Long id;
+	
+	private String firstName;
+	
+	private String lastName;
+	
+	private String username;
+	
+	private Date registrationDate;
 	
 	@Email
 	private String credentialsEmail;
@@ -27,5 +38,4 @@ public class UserProfileDto extends UserDto{
     private List<PostDto> publishedPosts;
 
     private List<ReviewDto> receivedReviews;
-
 }

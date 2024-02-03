@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.unical.demacs.enterprise.fintedapp.data.services.UserService;
-import it.unical.demacs.enterprise.fintedapp.dto.UserDto;
 import it.unical.demacs.enterprise.fintedapp.dto.UserPersonalProfileDto;
 import it.unical.demacs.enterprise.fintedapp.dto.UserProfileDto;
 import it.unical.demacs.enterprise.fintedapp.dto.UserRegistrationDto;
@@ -31,7 +30,7 @@ public class UserController {
 	private final UserService userService;
 	
 	@PostMapping("/")
-	public ResponseEntity<UserDto> save(@RequestBody UserRegistrationDto user) throws CredentialsAlreadyUsedException, NullFieldException{
+	public ResponseEntity<UserProfileDto> save(@RequestBody UserRegistrationDto user) throws CredentialsAlreadyUsedException, NullFieldException{
 		return ResponseEntity.ok(userService.save(user));
 	}
 	
@@ -46,7 +45,7 @@ public class UserController {
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<UserDto> get(@PathVariable("id") Long id) throws ElementNotFoundException, NullFieldException{
+	public ResponseEntity<UserProfileDto> get(@PathVariable("id") Long id) throws ElementNotFoundException, NullFieldException{
 		return ResponseEntity.ok(userService.get(id));
 	}
 	

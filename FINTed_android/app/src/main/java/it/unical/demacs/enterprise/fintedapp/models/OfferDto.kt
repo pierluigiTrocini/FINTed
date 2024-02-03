@@ -28,6 +28,6 @@ data class OfferDto (
     val post: PostDto? = null,
     val user: UserDto? = null,
     val offer: kotlin.Long? = null,
-    val publishDate: java.time.LocalDateTime? = null
+    val publishDate: java.util.Date? = null
 ) {
 }

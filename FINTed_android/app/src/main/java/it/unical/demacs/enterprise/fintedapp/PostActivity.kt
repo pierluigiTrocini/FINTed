@@ -20,6 +20,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import it.unical.demacs.enterprise.fintedapp.models.PostDto
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -38,8 +41,7 @@ fun PostActivity(
                 Text(text = post.seller?.username.toString(), style = MaterialTheme.typography.bodyLarge)
                 Spacer(modifier = Modifier.weight(1f))
             }
-            Text(text = stringResource(id = R.string.publishDate) + post.publishedDate?.format(
-                DateTimeFormatter.ISO_DATE), style = MaterialTheme.typography.bodySmall)
+            Text(text = stringResource(id = R.string.publishDate) + SimpleDateFormat("dd/MM/yyy").format(post.publishedDate).toString(), style = MaterialTheme.typography.bodySmall)
             Spacer(modifier = Modifier.height(8.dp))
             Text(text = post.title.toString(), style = MaterialTheme.typography.headlineMedium)
             Spacer(modifier = Modifier.height(8.dp))

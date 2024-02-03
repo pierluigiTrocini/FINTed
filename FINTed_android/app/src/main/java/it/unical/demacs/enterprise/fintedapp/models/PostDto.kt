@@ -29,6 +29,6 @@ data class PostDto (
     val title: kotlin.String? = null,
     val startingPrice: kotlin.Long? = null,
     val postImage: kotlin.String? = null,
-    val publishedDate: java.time.LocalDateTime? = null
+    val publishedDate: java.util.Date? = null
 ) {
 }

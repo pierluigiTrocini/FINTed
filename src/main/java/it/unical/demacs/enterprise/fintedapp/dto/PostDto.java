@@ -1,6 +1,6 @@
 package it.unical.demacs.enterprise.fintedapp.dto;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 import jakarta.validation.constraints.NotEmpty;
@@ -17,23 +17,21 @@ import lombok.ToString;
 public class PostDto {
 	
 	private Long id;
-	
-
-	private UserDto seller;
-	
 
 	private String title;
-	
 
+//	private Long sellerId;
+//	
+//	private String sellerUsername;
+	
+	private UserDto seller;
+	
+	private Date publishedDate;
+	
 	@PositiveOrZero
 	private Long startingPrice;
 	
-
-	private String postImage;
-	
-
-	private Date publishedDate;
-	
+//	private String postImage;
 	
 //	private List<OfferDto> offers;
 

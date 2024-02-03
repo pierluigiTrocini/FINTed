@@ -1,18 +1,28 @@
 package it.unical.demacs.enterprise.fintedapp.dto;
 
+import java.util.Date;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Data
-@EqualsAndHashCode(callSuper = true)
 @ToString
 @NoArgsConstructor
-public class UserRegistrationDto extends UserDto{
+public class UserRegistrationDto {
+	private Long id;
+	
+	private String firstName;
+	
+	private String lastName;
+	
+	private String username;
+	
+	private Date registrationDate;
+	
 	
 	@NotEmpty
 	private String credentialsEmail;
