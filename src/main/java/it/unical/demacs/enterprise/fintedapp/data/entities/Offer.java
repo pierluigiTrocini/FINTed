@@ -11,10 +11,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
 @Table(name = "offer")
+@NoArgsConstructor
 public class Offer {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

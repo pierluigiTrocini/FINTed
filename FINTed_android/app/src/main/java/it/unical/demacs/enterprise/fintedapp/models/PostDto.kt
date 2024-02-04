@@ -25,7 +25,8 @@ import it.unical.demacs.enterprise.fintedapp.models.UserDto
 data class PostDto (
 
     val id: kotlin.Long? = null,
-    val seller: UserDto? = null,
+    val sellerId: Long? = null,
+    val sellerUsername: String? = null,
     val title: kotlin.String? = null,
     val startingPrice: kotlin.Long? = null,
     val postImage: kotlin.String? = null,

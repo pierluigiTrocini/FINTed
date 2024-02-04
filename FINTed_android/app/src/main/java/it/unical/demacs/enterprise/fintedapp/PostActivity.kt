@@ -38,7 +38,7 @@ fun PostActivity(
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(text = post.seller?.username.toString(), style = MaterialTheme.typography.bodyLarge)
+                Text(text = post.sellerUsername.toString(), style = MaterialTheme.typography.bodyLarge)
                 Spacer(modifier = Modifier.weight(1f))
             }
             Text(text = stringResource(id = R.string.publishDate) + SimpleDateFormat("dd/MM/yyy").format(post.publishedDate).toString(), style = MaterialTheme.typography.bodySmall)

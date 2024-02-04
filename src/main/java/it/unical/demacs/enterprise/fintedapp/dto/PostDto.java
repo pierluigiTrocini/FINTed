@@ -19,12 +19,12 @@ public class PostDto {
 	private Long id;
 
 	private String title;
-
-//	private Long sellerId;
-//	
-//	private String sellerUsername;
 	
-	private UserDto seller;
+	@NotNull
+	private Long sellerId;
+	
+	@NotNull
+	private String sellerUsername;
 	
 	private Date publishedDate;
 	

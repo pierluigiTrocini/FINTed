@@ -47,6 +47,7 @@ fun HomepageActivity(
         }
     }
 
+    //TODO questo va messo in postActivity
     if(sheetState.value) {
         OfferActivity(
             sheetState = sheetState,

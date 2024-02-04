@@ -14,12 +14,12 @@ import lombok.ToString;
 @SuppressWarnings(value = { "unused" })
 public class ReviewDto {
     private Long id;
+    
+    @NotNull
+    private Long authorId;
 
     @NotNull
-    private UserDto author;
-
-    @NotNull
-    private UserDto target;
+    private Long targetId;
 
     @NotEmpty
     private Date publishDate;

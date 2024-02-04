@@ -27,7 +27,7 @@ public class PostServiceImpl implements PostService {
 
 	@Override
 	public PostDto save(PostDto post) throws ElementNotFoundException {
-		if(!userDao.existsById(post.getSeller().getId()))
+		if(!userDao.existsById(post.getSellerId()))
 			throw new ElementNotFoundException("User [seller] not found");
 		
 		Post newPost =  modelMapper.map(postDao.save(modelMapper.map(post, Post.class)), Post.class);

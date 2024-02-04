@@ -3,7 +3,7 @@ package it.unical.demacs.enterprise.fintedapp.data.entities;
 import java.sql.Date;
 import java.util.List;
 
-import org.hibernate.annotations.Type;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -17,10 +17,12 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
 @Table(name = "post")
+@NoArgsConstructor
 public class Post {
 	
 	@Id
@@ -43,6 +45,7 @@ public class Post {
 	@Column(name = "post_image")
 	private String postImage;
 	
+	@JsonManagedReference
 	@OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Offer> offers;
 }

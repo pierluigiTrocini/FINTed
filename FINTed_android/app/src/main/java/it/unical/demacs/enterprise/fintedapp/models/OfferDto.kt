@@ -25,8 +25,8 @@ import it.unical.demacs.enterprise.fintedapp.models.UserDto
 data class OfferDto (
 
     val id: kotlin.Long? = null,
-    val post: PostDto? = null,
-    val user: UserDto? = null,
+    val postId: kotlin.Long? = null,
+    val userId: Long? = null,
     val offer: kotlin.Long? = null,
     val publishDate: java.util.Date? = null
 ) {

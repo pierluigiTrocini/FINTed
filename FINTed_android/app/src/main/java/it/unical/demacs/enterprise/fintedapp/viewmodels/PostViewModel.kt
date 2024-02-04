@@ -44,7 +44,7 @@ class PostViewModel : ViewModel() {
         CoroutineScope(Dispatchers.IO).launch {
             postApi.save2(
                 PostDto(
-                    seller = UserDto(id = postPublishState.value.sellerId),
+                    sellerId = postPublishState.value.sellerId,
                     title = postPublishState.value.title,
                     startingPrice = postPublishState.value.startingPrice.toLong(),
                     postImage = postPublishState.value.postImage
@@ -82,9 +82,7 @@ class PostViewModel : ViewModel() {
                     title = title,
                     startingPrice = startingPrice.toLong(),
                     postImage = postImage,
-                    seller = UserDto(
-                        id = seller.id
-                    )
+                    sellerId = seller.id
                 )
             )
         }

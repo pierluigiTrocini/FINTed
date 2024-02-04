@@ -18,15 +18,13 @@ public class OfferDto {
 	
     private Long id;
 
+    @NotNull
+    private Long postId;
 
-    private PostDto post;
-
-
-    private UserDto user;
-
+    @NotNull
+    private Long userId;
 
     private Long offer;
-
 
     private Date publishDate;
 }

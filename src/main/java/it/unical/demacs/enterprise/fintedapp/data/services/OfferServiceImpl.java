@@ -29,15 +29,15 @@ public class OfferServiceImpl implements OfferService {
 	
 	@Override
 	public OfferDto save(OfferDto offer) throws ElementNotFoundException {
-		if(!postDao.existsById(offer.getPost().getId()))
+		if(!postDao.existsById(offer.getPostId()))
 			throw new ElementNotFoundException("Post not found");
-		if(!userDao.existsById(offer.getUser().getId()))
+		if(!userDao.existsById(offer.getUserId()))
 			throw new ElementNotFoundException("User not found");
 		
 		Offer newOffer = modelMapper.map(offer, Offer.class);
 		
-		newOffer.setPost(postDao.findById(offer.getPost().getId()).orElseThrow(() -> new ElementNotFoundException("Post not found")));
-		newOffer.setUser(userDao.findById(offer.getUser().getId()).orElseThrow(() -> new ElementNotFoundException("User not found")));
+		newOffer.setPost(postDao.findById(offer.getPostId()).orElseThrow(() -> new ElementNotFoundException("Post not found")));
+		newOffer.setUser(userDao.findById(offer.getUserId()).orElseThrow(() -> new ElementNotFoundException("User not found")));
 		newOffer.setPublishDate(DateManager.getInstance().currentDateSQLFormat());
 		
 		return modelMapper.map(offerDao.save(newOffer), OfferDto.class);

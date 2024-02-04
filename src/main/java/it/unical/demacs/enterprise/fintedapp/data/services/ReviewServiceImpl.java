@@ -25,9 +25,9 @@ public class ReviewServiceImpl implements ReviewService {
 	
 	@Override
 	public ReviewDto save(ReviewDto review) throws ElementNotFoundException {
-		if(!userDao.existsById(review.getAuthor().getId()))
+		if(!userDao.existsById(review.getAuthorId()))
 			throw new ElementNotFoundException("User [author] not found");
-		if(!userDao.existsById(review.getTarget().getId()))
+		if(!userDao.existsById(review.getTargetId()))
 			throw new ElementNotFoundException("User [user] not found");
 		
 		Review newReview = modelMapper.map(review, Review.class);

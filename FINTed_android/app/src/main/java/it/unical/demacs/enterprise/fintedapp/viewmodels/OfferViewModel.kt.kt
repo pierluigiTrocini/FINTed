@@ -20,8 +20,8 @@ class OfferViewModel: ViewModel() {
         CoroutineScope(Dispatchers.IO).launch {
             offerApi.save3(
                 OfferDto(
-                    post = PostDto(id = postId),
-                    user = UserDto(id = userId),
+                    postId = postId,
+                    userId = userId,
                     offer = offer
                 )
             )

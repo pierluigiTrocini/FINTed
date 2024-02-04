@@ -33,8 +33,8 @@ class ReviewViewModel: ViewModel() {
         CoroutineScope(Dispatchers.IO).launch {
             reviewApi.save1(
                 ReviewDto(
-                    author = UserDto(id = reviewState.value.authorId),
-                    target = UserDto(id = reviewState.value.targetId),
+                    authorId = reviewState.value.authorId,
+                    targetId = reviewState.value.targetId,
                     content = reviewState.value.content,
                     publishDate = null
                 )
