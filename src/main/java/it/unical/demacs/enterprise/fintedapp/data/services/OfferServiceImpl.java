@@ -64,4 +64,9 @@ public class OfferServiceImpl implements OfferService {
 		).stream().map(offer -> modelMapper.map(offer, OfferDto.class)).collect(Collectors.toList());
 	}
 
+	@Override
+	public List<OfferDto> getSellOffers(Long id) {
+		return offerDao.findAllByPostSellerId(id).stream().map(offer -> modelMapper.map(offer, OfferDto.class)).collect(Collectors.toList());	
+	}
+
 }

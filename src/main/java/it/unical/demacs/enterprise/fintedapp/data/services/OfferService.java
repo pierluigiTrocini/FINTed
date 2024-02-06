@@ -15,5 +15,7 @@ public interface OfferService {
     List<OfferDto> getPostOffers(Long postId) throws ElementNotFoundException, NullFieldException;
 
     List<OfferDto> getUserOffers(Long userId) throws ElementNotFoundException, NullFieldException;
+
+	List<OfferDto> getSellOffers(Long id);
 	
 }

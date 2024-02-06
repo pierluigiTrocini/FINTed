@@ -43,6 +43,10 @@ public class OfferController {
 	@GetMapping("/user/{id}")
 	public ResponseEntity<List<OfferDto>> getUserOffers(@PathVariable("id") Long id) throws ElementNotFoundException, NullFieldException{
 		return ResponseEntity.ok(offerService.getUserOffers(id));
-	}
+	}	
 	
+	@GetMapping("/seller/{id}")
+	public ResponseEntity<List<OfferDto>> getSellOffers(@PathVariable("id") Long id){
+		return ResponseEntity.ok(offerService.getSellOffers(id));
+	}
 }
