@@ -42,6 +42,12 @@ public class PostController {
 		return ResponseEntity.ok(postService.getAll(page));
 	}
 	
+	
+	@GetMapping("/home/{user}/{page}")
+	public ResponseEntity<List<PostDto>> getHomepage(@PathVariable("page") Integer page, @PathVariable("user") Long userId){
+		return ResponseEntity.ok(postService.getHomepage(page, userId));
+	}
+	
 	@GetMapping("/{id}")
 	public ResponseEntity<PostDto> get(@PathVariable("id") Long id) throws ElementNotFoundException, NullFieldException{
 		return ResponseEntity.ok(postService.get(id));

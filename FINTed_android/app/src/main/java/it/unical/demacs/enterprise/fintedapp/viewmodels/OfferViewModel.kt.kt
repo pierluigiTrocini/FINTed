@@ -5,8 +5,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import it.unical.demacs.enterprise.fintedapp.apis.OfferControllerApi
 import it.unical.demacs.enterprise.fintedapp.models.OfferDto
-import it.unical.demacs.enterprise.fintedapp.models.PostDto
-import it.unical.demacs.enterprise.fintedapp.models.UserDto
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -16,13 +14,13 @@ class OfferViewModel: ViewModel() {
 
     val offerList: MutableState<List<OfferDto>> = mutableStateOf(listOf())
 
-    fun save(postId: Long, userId: Long, offer: Long ) {
+    fun save(postId: Long, userId: Long, offer: String) {
         CoroutineScope(Dispatchers.IO).launch {
             offerApi.save3(
                 OfferDto(
                     postId = postId,
                     userId = userId,
-                    offer = offer
+                    offer =  offer.toLong()
                 )
             )
         }

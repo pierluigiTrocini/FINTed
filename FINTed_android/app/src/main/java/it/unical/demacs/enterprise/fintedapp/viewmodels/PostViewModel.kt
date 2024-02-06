@@ -36,6 +36,7 @@ class PostViewModel : ViewModel() {
     val postPublishState = MutableStateFlow(PostState())
 
     val postList: MutableState<List<PostDto>> = mutableStateOf(listOf())
+    
     val post: MutableState<PostDto> = mutableStateOf(PostDto())
 
     private val postApi: PostControllerApi = PostControllerApi()
@@ -62,6 +63,12 @@ class PostViewModel : ViewModel() {
     fun getAll(page: Int) {
         CoroutineScope(Dispatchers.IO).launch {
             postList.value = postApi.getAll1(page).toList()
+        }
+    }
+
+    fun getHomepage(page: Int, userId: Long){
+        CoroutineScope(Dispatchers.IO).launch {
+            postList.value = postApi.getHomepage(page = page, user = userId).toList()
         }
     }
 

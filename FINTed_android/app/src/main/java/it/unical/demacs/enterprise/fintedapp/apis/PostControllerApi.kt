@@ -90,6 +90,31 @@ class PostControllerApi(basePath: kotlin.String = ApiResources().backendUrl) : A
         }
     }
     /**
+     *
+     *
+     * @param page
+     * @param user
+     * @return kotlin.Array<PostDto>
+     */
+    @Suppress("UNCHECKED_CAST")
+    fun getHomepage(page: kotlin.Int, user: kotlin.Long): kotlin.Array<PostDto> {
+        val localVariableConfig = RequestConfig(
+            RequestMethod.GET,
+            "/posts/home/{user}/{page}".replace("{" + "page" + "}", "$page").replace("{" + "user" + "}", "$user")
+        )
+        val response = request<kotlin.Array<PostDto>>(
+            localVariableConfig
+        )
+
+        return when (response.responseType) {
+            ResponseType.Success -> (response as Success<*>).data as kotlin.Array<PostDto>
+            ResponseType.Informational -> TODO()
+            ResponseType.Redirection -> TODO()
+            ResponseType.ClientError -> throw ClientException((response as ClientError<*>).body as? String ?: "Client error")
+            ResponseType.ServerError -> throw ServerException((response as ServerError<*>).message ?: "Server error")
+        }
+    }
+    /**
      * 
      * 
      * @param body  

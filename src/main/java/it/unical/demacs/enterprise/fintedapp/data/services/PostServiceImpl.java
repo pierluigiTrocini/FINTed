@@ -68,4 +68,11 @@ public class PostServiceImpl implements PostService {
             return modelMapper.map(postDao.save(_post), PostDto.class);
 	}
 
+	@Override
+	public List<PostDto> getHomepage(Integer page, Long userId) {
+		return postDao.findAllBySellerIdNot(userId, PageRequest.of(page != null && page >= 0 ? page : 0, 10)).stream()
+				.map(post -> modelMapper.map(post, PostDto.class)).collect(Collectors.toList());
+		
+	}
+	
 }

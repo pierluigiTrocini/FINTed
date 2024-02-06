@@ -24,12 +24,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.snapshots.SnapshotStateMap
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Icon
+import it.unical.demacs.enterprise.fintedapp.viewmodels.OfferViewModel
+import it.unical.demacs.enterprise.fintedapp.viewmodels.PostViewModel
 import it.unical.demacs.enterprise.fintedapp.viewmodels.UserViewModel
 import kotlinx.coroutines.CoroutineScope
 import java.text.SimpleDateFormat
@@ -40,7 +43,10 @@ fun PersonalProfileActivity(
     selectedIndex: MutableState<Index>,
     accountState: MutableState<AccountState>,
     coroutineScope: CoroutineScope,
-    userViewModel: UserViewModel
+    userViewModel: UserViewModel,
+    postViewModel: PostViewModel,
+    offerViewModel: OfferViewModel,
+    postSheetStates: SnapshotStateMap<Long, Boolean>
 ) {
     val profile = userViewModel.personalProfile.value
     val userPosts = userViewModel.personalProfile.value.publishedPosts
@@ -99,7 +105,7 @@ fun PersonalProfileActivity(
                             )
                             Text(text = stringResource(id = R.string.registrationDate) + "\t" + SimpleDateFormat("dd/MM/yyy").format(profile?.registrationDate).toString(), style = MaterialTheme.typography.bodySmall)
                             Text(text = stringResource(id = R.string.balance) + "\t" + profile?.balance.toString() + "\t" + stringResource(id = R.string.currency))
-                            Text(text = stringResource(id = R.string.userId) + "\t #" + profile?.id.toString(), style = MaterialTheme.typography.bodySmall)
+                            Text(text = stringResource(id = R.string.itemId) + "\t #" + profile?.id.toString(), style = MaterialTheme.typography.bodySmall)
                         }
                     }
                     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Start) {
@@ -136,7 +142,16 @@ fun PersonalProfileActivity(
                                 items = userPosts.toList(),
                                 key = { post -> post.id!! }
                             ){
-                                post -> PostActivity(post = post, sheetState = null)
+                                post -> PostActivity(
+                                post = post,
+                                coroutineScope = coroutineScope,
+                                context = context,
+                                selectedIndex = selectedIndex,
+                                postType = PostType.FOR_PERSONAL_PROFILE,
+                                userViewModel = userViewModel,
+                                offerViewModel = offerViewModel,
+                                postSheetStates = postSheetStates
+                            )
                             }
                         }
                     }

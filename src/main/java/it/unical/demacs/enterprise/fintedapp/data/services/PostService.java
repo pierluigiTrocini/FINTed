@@ -17,5 +17,7 @@ public interface PostService {
 	PostDto get(Long id) throws ElementNotFoundException, NullFieldException;
 	
 	PostDto update(PostDto post) throws ElementNotFoundException, NullFieldException;
+
+	List<PostDto> getHomepage(Integer page, Long userId);
 	
 }

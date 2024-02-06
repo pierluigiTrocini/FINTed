@@ -27,6 +27,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -36,6 +37,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import it.unical.demacs.enterprise.fintedapp.ui.theme.FINTed_androidTheme
+import it.unical.demacs.enterprise.fintedapp.viewmodels.OfferViewModel
 import it.unical.demacs.enterprise.fintedapp.viewmodels.PostViewModel
 import it.unical.demacs.enterprise.fintedapp.viewmodels.UserViewModel
 
@@ -131,15 +133,17 @@ fun Homepage() {
     val coroutineScope = rememberCoroutineScope()
     val sheetState = remember { mutableStateOf(false) }
 
+    val postSheetStates = remember { mutableStateMapOf<Long, Boolean>() }
+
     val selectedIndex = remember { mutableStateOf(Index.HOMEPAGE) }
     val accountState = remember { mutableStateOf(AccountState.NO_ACCOUNT) }
 
+    val postViewModel = remember { mutableStateOf(PostViewModel()) }
+    val offerViewModel = remember { mutableStateOf(OfferViewModel()) }
     var userViewModel = remember { mutableStateOf(UserViewModel()) }
-    userViewModel.value.getPersonalProfile(1)
+    userViewModel.value.getPersonalProfile(2)
 
     val context = LocalContext.current
-
-    val postViewModel = remember { mutableStateOf(PostViewModel()) }
 
     Scaffold(
         topBar = {
@@ -153,7 +157,11 @@ fun Homepage() {
                     context,
                     selectedIndex,
                     coroutineScope,
-                    sheetState)
+                    postSheetStates = postSheetStates,
+                    postViewModel = postViewModel.value,
+                    userViewModel = userViewModel.value,
+                    offerViewModel = offerViewModel.value
+                )
             }
             if (selectedIndex.value == Index.SELL) {
                 SellActivity(
@@ -175,7 +183,11 @@ fun Homepage() {
                     selectedIndex = selectedIndex,
                     accountState = accountState,
                     coroutineScope = coroutineScope,
-                    userViewModel = userViewModel.value
+                    userViewModel = userViewModel.value,
+
+                    postViewModel = postViewModel.value,
+                    offerViewModel = offerViewModel.value,
+                    postSheetStates = postSheetStates,
                 )
             }
         }

@@ -52,8 +52,9 @@
     <string name="addressCity">città</string>
     <string name="noPosts">Nessun post disponibile!</string>
     <string name="postPublishing">il post verrà caricato a breve!</string>
-    <string name="userId">"il tuo id: "</string>
+    <string name="itemId">"id: "</string>
     <string name="noImage">Nessuna immagine</string>
     <string name="image">immagine</string>
     <string name="registrationDate">"registrato il: "</string>
+    <string name="helloworld">"Ciao "</string>
 </resources>

@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import it.unical.demacs.enterprise.fintedapp.handler.DateManager;
 import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.AttributeOverrides;
 import jakarta.persistence.CascadeType;
@@ -39,13 +40,13 @@ public class User {
 	private String username;
 	
 	@Column(name = "registration_date")
-	private Date registrationDate;
+	private Date registrationDate = DateManager.getInstance().currentDateSQLFormat();
 	
 	@Column(name = "account_disabled_date", nullable = true)
 	private Date accountDisableDate = null;
 	
 	@Column(name = "balance")
-	private Long balance;
+	private Long balance = (long) 500;
 	
     @Embedded
     @AttributeOverrides({

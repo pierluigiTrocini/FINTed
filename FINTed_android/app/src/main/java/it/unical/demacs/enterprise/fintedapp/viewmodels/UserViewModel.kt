@@ -52,8 +52,7 @@ class UserViewModel: ViewModel() {
 
     private val userApi: UserControllerApi = UserControllerApi()
     val userProfileList: MutableState<List<UserProfileDto>> = mutableStateOf(listOf())
-    val personalProfile: MutableState<UserPersonalProfileDto> = mutableStateOf(
-        UserPersonalProfileDto())
+    val personalProfile: MutableState<UserPersonalProfileDto> = mutableStateOf(UserPersonalProfileDto())
 
     val basicUser: MutableState<UserDto> = mutableStateOf(UserDto())
 
