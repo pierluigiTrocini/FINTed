@@ -15,6 +15,7 @@ import it.unical.demacs.enterprise.fintedapp.dto.OfferDto;
 import it.unical.demacs.enterprise.fintedapp.exception.ElementNotFoundException;
 import it.unical.demacs.enterprise.fintedapp.exception.NullFieldException;
 import it.unical.demacs.enterprise.fintedapp.handler.DateManager;
+import jakarta.servlet.UnavailableException;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -28,11 +29,14 @@ public class OfferServiceImpl implements OfferService {
 	
 	
 	@Override
-	public OfferDto save(OfferDto offer) throws ElementNotFoundException {
+	public OfferDto save(OfferDto offer) throws ElementNotFoundException, UnavailableException {
 		if(!postDao.existsById(offer.getPostId()))
 			throw new ElementNotFoundException("Post not found");
 		if(!userDao.existsById(offer.getUserId()))
 			throw new ElementNotFoundException("User not found");
+		
+		if(offerDao.existsByUserIdAndPostId(offer.getUserId(), offer.getPostId()))
+			throw new UnavailableException("You have already sent an offer for this item");
 		
 		Offer newOffer = modelMapper.map(offer, Offer.class);
 		

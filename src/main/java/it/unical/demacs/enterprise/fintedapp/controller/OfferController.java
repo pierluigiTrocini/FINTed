@@ -16,6 +16,7 @@ import it.unical.demacs.enterprise.fintedapp.data.services.OfferService;
 import it.unical.demacs.enterprise.fintedapp.dto.OfferDto;
 import it.unical.demacs.enterprise.fintedapp.exception.ElementNotFoundException;
 import it.unical.demacs.enterprise.fintedapp.exception.NullFieldException;
+import jakarta.servlet.UnavailableException;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -26,7 +27,7 @@ public class OfferController {
 	private final OfferService offerService;
 	
 	@PostMapping("/")
-	public ResponseEntity<OfferDto> save(@RequestBody OfferDto offer) throws ElementNotFoundException{
+	public ResponseEntity<OfferDto> save(@RequestBody OfferDto offer) throws ElementNotFoundException, UnavailableException{
 		return ResponseEntity.ok(offerService.save(offer));
 	}
 	

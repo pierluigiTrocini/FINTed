@@ -5,10 +5,11 @@ import java.util.List;
 import it.unical.demacs.enterprise.fintedapp.dto.OfferDto;
 import it.unical.demacs.enterprise.fintedapp.exception.ElementNotFoundException;
 import it.unical.demacs.enterprise.fintedapp.exception.NullFieldException;
+import jakarta.servlet.UnavailableException;
 
 public interface OfferService {
 	
-	OfferDto save(OfferDto offer) throws ElementNotFoundException;
+	OfferDto save(OfferDto offer) throws ElementNotFoundException, UnavailableException;
 	
 	void delete(Long id);
 	
