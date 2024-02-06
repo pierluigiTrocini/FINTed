@@ -20,6 +20,7 @@ import it.unical.demacs.enterprise.fintedapp.exception.CredentialsAlreadyUsedExc
 import it.unical.demacs.enterprise.fintedapp.exception.ElementNotFoundException;
 import it.unical.demacs.enterprise.fintedapp.exception.InvalidArgumentException;
 import it.unical.demacs.enterprise.fintedapp.exception.NullFieldException;
+import jakarta.servlet.UnavailableException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ValidationException;
 import lombok.AllArgsConstructor;
@@ -57,7 +58,14 @@ public class GlobalExceptionHandler {
 		LoggerFactory.getLogger(ConsoleAppender.class).error(ex.getMessage(), ex);
 		return errorResponse(req, ex.getMessage());
 	}
-
+	
+	@ExceptionHandler({UnavailableException.class})
+	@ResponseStatus(HttpStatus.GONE)
+	public ServiceError gone(WebRequest req, Exception ex) {
+		LoggerFactory.getLogger(ConsoleAppender.class).error(ex.getMessage(), ex);
+		return errorResponse(req, ex.getMessage());
+	}
+	
 	@ExceptionHandler({ ElementNotFoundException.class })
 	@ResponseStatus(HttpStatus.NOT_FOUND)
 	public ServiceError elementNotFound(WebRequest req, Exception ex) {
