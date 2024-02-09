@@ -31,7 +31,7 @@ data class UserRegistrationDto (
     val firstName: kotlin.String? = null,
     val lastName: kotlin.String? = null,
     val username: kotlin.String? = null,
-    val registrationDate: java.util.Date? = null,
+    val registrationDate:  java.util.Date? = null,
     val credentialsEmail: kotlin.String,
     val credentialsPassword: kotlin.String,
     val addressRoute: kotlin.String,

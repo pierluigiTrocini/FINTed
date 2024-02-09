@@ -4,6 +4,7 @@ import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import it.unical.demacs.enterprise.fintedapp.data.entities.OfferStatus;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -20,9 +21,17 @@ public class OfferDto {
 
     @NotNull
     private Long postId;
+    
+    private String postTitle;
 
     @NotNull
     private Long userId;
+    
+    private String userUsername;
+    
+    private String userFirstName;
+    
+    private String userLastName;
     
     @NotNull
     private Long postSellerId;
@@ -30,4 +39,7 @@ public class OfferDto {
     private Long offer;
 
     private Date publishDate;
+    
+    private OfferStatus offerStatus;
+    
 }

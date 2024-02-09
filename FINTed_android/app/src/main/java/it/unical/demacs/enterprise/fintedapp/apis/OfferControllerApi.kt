@@ -16,8 +16,33 @@ import it.unical.demacs.enterprise.fintedapp.models.ServiceError
 
 import it.unical.demacs.enterprise.fintedapp.infrastructure.*
 
-class OfferControllerApi(basePath: String = ApiResources().backendUrl) : ApiClient(basePath) {
+class OfferControllerApi(basePath: kotlin.String = ApiResources().backendUrl) : ApiClient(basePath) {
 
+    /**
+     * 
+     * 
+     * @param body  
+     * @return OfferDto
+     */
+    @Suppress("UNCHECKED_CAST")
+    fun acceptOffer(body: OfferDto): OfferDto {
+        val localVariableBody: kotlin.Any? = body
+        val localVariableConfig = RequestConfig(
+                RequestMethod.PUT,
+                "/offers/accept"
+        )
+        val response = request<OfferDto>(
+                localVariableConfig, localVariableBody
+        )
+
+        return when (response.responseType) {
+            ResponseType.Success -> (response as Success<*>).data as OfferDto
+            ResponseType.Informational -> TODO()
+            ResponseType.Redirection -> TODO()
+            ResponseType.ClientError -> throw ClientException((response as ClientError<*>).body as? String ?: "Client error")
+            ResponseType.ServerError -> throw ServerException((response as ServerError<*>).message ?: "Server error")
+        }
+    }
     /**
      * 
      * 
@@ -44,6 +69,31 @@ class OfferControllerApi(basePath: String = ApiResources().backendUrl) : ApiClie
     /**
      * 
      * 
+     * @param body  
+     * @return OfferDto
+     */
+    @Suppress("UNCHECKED_CAST")
+    fun denyOffer(body: OfferDto): OfferDto {
+        val localVariableBody: kotlin.Any? = body
+        val localVariableConfig = RequestConfig(
+                RequestMethod.PUT,
+                "/offers/deny"
+        )
+        val response = request<OfferDto>(
+                localVariableConfig, localVariableBody
+        )
+
+        return when (response.responseType) {
+            ResponseType.Success -> (response as Success<*>).data as OfferDto
+            ResponseType.Informational -> TODO()
+            ResponseType.Redirection -> TODO()
+            ResponseType.ClientError -> throw ClientException((response as ClientError<*>).body as? String ?: "Client error")
+            ResponseType.ServerError -> throw ServerException((response as ServerError<*>).message ?: "Server error")
+        }
+    }
+    /**
+     * 
+     * 
      * @param id  
      * @return kotlin.Array<OfferDto>
      */
@@ -52,6 +102,30 @@ class OfferControllerApi(basePath: String = ApiResources().backendUrl) : ApiClie
         val localVariableConfig = RequestConfig(
                 RequestMethod.GET,
                 "/offers/post/{id}".replace("{" + "id" + "}", "$id")
+        )
+        val response = request<kotlin.Array<OfferDto>>(
+                localVariableConfig
+        )
+
+        return when (response.responseType) {
+            ResponseType.Success -> (response as Success<*>).data as kotlin.Array<OfferDto>
+            ResponseType.Informational -> TODO()
+            ResponseType.Redirection -> TODO()
+            ResponseType.ClientError -> throw ClientException((response as ClientError<*>).body as? String ?: "Client error")
+            ResponseType.ServerError -> throw ServerException((response as ServerError<*>).message ?: "Server error")
+        }
+    }
+    /**
+     * 
+     * 
+     * @param id  
+     * @return kotlin.Array<OfferDto>
+     */
+    @Suppress("UNCHECKED_CAST")
+    fun getSellOffers(id: kotlin.Long): kotlin.Array<OfferDto> {
+        val localVariableConfig = RequestConfig(
+                RequestMethod.GET,
+                "/offers/seller/{id}".replace("{" + "id" + "}", "$id")
         )
         val response = request<kotlin.Array<OfferDto>>(
                 localVariableConfig

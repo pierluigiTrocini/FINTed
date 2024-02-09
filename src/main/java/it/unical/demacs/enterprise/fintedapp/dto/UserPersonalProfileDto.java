@@ -26,6 +26,8 @@ public class UserPersonalProfileDto {
 	
 	private Date registrationDate;
 	
+	private Long balance;
+	
 	@Email
 	private String credentialsEmail;
 	

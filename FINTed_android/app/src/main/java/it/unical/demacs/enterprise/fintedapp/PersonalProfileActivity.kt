@@ -103,7 +103,11 @@ fun PersonalProfileActivity(
                                 modifier = Modifier.padding(vertical = 10.dp),
                                 style = MaterialTheme.typography.bodySmall
                             )
-                            Text(text = stringResource(id = R.string.registrationDate) + "\t" + SimpleDateFormat("dd/MM/yyy").format(profile?.registrationDate).toString(), style = MaterialTheme.typography.bodySmall)
+                            Text(text = stringResource(id = R.string.registrationDate) + "\t" + profile?.registrationDate?.let {
+                                SimpleDateFormat("dd/MM/yyy").format(
+                                    it
+                                ).toString()
+                            }, style = MaterialTheme.typography.bodySmall)
                             Text(text = stringResource(id = R.string.balance) + "\t" + profile?.balance.toString() + "\t" + stringResource(id = R.string.currency))
                             Text(text = stringResource(id = R.string.itemId) + "\t #" + profile?.id.toString(), style = MaterialTheme.typography.bodySmall)
                         }

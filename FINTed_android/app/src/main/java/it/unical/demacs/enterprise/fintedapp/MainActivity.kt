@@ -131,9 +131,9 @@ fun BottomBar(selectedIndex: MutableState<Index>) {
 @Composable
 fun Homepage() {
     val coroutineScope = rememberCoroutineScope()
-    val sheetState = remember { mutableStateOf(false) }
 
     val postSheetStates = remember { mutableStateMapOf<Long, Boolean>() }
+    val offerSheetStates = remember { mutableStateMapOf<Long, OfferInfos>() }
 
     val selectedIndex = remember { mutableStateOf(Index.HOMEPAGE) }
     val accountState = remember { mutableStateOf(AccountState.NO_ACCOUNT) }
@@ -141,7 +141,8 @@ fun Homepage() {
     val postViewModel = remember { mutableStateOf(PostViewModel()) }
     val offerViewModel = remember { mutableStateOf(OfferViewModel()) }
     var userViewModel = remember { mutableStateOf(UserViewModel()) }
-    userViewModel.value.getPersonalProfile(2)
+
+    userViewModel.value.getPersonalProfile(1)
 
     val context = LocalContext.current
 
@@ -175,7 +176,15 @@ fun Homepage() {
                 MailBoxActivity(context, selectedIndex)
             }
             if (selectedIndex.value == Index.OFFER_LIST) {
-                OfferListActivity(context, selectedIndex)
+                OfferListActivity(
+                    context,
+                    selectedIndex,
+                    coroutineScope = coroutineScope,
+                    offerViewModel = offerViewModel,
+                    userViewModel = userViewModel,
+                    postViewModel = postViewModel,
+                    offerSheetStates = offerSheetStates
+                )
             }
             if (selectedIndex.value == Index.PERSONAL_PROFILE) {
                 PersonalProfileActivity(

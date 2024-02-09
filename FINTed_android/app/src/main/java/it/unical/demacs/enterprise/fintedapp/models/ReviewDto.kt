@@ -11,22 +11,21 @@
  */
 package it.unical.demacs.enterprise.fintedapp.models
 
-import it.unical.demacs.enterprise.fintedapp.models.UserDto
 
 /**
  * 
  * @param id 
- * @param author 
- * @param target 
+ * @param authorId 
+ * @param targetId 
  * @param publishDate 
  * @param content 
  */
 data class ReviewDto (
 
     val id: kotlin.Long? = null,
-    val authorId: Long? = null,
-    val targetId: Long? = null,
-    val publishDate: java.util.Date?,
+    val authorId: kotlin.Long,
+    val targetId: kotlin.Long,
+    val publishDate:  java.util.Date? = null,
     val content: kotlin.String
 ) {
 }

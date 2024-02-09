@@ -14,6 +14,8 @@ class OfferViewModel: ViewModel() {
 
     val offerList: MutableState<List<OfferDto>> = mutableStateOf(listOf())
 
+    val offer: MutableState<OfferDto> = mutableStateOf(OfferDto())
+
     fun save(postId: Long, userId: Long, offer: String) {
         CoroutineScope(Dispatchers.IO).launch {
             offerApi.save3(
@@ -42,6 +44,36 @@ class OfferViewModel: ViewModel() {
         CoroutineScope(Dispatchers.IO).launch {
             offerList.value = offerApi.getUserOffers(userId).toList()
         }
+    }
+
+    fun getSellOffers(userId: Long){
+        CoroutineScope(Dispatchers.IO).launch {
+            offerList.value = offerApi.getSellOffers(userId).toList()
+        }
+    }
+
+    fun acceptOffer(offerDto: OfferDto): Boolean{
+        var accepted = false;
+        CoroutineScope(Dispatchers.IO).launch {
+            offer.value = offerApi.acceptOffer(offerDto)
+            if(offer.value.offerStatus == OfferDto.OfferStatus.ACCEPTED){
+                accepted = true
+            }
+        }
+
+        return accepted
+    }
+
+    fun denyOffer(offerDto: OfferDto): Boolean{
+        var denied = false;
+        CoroutineScope(Dispatchers.IO).launch {
+            offer.value = offerApi.denyOffer(offerDto)
+            if(offer.value.offerStatus == OfferDto.OfferStatus.DENIED){
+                denied = true
+            }
+        }
+
+        return denied
     }
 
 }

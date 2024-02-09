@@ -5,9 +5,12 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import it.unical.demacs.enterprise.fintedapp.handler.DateManager;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -36,7 +39,7 @@ public class Post {
 	private User seller;
 	
 	@Column(name = "published_date")
-	private Date publishedDate;
+	private Date publishedDate = DateManager.getInstance().currentDateSQLFormat();;
 	
 	@Column(name = "starting_price")
 	private Long startingPrice;
@@ -46,6 +49,10 @@ public class Post {
 	private String postImage;
 	
 	@JsonManagedReference
-	@OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = false)
 	private List<Offer> offers;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name = "status")
+	private PostStatus status = PostStatus.AVAILABLE;
 }

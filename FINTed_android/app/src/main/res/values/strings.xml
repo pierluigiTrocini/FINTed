@@ -31,7 +31,7 @@
     <string name="postPublished">Post pubblicato con successo!</string>
     <string name="makeOfferLabel">La tua offerta</string>
     <string name="offerTitle">Fai un\'offerta!</string>
-    <string name="offerPublishedToast">Offerta pubblicata!</string>
+    <string name="offerPublishedToast">Offerta pubblicata! L\'importo offerto è stato addebitato</string>
     <string name="noReviews">Nessuna recensione trovata</string>
     <string name="makeReview">Lascia una recensione</string>
     <string name="reviewTitle">Lascia qui la tua recensione!</string>
@@ -57,4 +57,8 @@
     <string name="image">immagine</string>
     <string name="registrationDate">"registrato il: "</string>
     <string name="helloworld">"Ciao "</string>
+    <string name="noOffers">Nessuna offerta!</string>
+    <string name="showPostValue">show post</string>
+    <string name="deniedOffer">Offerta rifiutata!</string>
+    <string name="denyOffer">Rifiuta</string>
 </resources>

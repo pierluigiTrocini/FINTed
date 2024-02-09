@@ -11,23 +11,44 @@
  */
 package it.unical.demacs.enterprise.fintedapp.models
 
-import it.unical.demacs.enterprise.fintedapp.models.PostDto
-import it.unical.demacs.enterprise.fintedapp.models.UserDto
 
 /**
  * 
  * @param id 
- * @param post 
- * @param user 
+ * @param postId 
+ * @param postTitle 
+ * @param userId 
+ * @param userUsername 
+ * @param userFirstName 
+ * @param userLastName 
+ * @param postSellerId 
  * @param offer 
  * @param publishDate 
+ * @param offerStatus 
  */
 data class OfferDto (
 
     val id: kotlin.Long? = null,
     val postId: kotlin.Long? = null,
-    val userId: Long? = null,
+    val postTitle: kotlin.String? = null,
+    val userId: kotlin.Long? = null,
+    val userUsername: kotlin.String? = null,
+    val userFirstName: kotlin.String? = null,
+    val userLastName: kotlin.String? = null,
+    val postSellerId: kotlin.Long? = null,
     val offer: kotlin.Long? = null,
-    val publishDate: java.util.Date? = null
+    val publishDate: java.util.Date? = null,
+    val offerStatus: OfferStatus? = null
 ) {
+    /**
+    * 
+    * Values: PENDING,ACCEPTED,DENIED
+    */
+    enum class OfferStatus(val value: kotlin.String){
+        PENDING("PENDING"),
+        ACCEPTED("ACCEPTED"),
+        DENIED("DENIED"),
+        UNAVAILABLE("UNAVAILABLE"),
+        POST_DELETED("POST_DELETED")
+    }
 }

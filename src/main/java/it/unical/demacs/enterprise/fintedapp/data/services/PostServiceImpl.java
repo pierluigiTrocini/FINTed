@@ -8,9 +8,12 @@ import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import it.unical.demacs.enterprise.fintedapp.data.dao.OfferDao;
 import it.unical.demacs.enterprise.fintedapp.data.dao.PostDao;
 import it.unical.demacs.enterprise.fintedapp.data.dao.UserDao;
+import it.unical.demacs.enterprise.fintedapp.data.entities.OfferStatus;
 import it.unical.demacs.enterprise.fintedapp.data.entities.Post;
+import it.unical.demacs.enterprise.fintedapp.data.entities.PostStatus;
 import it.unical.demacs.enterprise.fintedapp.dto.PostDto;
 import it.unical.demacs.enterprise.fintedapp.exception.ElementNotFoundException;
 import it.unical.demacs.enterprise.fintedapp.exception.NullFieldException;
@@ -23,6 +26,8 @@ public class PostServiceImpl implements PostService {
 	private final PostDao postDao;
 	private final UserDao userDao;
 	
+	private final OfferDao offerDao;
+	
 	private final ModelMapper modelMapper;
 
 	@Override
@@ -32,13 +37,16 @@ public class PostServiceImpl implements PostService {
 		
 		Post newPost =  modelMapper.map(postDao.save(modelMapper.map(post, Post.class)), Post.class);
 		newPost.setPublishedDate(DateManager.getInstance().currentDateSQLFormat());
+		newPost.setStatus(PostStatus.AVAILABLE);
 		
 		return modelMapper.map(postDao.save(newPost), PostDto.class);
 	}
 
 	@Override
-	public void delete(Long id) {
+	public void delete(Long id) {		
 		postDao.deleteById(id);
+		offerDao.postDeleted(OfferStatus.POST_DELETED, id);
+		userDao.refundAll(id);
 	}
 
 	@Override
@@ -52,7 +60,7 @@ public class PostServiceImpl implements PostService {
 	public PostDto get(Long id) throws ElementNotFoundException, NullFieldException {
         return modelMapper.map(
                 postDao.findById(Optional.ofNullable(id).orElseThrow(() -> new NullFieldException("no id as request param")))
-                    .orElseThrow(() -> new ElementNotFoundException("user not found")),
+                    .orElseThrow(() -> new ElementNotFoundException("post not found")),
                 PostDto.class
             );
 	}

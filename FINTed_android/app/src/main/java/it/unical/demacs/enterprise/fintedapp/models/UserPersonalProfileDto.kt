@@ -11,7 +11,6 @@
  */
 package it.unical.demacs.enterprise.fintedapp.models
 
-import it.unical.demacs.enterprise.fintedapp.models.OfferDto
 import it.unical.demacs.enterprise.fintedapp.models.PostDto
 import it.unical.demacs.enterprise.fintedapp.models.ReviewDto
 
@@ -22,13 +21,13 @@ import it.unical.demacs.enterprise.fintedapp.models.ReviewDto
  * @param lastName 
  * @param username 
  * @param registrationDate 
+ * @param balance 
  * @param credentialsEmail 
  * @param addressRoute 
  * @param addressNumber 
  * @param addressCity 
  * @param publishedPosts 
  * @param receivedReviews 
- * @param offersPublished 
  */
 data class UserPersonalProfileDto (
 
@@ -37,13 +36,12 @@ data class UserPersonalProfileDto (
     val lastName: kotlin.String? = null,
     val username: kotlin.String? = null,
     val registrationDate: java.util.Date? = null,
+    val balance: kotlin.Long? = null,
     val credentialsEmail: kotlin.String? = null,
     val addressRoute: kotlin.String? = null,
     val addressNumber: kotlin.String? = null,
     val addressCity: kotlin.String? = null,
-    val balance: kotlin.Long? = null,
     val publishedPosts: kotlin.Array<PostDto>? = null,
-    val receivedReviews: kotlin.Array<ReviewDto>? = null,
-    val offersPublished: kotlin.Array<OfferDto>? = null
+    val receivedReviews: kotlin.Array<ReviewDto>? = null
 ) {
 }

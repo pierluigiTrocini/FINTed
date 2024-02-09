@@ -45,7 +45,7 @@ fun PostActivity(
     postType: PostType,
     userViewModel: UserViewModel,
     offerViewModel: OfferViewModel,
-    postSheetStates: SnapshotStateMap<Long, Boolean>
+    postSheetStates: SnapshotStateMap<Long, Boolean>?
 ){
     Card(
         modifier = Modifier.padding(16.dp),
@@ -58,7 +58,11 @@ fun PostActivity(
                 Text(text = post.sellerUsername.toString(), style = MaterialTheme.typography.bodyLarge)
                 Spacer(modifier = Modifier.weight(1f))
             }
-            Text(text = stringResource(id = R.string.publishDate) + SimpleDateFormat("dd/MM/yyy").format(post.publishedDate).toString(), style = MaterialTheme.typography.bodySmall)
+            Text(text = stringResource(id = R.string.publishDate) + post.publishedDate?.let {
+                SimpleDateFormat("dd/MM/yyy").format(
+                    it
+                ).toString()
+            }, style = MaterialTheme.typography.bodySmall)
             Spacer(modifier = Modifier.height(8.dp))
             Text(text = post.title.toString(), style = MaterialTheme.typography.headlineMedium)
             Spacer(modifier = Modifier.height(8.dp))
@@ -70,15 +74,15 @@ fun PostActivity(
 
                 Row {
                     Button(onClick = {
-                        postSheetStates[post.id!!] = true
+                        postSheetStates?.set(post.id!!, true)
                     }) {
                         Text(stringResource(id = R.string.makeOffer), color = Color.Black)
                     }
                 }
             }
         }
-        if (postSheetStates[post.id] != null) {
-            if(postSheetStates[post.id] == true) {
+        if (postSheetStates?.get(post.id!!) != null) {
+            if(postSheetStates[post.id!!] == true) {
                 val offerPrice = remember { mutableStateOf("") }
 
                 Dialog(
@@ -131,6 +135,10 @@ fun PostActivity(
                                 coroutineScope.launch {
                                     postSheetStates[post.id!!] = false
                                     makeToast(context, context.resources.getString(R.string.offerPublishedToast))
+                                    userViewModel.personalProfile.value.id?.let {
+                                        offerViewModel.save(post?.id,
+                                            it, offerPrice.value)
+                                    }
                                 }
                             }) {
                                 androidx.wear.compose.material.Text(stringResource(id = R.string.publish))

@@ -51,12 +51,13 @@ class UserViewModel: ViewModel() {
     val userPersonalProfileState: StateFlow<UserPersonalProfileState> = _userPersonalProfileState.asStateFlow()
 
     private val userApi: UserControllerApi = UserControllerApi()
+
     val userProfileList: MutableState<List<UserProfileDto>> = mutableStateOf(listOf())
     val personalProfile: MutableState<UserPersonalProfileDto> = mutableStateOf(UserPersonalProfileDto())
 
-    val basicUser: MutableState<UserDto> = mutableStateOf(UserDto())
+    val basicUser: MutableState<UserProfileDto> = mutableStateOf(UserProfileDto())
 
-    fun registration(): UserDto {
+    fun registration(): UserProfileDto {
         return userApi.save(
             UserRegistrationDto(
                 id = null,

@@ -11,25 +11,30 @@
  */
 package it.unical.demacs.enterprise.fintedapp.models
 
-import it.unical.demacs.enterprise.fintedapp.models.UserDto
 
 /**
  * 
  * @param id 
- * @param seller 
  * @param title 
- * @param startingPrice 
- * @param postImage 
+ * @param sellerId 
+ * @param sellerUsername 
  * @param publishedDate 
+ * @param startingPrice 
  */
 data class PostDto (
 
     val id: kotlin.Long? = null,
-    val sellerId: Long? = null,
-    val sellerUsername: String? = null,
     val title: kotlin.String? = null,
+    val sellerId: kotlin.Long? = null,
+    val sellerUsername: kotlin.String? = null,
+    val publishedDate:  java.util.Date? = null,
     val startingPrice: kotlin.Long? = null,
     val postImage: kotlin.String? = null,
-    val publishedDate: java.util.Date? = null
+    val status: PostStatus? = null
 ) {
+    enum class PostStatus(val value: kotlin.String){
+        AVAILABLE("AVAILABLE"),
+        UNAVAILABLE("UNAVAILABLE"),
+    }
+
 }

@@ -12,7 +12,6 @@
 package it.unical.demacs.enterprise.fintedapp.apis
 
 import it.unical.demacs.enterprise.fintedapp.models.ServiceError
-import it.unical.demacs.enterprise.fintedapp.models.UserDto
 import it.unical.demacs.enterprise.fintedapp.models.UserPersonalProfileDto
 import it.unical.demacs.enterprise.fintedapp.models.UserProfileDto
 import it.unical.demacs.enterprise.fintedapp.models.UserRegistrationDto
@@ -48,20 +47,20 @@ class UserControllerApi(basePath: kotlin.String = ApiResources().backendUrl) : A
      * 
      * 
      * @param id  
-     * @return UserDto
+     * @return UserProfileDto
      */
     @Suppress("UNCHECKED_CAST")
-    fun get(id: kotlin.Long): UserDto {
+    fun get(id: kotlin.Long): UserProfileDto {
         val localVariableConfig = RequestConfig(
                 RequestMethod.GET,
                 "/users/{id}".replace("{" + "id" + "}", "$id")
         )
-        val response = request<UserDto>(
+        val response = request<UserProfileDto>(
                 localVariableConfig
         )
 
         return when (response.responseType) {
-            ResponseType.Success -> (response as Success<*>).data as UserDto
+            ResponseType.Success -> (response as Success<*>).data as UserProfileDto
             ResponseType.Informational -> TODO()
             ResponseType.Redirection -> TODO()
             ResponseType.ClientError -> throw ClientException((response as ClientError<*>).body as? String ?: "Client error")
@@ -120,21 +119,21 @@ class UserControllerApi(basePath: kotlin.String = ApiResources().backendUrl) : A
      * 
      * 
      * @param body  
-     * @return UserDto
+     * @return UserProfileDto
      */
     @Suppress("UNCHECKED_CAST")
-    fun save(body: UserRegistrationDto): UserDto {
+    fun save(body: UserRegistrationDto): UserProfileDto {
         val localVariableBody: kotlin.Any? = body
         val localVariableConfig = RequestConfig(
                 RequestMethod.POST,
                 "/users/"
         )
-        val response = request<UserDto>(
+        val response = request<UserProfileDto>(
                 localVariableConfig, localVariableBody
         )
 
         return when (response.responseType) {
-            ResponseType.Success -> (response as Success<*>).data as UserDto
+            ResponseType.Success -> (response as Success<*>).data as UserProfileDto
             ResponseType.Informational -> TODO()
             ResponseType.Redirection -> TODO()
             ResponseType.ClientError -> throw ClientException((response as ClientError<*>).body as? String ?: "Client error")
