@@ -142,7 +142,7 @@ fun Homepage() {
     val offerViewModel = remember { mutableStateOf(OfferViewModel()) }
     var userViewModel = remember { mutableStateOf(UserViewModel()) }
 
-    userViewModel.value.getPersonalProfile(1)
+    userViewModel.value.getPersonalProfile(3)
 
     val context = LocalContext.current
 
@@ -172,9 +172,6 @@ fun Homepage() {
                     postViewModel = postViewModel.value
                 )
             }
-            if (selectedIndex.value == Index.MAILBOX) {
-                MailBoxActivity(context, selectedIndex)
-            }
             if (selectedIndex.value == Index.OFFER_LIST) {
                 OfferListActivity(
                     context,
@@ -197,6 +194,7 @@ fun Homepage() {
                     postViewModel = postViewModel.value,
                     offerViewModel = offerViewModel.value,
                     postSheetStates = postSheetStates,
+                    offerSheetStates = offerSheetStates
                 )
             }
         }

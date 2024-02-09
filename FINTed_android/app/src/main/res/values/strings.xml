@@ -13,7 +13,7 @@
     <string name="postStartingPrice">prezzo</string>
     <string name="publish">pubblica</string>
     <string name="profilePic">immagine profilo</string>
-    <string name="postList">post</string>
+    <string name="postList">I tuoi post</string>
     <string name="reviewList">recensioni</string>
     <string name="edit">modifica</string>
     <string name="publishDate">"pubblicato il: "</string>
@@ -61,4 +61,15 @@
     <string name="showPostValue">show post</string>
     <string name="deniedOffer">Offerta rifiutata!</string>
     <string name="denyOffer">Rifiuta</string>
+    <string name="yourOfferList">Offerte pubblicate</string>
+    <string name="offerStatus">"stato: "</string>
+    <string name="offerPrice">"offerta di: "</string>
+    <string name="offerStatusAccepted">Accettata </string>
+    <string name="offerStatusDenied">Rifiutata </string>
+    <string name="offerStatusPostDeleted">Post cancellato</string>
+    <string name="offerStatusPending">in attesa</string>
+    <string name="offerStatusUnavailable">Non disponibile</string>
+    <string name="delivering">  [in consegna al tuo indirizzo!] </string>
+    <string name="creditedBack">  [importo riaccreditato]</string>
+    <string name="refund">  [importo rimborsato] </string>
 </resources>

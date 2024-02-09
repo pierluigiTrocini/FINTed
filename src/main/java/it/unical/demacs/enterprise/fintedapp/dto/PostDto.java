@@ -3,6 +3,7 @@ package it.unical.demacs.enterprise.fintedapp.dto;
 import java.util.Date;
 import java.util.List;
 
+import it.unical.demacs.enterprise.fintedapp.data.entities.PostStatus;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
@@ -30,6 +31,8 @@ public class PostDto {
 	
 	@PositiveOrZero
 	private Long startingPrice;
+	
+	private PostStatus status;
 	
 //	private String postImage;
 	

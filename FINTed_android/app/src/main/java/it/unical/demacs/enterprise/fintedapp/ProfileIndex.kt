@@ -1,5 +1,5 @@
 package it.unical.demacs.enterprise.fintedapp
 
 enum class ProfileIndex {
-    POSTS, REVIEWS
+    POSTS, REVIEWS, OFFERS
 }

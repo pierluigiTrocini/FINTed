@@ -40,5 +40,7 @@ public class UserPersonalProfileDto {
     private List<PostDto> publishedPosts;
 
     private List<ReviewDto> receivedReviews;
+    
+    private List<OfferDto> publishedOffers;
 
 }

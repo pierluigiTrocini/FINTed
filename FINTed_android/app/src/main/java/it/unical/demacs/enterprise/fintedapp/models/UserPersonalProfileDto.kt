@@ -42,6 +42,7 @@ data class UserPersonalProfileDto (
     val addressNumber: kotlin.String? = null,
     val addressCity: kotlin.String? = null,
     val publishedPosts: kotlin.Array<PostDto>? = null,
-    val receivedReviews: kotlin.Array<ReviewDto>? = null
+    val receivedReviews: kotlin.Array<ReviewDto>? = null,
+    val publishedOffers: kotlin.Array<OfferDto>? = null
 ) {
 }

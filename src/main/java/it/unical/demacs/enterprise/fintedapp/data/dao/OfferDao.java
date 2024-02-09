@@ -20,7 +20,7 @@ public interface OfferDao extends JpaRepository<Offer, Long> {
 
 	List<Offer> findAllByUser(User user);
 
-	List<Offer> findAllByPostSellerId(Long sellerId);
+	List<Offer> findAllByPostSellerIdAndOfferStatus(Long sellerId, OfferStatus status);
 
 	Boolean existsByUserIdAndPostId(Long userId, Long postId);
 
@@ -31,4 +31,5 @@ public interface OfferDao extends JpaRepository<Offer, Long> {
 	
 	@Query("UPDATE Offer o SET o.offerStatus = :status WHERE o.post.id = :id AND o.offerStatus != ACCEPTED")
 	void postDeleted(@Param("status") OfferStatus status, @Param("id") Long postId);
+	
 }
