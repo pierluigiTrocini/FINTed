@@ -7,13 +7,17 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.ClickableText
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.List
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults.buttonColors
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
@@ -28,6 +32,7 @@ import androidx.compose.ui.window.Dialog
 import androidx.wear.compose.material.Text
 import it.unical.demacs.enterprise.fintedapp.viewmodels.OfferViewModel
 import it.unical.demacs.enterprise.fintedapp.viewmodels.PostViewModel
+import it.unical.demacs.enterprise.fintedapp.viewmodels.ReviewViewModel
 import it.unical.demacs.enterprise.fintedapp.viewmodels.UserViewModel
 import kotlinx.coroutines.CoroutineScope
 
@@ -39,6 +44,7 @@ fun OfferListActivity(
     userViewModel: MutableState<UserViewModel>,
     offerSheetStates: SnapshotStateMap<Long, OfferInfos>,
     postViewModel: MutableState<PostViewModel>,
+    reviewViewModel: ReviewViewModel,
     coroutineScope: CoroutineScope
 ) {
     offerViewModel.value.getSellOffers(userViewModel.value.personalProfile.value.id!!)
@@ -46,9 +52,12 @@ fun OfferListActivity(
         Row {
             if (offerViewModel.value.offerList.value.isEmpty()) {
                 Column(
-                    horizontalAlignment = Alignment.CenterHorizontally
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalArrangement = Arrangement.Center
                 ) {
-                    Text(text = stringResource(id = R.string.noOffers))
+                    Icon(imageVector = Icons.Default.List, contentDescription = "", modifier = Modifier.size(75.dp))
+                    Text(text = stringResource(id = R.string.noOffers), style = MaterialTheme.typography.titleLarge)
                 }
             } else {
                 LazyColumn(
@@ -144,7 +153,8 @@ fun OfferListActivity(
                                             ProfileActivity(
                                                 context = context,
                                                 selectedIndex = selectedIndex,
-                                                profile = userViewModel.value.basicUser.value
+                                                profile = userViewModel.value.basicUser.value,
+                                                reviewViewModel = reviewViewModel
                                             )
                                         }
                                     }

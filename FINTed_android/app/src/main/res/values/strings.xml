@@ -72,4 +72,8 @@
     <string name="delivering">  [in consegna al tuo indirizzo!] </string>
     <string name="creditedBack">  [importo riaccreditato]</string>
     <string name="refund">  [importo rimborsato] </string>
+    <string name="yourReceivedReviews">recensioni ricevute</string>
+    <string name="yourSentReviews">recensioni inviate</string>
+    <string name="deleteReview">cancella recensione</string>
+    <string name="deletedReview">Recensione cancellata</string>
 </resources>

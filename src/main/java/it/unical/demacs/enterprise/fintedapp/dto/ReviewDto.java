@@ -17,9 +17,13 @@ public class ReviewDto {
     
     @NotNull
     private Long authorId;
-
+    
+    private String authorUsername;
+    
     @NotNull
     private Long targetId;
+    
+    private String targetUsername;
 
     @NotEmpty
     private Date publishDate;

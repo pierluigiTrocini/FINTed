@@ -39,6 +39,7 @@ import androidx.compose.ui.unit.dp
 import it.unical.demacs.enterprise.fintedapp.ui.theme.FINTed_androidTheme
 import it.unical.demacs.enterprise.fintedapp.viewmodels.OfferViewModel
 import it.unical.demacs.enterprise.fintedapp.viewmodels.PostViewModel
+import it.unical.demacs.enterprise.fintedapp.viewmodels.ReviewViewModel
 import it.unical.demacs.enterprise.fintedapp.viewmodels.UserViewModel
 
 class MainActivity : ComponentActivity() {
@@ -86,19 +87,6 @@ fun BottomBar(selectedIndex: MutableState<Index>) {
                 }
             )
             NavigationBarItem(
-                selected = selectedIndex.value == Index.MAILBOX,
-                onClick = { selectedIndex.value = Index.MAILBOX },
-                icon = {
-                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Icon(
-                            Icons.Filled.MailOutline,
-                            contentDescription = stringResource(R.string.chat)
-                        )
-                        Text(stringResource(R.string.chat))
-                    }
-                }
-            )
-            NavigationBarItem(
                 selected = selectedIndex.value == Index.OFFER_LIST,
                 onClick = { selectedIndex.value = Index.OFFER_LIST },
                 icon = {
@@ -140,16 +128,14 @@ fun Homepage() {
 
     val postViewModel = remember { mutableStateOf(PostViewModel()) }
     val offerViewModel = remember { mutableStateOf(OfferViewModel()) }
-    var userViewModel = remember { mutableStateOf(UserViewModel()) }
+    val userViewModel = remember { mutableStateOf(UserViewModel()) }
+    val reviewViewModel = remember { mutableStateOf(ReviewViewModel()) }
 
     userViewModel.value.getPersonalProfile(3)
 
     val context = LocalContext.current
 
     Scaffold(
-        topBar = {
-            TopBar()
-        },
         bottomBar = { BottomBar(selectedIndex = selectedIndex) }
     ) {
         Box(modifier = Modifier.padding(it)) {
@@ -180,7 +166,8 @@ fun Homepage() {
                     offerViewModel = offerViewModel,
                     userViewModel = userViewModel,
                     postViewModel = postViewModel,
-                    offerSheetStates = offerSheetStates
+                    offerSheetStates = offerSheetStates,
+                    reviewViewModel = reviewViewModel.value
                 )
             }
             if (selectedIndex.value == Index.PERSONAL_PROFILE) {
@@ -193,35 +180,12 @@ fun Homepage() {
 
                     postViewModel = postViewModel.value,
                     offerViewModel = offerViewModel.value,
+                    reviewViewModel = reviewViewModel.value,
+
                     postSheetStates = postSheetStates,
-                    offerSheetStates = offerSheetStates
+                    offerSheetStates = offerSheetStates,
                 )
             }
         }
     }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun TopBar() {
-    val queryString = remember { mutableStateOf("") }
-    val isActive = remember { mutableStateOf(false) }
-    LocalContext.current.applicationContext
-    SearchBar(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = if (isActive.value) 0.dp else 8.dp),
-        query = queryString.value,
-        onQueryChange = { value -> queryString.value = value },
-        placeholder = { Text(text = stringResource(id = R.string.search)) },
-        leadingIcon = { Icon(imageVector = Icons.Default.Search, contentDescription = null) },
-        active = isActive.value,
-        onActiveChange = { value ->
-            isActive.value = value
-        },
-        onSearch = {
-            isActive.value = false
-            // qui la funzione per chiamare la ricerca
-        }
-    ) {}
 }

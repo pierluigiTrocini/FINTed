@@ -30,7 +30,7 @@ public class Review {
 	private User target;
 	
 	@Column(name = "published_date")
-	private Date publishedDate = DateManager.getInstance().currentDateSQLFormat();;
+	private Date publishedDate = DateManager.getInstance().currentDateSQLFormat();
 	
 	@Column
 	private String content;

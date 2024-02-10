@@ -1,6 +1,8 @@
 package it.unical.demacs.enterprise.fintedapp
 
 import android.content.Context
+import android.widget.Toast
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -11,13 +13,15 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
@@ -40,6 +44,7 @@ import androidx.wear.compose.material.Icon
 import it.unical.demacs.enterprise.fintedapp.models.OfferDto
 import it.unical.demacs.enterprise.fintedapp.viewmodels.OfferViewModel
 import it.unical.demacs.enterprise.fintedapp.viewmodels.PostViewModel
+import it.unical.demacs.enterprise.fintedapp.viewmodels.ReviewViewModel
 import it.unical.demacs.enterprise.fintedapp.viewmodels.UserViewModel
 import kotlinx.coroutines.CoroutineScope
 import java.text.SimpleDateFormat
@@ -54,12 +59,14 @@ fun PersonalProfileActivity(
     postViewModel: PostViewModel,
     offerViewModel: OfferViewModel,
     postSheetStates: SnapshotStateMap<Long, Boolean>,
-    offerSheetStates: SnapshotStateMap<Long, OfferInfos>
+    offerSheetStates: SnapshotStateMap<Long, OfferInfos>,
+    reviewViewModel: ReviewViewModel
 ) {
     val profile = userViewModel.personalProfile.value
     val userPosts = userViewModel.personalProfile.value.publishedPosts
     val userOffers = userViewModel.personalProfile.value.publishedOffers
-    val reviews = userViewModel.personalProfile.value.receivedReviews
+    val receivedReviews = userViewModel.personalProfile.value.receivedReviews
+    val publishedReviews = userViewModel.personalProfile.value.publishedReviews
 
     val profileIndex = remember { mutableStateOf(ProfileIndex.POSTS) }
 
@@ -135,12 +142,20 @@ fun PersonalProfileActivity(
                     }
                 }
             }
-            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center){
-                Button(onClick = { profileIndex.value = ProfileIndex.POSTS }, modifier = Modifier.padding(horizontal = 10.dp)) {
+            Row(modifier = Modifier
+                .fillMaxWidth()
+                .horizontalScroll(rememberScrollState(), enabled = true), horizontalArrangement = Arrangement.Center){
+                Button(onClick = { profileIndex.value = ProfileIndex.POSTS }, modifier = Modifier.padding(horizontal = 5.dp)) {
                     Text(stringResource(id = R.string.postList))
                 }
-                Button(onClick = { profileIndex.value = ProfileIndex.OFFERS }, modifier = Modifier.padding(horizontal = 10.dp)) {
+                Button(onClick = { profileIndex.value = ProfileIndex.OFFERS }, modifier = Modifier.padding(horizontal = 5.dp)) {
                     Text(stringResource(id = R.string.yourOfferList))
+                }
+                Button(onClick = { profileIndex.value = ProfileIndex.RECEIVED_REVIEWS }, modifier = Modifier.padding(horizontal = 5.dp)) {
+                    Text(stringResource(id = R.string.yourReceivedReviews))
+                }
+                Button(onClick = { profileIndex.value = ProfileIndex.SENT_REVIEWS }, modifier = Modifier.padding(horizontal = 5.dp)) {
+                    Text(stringResource(id = R.string.yourSentReviews))
                 }
             }
             if(profileIndex.value == ProfileIndex.POSTS){
@@ -289,9 +304,148 @@ fun PersonalProfileActivity(
                                                         ProfileActivity(
                                                             context = context,
                                                             selectedIndex = selectedIndex,
-                                                            profile = userViewModel.basicUser.value
+                                                            profile = userViewModel.basicUser.value,
+                                                            reviewViewModel = reviewViewModel
                                                         )
                                                     }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            else if(profileIndex.value == ProfileIndex.RECEIVED_REVIEWS) {
+                if (receivedReviews != null) {
+                    if (receivedReviews.isEmpty()) {
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            modifier = Modifier.fillMaxWidth(),
+                            verticalArrangement = Arrangement.Center
+                        ) {
+                            androidx.compose.material3.Icon(
+                                imageVector = Icons.Default.List,
+                                contentDescription = "",
+                                modifier = Modifier.size(75.dp)
+                            )
+                            androidx.wear.compose.material.Text(
+                                text = stringResource(id = R.string.noReviews),
+                                style = MaterialTheme.typography.titleLarge
+                            )
+                        }
+                    } else {
+                        LazyColumn(
+                            verticalArrangement = Arrangement.SpaceEvenly,
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            items(
+                                items = receivedReviews.toList(),
+                                key = { review -> review.id!! }
+                            ) {
+                                review ->
+                                Card(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    colors = CardDefaults.cardColors(MaterialTheme.colorScheme.secondaryContainer)
+                                ) {
+                                    Card(
+                                        modifier = Modifier.padding(16.dp),
+                                        shape = RoundedCornerShape(8.dp),
+                                    ) {
+                                        Row(
+                                            modifier = Modifier
+                                                .fillMaxWidth()
+                                                .padding(16.dp),
+                                            horizontalArrangement = Arrangement.SpaceBetween
+                                        ) {
+                                            Column {
+                                                Text(
+                                                    text = review.authorUsername!!,
+                                                    style = MaterialTheme.typography.bodyLarge,
+                                                    color = Color.Gray
+                                                )
+                                                Spacer(modifier = Modifier.height(4.dp))
+                                                Text(
+                                                    text = review.content!!,
+                                                    style = MaterialTheme.typography.labelMedium
+                                                )
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            else if(profileIndex.value == ProfileIndex.SENT_REVIEWS) {
+                if (publishedReviews != null) {
+                    if (publishedReviews.isEmpty()) {
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            modifier = Modifier.fillMaxWidth(),
+                            verticalArrangement = Arrangement.Center
+                        ) {
+                            androidx.compose.material3.Icon(
+                                imageVector = Icons.Default.List,
+                                contentDescription = "",
+                                modifier = Modifier.size(75.dp)
+                            )
+                            androidx.wear.compose.material.Text(
+                                text = stringResource(id = R.string.noReviews),
+                                style = MaterialTheme.typography.titleLarge
+                            )
+                        }
+                    } else {
+                        LazyColumn(
+                            verticalArrangement = Arrangement.SpaceEvenly,
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            items(
+                                items = publishedReviews.toList(),
+                                key = { review -> review.id!! }
+                            ) {
+                                review ->
+                                Card(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    colors = CardDefaults.cardColors(MaterialTheme.colorScheme.secondaryContainer)
+                                ) {
+                                    Card(
+                                        modifier = Modifier.padding(16.dp),
+                                        shape = RoundedCornerShape(8.dp),
+                                    ) {
+                                        Row(
+                                            modifier = Modifier
+                                                .fillMaxWidth()
+                                                .padding(16.dp),
+                                            horizontalArrangement = Arrangement.SpaceBetween
+                                        ) {
+                                            Column(
+                                                modifier = Modifier.weight(8f)
+                                            ) {
+                                                Text(
+                                                    text = review.targetUsername!!,
+                                                    style = MaterialTheme.typography.bodyLarge,
+                                                    color = Color.Gray
+                                                )
+                                                Spacer(modifier = Modifier.height(4.dp))
+                                                Text(
+                                                    text = review.content!!,
+                                                    style = MaterialTheme.typography.labelMedium
+                                                )
+                                            }
+                                            Column(
+                                                modifier = Modifier.weight(1f)
+                                            ) {
+                                                Button(onClick = {
+                                                    reviewViewModel.delete(review.id!!)
+                                                    makeToast(context = context, context.resources.getString(R.string.deletedReview))
+                                                }) {
+                                                    Icon(imageVector = Icons.Filled.Delete, contentDescription = stringResource(
+                                                        id = R.string.deleteReview
+                                                    ))
                                                 }
                                             }
                                         }
@@ -356,4 +510,8 @@ fun PersonalProfileActivity(
             )
         }
     }
+}
+
+private fun makeToast(context: Context, string: String){
+    Toast.makeText(context, string, Toast.LENGTH_LONG).show()
 }

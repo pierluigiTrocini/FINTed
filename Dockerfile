@@ -1,5 +1,4 @@
-FROM eclipse-temurin:17-jdk-alpine
-VOLUME /tmp
-ARG JAR_FILE
-COPY /target/finted-backend.jar finted-backend.jar
+FROM openjdk:17-jdk-alpine
+ARG JAR_FILE=target/*.jar
+COPY ${JAR_FILE} finted-backend.jar
 ENTRYPOINT ["java","-jar","/finted-backend.jar"]
