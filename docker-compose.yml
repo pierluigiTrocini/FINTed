@@ -18,3 +18,13 @@ services:
       - 8080:8080
     depends_on:
       - db_postgres
+      - keycloak
+      
+  keycloak:
+    image: jboss/keycloak
+    ports:
+      - 8090:8080
+    environment:
+      DB_VENDOR: h2
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: admin
