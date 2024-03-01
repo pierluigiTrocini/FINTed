@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+
 import lombok.RequiredArgsConstructor;
 
 @Configuration
@@ -21,7 +22,14 @@ public class SecurityConfig {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http.csrf(csrf -> csrf.disable());
 		http.cors(cors -> cors.disable());
-		http.authorizeHttpRequests(req -> req.anyRequest().authenticated());
+		http.authorizeHttpRequests(req -> {
+			req.requestMatchers(
+					"/v3/api-docs/**", 
+					"/swagger-ui/**",
+					"/users/all/**",
+					"/posts/all/**").permitAll();
+			req.anyRequest().authenticated();
+		});
 		http.oauth2ResourceServer(oauth2 -> {
 			oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthConverter));
 		});

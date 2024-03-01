@@ -42,7 +42,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.wear.compose.material.Icon
 import it.unical.demacs.enterprise.fintedapp.models.OfferDto
-import it.unical.demacs.enterprise.fintedapp.viewmodels.OfferViewModel
+import it.unical.demacs.enterprise.fintedapp.viewmodels.`OfferViewModel.kt`
 import it.unical.demacs.enterprise.fintedapp.viewmodels.PostViewModel
 import it.unical.demacs.enterprise.fintedapp.viewmodels.ReviewViewModel
 import it.unical.demacs.enterprise.fintedapp.viewmodels.UserViewModel
@@ -57,7 +57,7 @@ fun PersonalProfileActivity(
     coroutineScope: CoroutineScope,
     userViewModel: UserViewModel,
     postViewModel: PostViewModel,
-    offerViewModel: OfferViewModel,
+    `anOfferViewModel.kt`: `OfferViewModel.kt`,
     postSheetStates: SnapshotStateMap<Long, Boolean>,
     offerSheetStates: SnapshotStateMap<Long, OfferInfos>,
     reviewViewModel: ReviewViewModel
@@ -189,7 +189,7 @@ fun PersonalProfileActivity(
                                     selectedIndex = selectedIndex,
                                     postType = PostType.FOR_PERSONAL_PROFILE,
                                     userViewModel = userViewModel,
-                                    offerViewModel = offerViewModel,
+                                    `anOfferViewModel.kt` = `anOfferViewModel.kt`,
                                     postSheetStates = postSheetStates
                                 )
                                 }
@@ -292,7 +292,7 @@ fun PersonalProfileActivity(
                                                             selectedIndex = selectedIndex,
                                                             postType = PostType.FOR_PERSONAL_PROFILE,
                                                             userViewModel = userViewModel,
-                                                            offerViewModel = offerViewModel,
+                                                            `anOfferViewModel.kt` = `anOfferViewModel.kt`,
                                                             postSheetStates = null
                                                         )
                                                     }

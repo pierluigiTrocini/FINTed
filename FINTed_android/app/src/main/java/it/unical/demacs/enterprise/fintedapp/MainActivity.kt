@@ -6,23 +6,18 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.List
-import androidx.compose.material.icons.filled.MailOutline
 import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.BottomAppBar
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SearchBar
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -35,9 +30,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import it.unical.demacs.enterprise.fintedapp.ui.theme.FINTed_androidTheme
-import it.unical.demacs.enterprise.fintedapp.viewmodels.OfferViewModel
+import it.unical.demacs.enterprise.fintedapp.viewmodels.`OfferViewModel.kt`
 import it.unical.demacs.enterprise.fintedapp.viewmodels.PostViewModel
 import it.unical.demacs.enterprise.fintedapp.viewmodels.ReviewViewModel
 import it.unical.demacs.enterprise.fintedapp.viewmodels.UserViewModel
@@ -127,7 +121,7 @@ fun Homepage() {
     val accountState = remember { mutableStateOf(AccountState.NO_ACCOUNT) }
 
     val postViewModel = remember { mutableStateOf(PostViewModel()) }
-    val offerViewModel = remember { mutableStateOf(OfferViewModel()) }
+    val `offerViewModel.kt` = remember { mutableStateOf(`OfferViewModel.kt`()) }
     val userViewModel = remember { mutableStateOf(UserViewModel()) }
     val reviewViewModel = remember { mutableStateOf(ReviewViewModel()) }
 
@@ -147,7 +141,7 @@ fun Homepage() {
                     postSheetStates = postSheetStates,
                     postViewModel = postViewModel.value,
                     userViewModel = userViewModel.value,
-                    offerViewModel = offerViewModel.value
+                    `anOfferViewModel.kt` = `offerViewModel.kt`.value
                 )
             }
             if (selectedIndex.value == Index.SELL) {
@@ -163,7 +157,7 @@ fun Homepage() {
                     context,
                     selectedIndex,
                     coroutineScope = coroutineScope,
-                    offerViewModel = offerViewModel,
+                    `anOfferViewModel.kt` = `offerViewModel.kt`,
                     userViewModel = userViewModel,
                     postViewModel = postViewModel,
                     offerSheetStates = offerSheetStates,
@@ -179,7 +173,7 @@ fun Homepage() {
                     userViewModel = userViewModel.value,
 
                     postViewModel = postViewModel.value,
-                    offerViewModel = offerViewModel.value,
+                    `anOfferViewModel.kt` = `offerViewModel.kt`.value,
                     reviewViewModel = reviewViewModel.value,
 
                     postSheetStates = postSheetStates,

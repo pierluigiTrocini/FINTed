@@ -30,7 +30,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import it.unical.demacs.enterprise.fintedapp.models.PostDto
-import it.unical.demacs.enterprise.fintedapp.viewmodels.OfferViewModel
+import it.unical.demacs.enterprise.fintedapp.viewmodels.`OfferViewModel.kt`
 import it.unical.demacs.enterprise.fintedapp.viewmodels.UserViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -44,7 +44,7 @@ fun PostActivity(
     selectedIndex: MutableState<Index>,
     postType: PostType,
     userViewModel: UserViewModel,
-    offerViewModel: OfferViewModel,
+    `anOfferViewModel.kt`: `OfferViewModel.kt`,
     postSheetStates: SnapshotStateMap<Long, Boolean>?
 ){
     Card(
@@ -123,7 +123,7 @@ fun PostActivity(
                                 if (post.id != null) {
                                     post?.id.let {
                                         userViewModel.personalProfile.value.id?.let { it1 ->
-                                            offerViewModel.save(
+                                            `anOfferViewModel.kt`.save(
                                                 postId = it,
                                                 userId = it1,
                                                 offer = offerPrice.value
@@ -136,7 +136,7 @@ fun PostActivity(
                                     postSheetStates[post.id!!] = false
                                     makeToast(context, context.resources.getString(R.string.offerPublishedToast))
                                     userViewModel.personalProfile.value.id?.let {
-                                        offerViewModel.save(post?.id,
+                                        `anOfferViewModel.kt`.save(post?.id,
                                             it, offerPrice.value)
                                     }
                                 }
