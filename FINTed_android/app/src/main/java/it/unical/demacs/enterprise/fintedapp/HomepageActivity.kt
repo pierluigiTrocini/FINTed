@@ -18,7 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import it.unical.demacs.enterprise.fintedapp.viewmodels.`OfferViewModel.kt`
+import it.unical.demacs.enterprise.fintedapp.viewmodels.OfferViewModel
 import it.unical.demacs.enterprise.fintedapp.viewmodels.PostViewModel
 import it.unical.demacs.enterprise.fintedapp.viewmodels.UserViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -30,7 +30,7 @@ fun HomepageActivity(
     coroutineScope: CoroutineScope,
     postViewModel: PostViewModel,
     userViewModel: UserViewModel,
-    `anOfferViewModel.kt`: `OfferViewModel.kt`,
+    offerViewModel: OfferViewModel,
     postSheetStates: SnapshotStateMap<Long, Boolean>,
 ) {
     val page = remember { mutableStateOf(0) }
@@ -66,7 +66,7 @@ fun HomepageActivity(
                             postType = PostType.FOR_HOMEPAGE,
 
                             userViewModel = userViewModel,
-                            `anOfferViewModel.kt` = `anOfferViewModel.kt`
+                            offerViewModel = offerViewModel
                         )
 
                     }

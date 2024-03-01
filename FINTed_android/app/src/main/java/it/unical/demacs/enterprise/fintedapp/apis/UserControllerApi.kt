@@ -98,10 +98,10 @@ class UserControllerApi(basePath: kotlin.String = ApiResources().backendUrl) : A
      * @return UserPersonalProfileDto
      */
     @Suppress("UNCHECKED_CAST")
-    fun getPersonalProfile(id: kotlin.Long): UserPersonalProfileDto {
+    fun getPersonalProfile(username: kotlin.String): UserPersonalProfileDto {
         val localVariableConfig = RequestConfig(
                 RequestMethod.GET,
-                "/users/personal/{id}".replace("{" + "id" + "}", "$id")
+                "/users/personal/{username}".replace("{" + "username" + "}", "$username")
         )
         val response = request<UserPersonalProfileDto>(
                 localVariableConfig

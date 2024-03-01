@@ -5,7 +5,7 @@ import android.widget.Toast
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
-import it.unical.demacs.enterprise.fintedapp.viewmodels.`OfferViewModel.kt`
+import it.unical.demacs.enterprise.fintedapp.viewmodels.OfferViewModel
 import it.unical.demacs.enterprise.fintedapp.viewmodels.UserViewModel
 import kotlinx.coroutines.CoroutineScope
 
@@ -17,7 +17,7 @@ fun OfferActivity(
     selectedIndex: MutableState<Index>,
     coroutineScope: CoroutineScope,
     userViewModel: UserViewModel,
-    `anOfferViewModel.kt`: `OfferViewModel.kt`,
+    offerViewModel: OfferViewModel,
     postId: Long?
 ){
 }

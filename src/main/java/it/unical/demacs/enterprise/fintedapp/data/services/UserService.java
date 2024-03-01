@@ -19,7 +19,7 @@ public interface UserService {
 	
 	UserProfileDto get(long id) throws ElementNotFoundException, NullFieldException;
 	
-	UserPersonalProfileDto getPersonalProfile(Long id) throws ElementNotFoundException, NullFieldException;
+	UserPersonalProfileDto getPersonalProfile(String username) throws ElementNotFoundException, NullFieldException;
 	
 	UserPersonalProfileDto update(UserPersonalProfileDto user) throws ElementNotFoundException, NullFieldException;
 	

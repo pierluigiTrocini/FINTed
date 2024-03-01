@@ -49,9 +49,9 @@ public class UserController {
 		return ResponseEntity.ok(userService.get(id));
 	}
 	
-	@GetMapping("/personal/{id}")
-	public ResponseEntity<UserPersonalProfileDto> getPersonalProfile(@PathVariable("id") Long id) throws ElementNotFoundException, NullFieldException{
-		return ResponseEntity.ok(userService.getPersonalProfile(id));
+	@GetMapping("/personal/{username}")
+	public ResponseEntity<UserPersonalProfileDto> getPersonalProfile(@PathVariable("username") String username) throws ElementNotFoundException, NullFieldException{
+		return ResponseEntity.ok(userService.getPersonalProfile(username));
 	}
 	
 	@PutMapping("/")

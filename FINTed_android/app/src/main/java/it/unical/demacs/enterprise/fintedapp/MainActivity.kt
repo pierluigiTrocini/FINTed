@@ -31,7 +31,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import it.unical.demacs.enterprise.fintedapp.ui.theme.FINTed_androidTheme
-import it.unical.demacs.enterprise.fintedapp.viewmodels.`OfferViewModel.kt`
+import it.unical.demacs.enterprise.fintedapp.viewmodels.OfferViewModel
 import it.unical.demacs.enterprise.fintedapp.viewmodels.PostViewModel
 import it.unical.demacs.enterprise.fintedapp.viewmodels.ReviewViewModel
 import it.unical.demacs.enterprise.fintedapp.viewmodels.UserViewModel
@@ -121,11 +121,11 @@ fun Homepage() {
     val accountState = remember { mutableStateOf(AccountState.NO_ACCOUNT) }
 
     val postViewModel = remember { mutableStateOf(PostViewModel()) }
-    val `offerViewModel.kt` = remember { mutableStateOf(`OfferViewModel.kt`()) }
+    val offerViewModel = remember { mutableStateOf(OfferViewModel()) }
     val userViewModel = remember { mutableStateOf(UserViewModel()) }
     val reviewViewModel = remember { mutableStateOf(ReviewViewModel()) }
 
-    userViewModel.value.getPersonalProfile(3)
+/*    userViewModel.value.getPersonalProfile(3)*/
 
     val context = LocalContext.current
 
@@ -141,7 +141,7 @@ fun Homepage() {
                     postSheetStates = postSheetStates,
                     postViewModel = postViewModel.value,
                     userViewModel = userViewModel.value,
-                    `anOfferViewModel.kt` = `offerViewModel.kt`.value
+                    offerViewModel = offerViewModel.value
                 )
             }
             if (selectedIndex.value == Index.SELL) {
@@ -157,7 +157,7 @@ fun Homepage() {
                     context,
                     selectedIndex,
                     coroutineScope = coroutineScope,
-                    `anOfferViewModel.kt` = `offerViewModel.kt`,
+                    offerViewModel= offerViewModel,
                     userViewModel = userViewModel,
                     postViewModel = postViewModel,
                     offerSheetStates = offerSheetStates,
@@ -173,7 +173,7 @@ fun Homepage() {
                     userViewModel = userViewModel.value,
 
                     postViewModel = postViewModel.value,
-                    `anOfferViewModel.kt` = `offerViewModel.kt`.value,
+                    offerViewModel = offerViewModel.value,
                     reviewViewModel = reviewViewModel.value,
 
                     postSheetStates = postSheetStates,

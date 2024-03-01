@@ -30,7 +30,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.wear.compose.material.Text
-import it.unical.demacs.enterprise.fintedapp.viewmodels.`OfferViewModel.kt`
+import it.unical.demacs.enterprise.fintedapp.viewmodels.OfferViewModel
 import it.unical.demacs.enterprise.fintedapp.viewmodels.PostViewModel
 import it.unical.demacs.enterprise.fintedapp.viewmodels.ReviewViewModel
 import it.unical.demacs.enterprise.fintedapp.viewmodels.UserViewModel
@@ -40,17 +40,17 @@ import kotlinx.coroutines.CoroutineScope
 fun OfferListActivity(
     context: Context,
     selectedIndex: MutableState<Index>,
-    `anOfferViewModel.kt`: MutableState<`OfferViewModel.kt`>,
+    offerViewModel: MutableState<OfferViewModel>,
     userViewModel: MutableState<UserViewModel>,
     offerSheetStates: SnapshotStateMap<Long, OfferInfos>,
     postViewModel: MutableState<PostViewModel>,
     reviewViewModel: ReviewViewModel,
     coroutineScope: CoroutineScope
 ) {
-    `anOfferViewModel.kt`.value.getSellOffers(userViewModel.value.personalProfile.value.id!!)
+    offerViewModel.value.getSellOffers(userViewModel.value.personalProfile.value.id!!)
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Row {
-            if (`anOfferViewModel.kt`.value.offerList.value.isEmpty()) {
+            if (offerViewModel.value.offerList.value.isEmpty()) {
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     modifier = Modifier.fillMaxWidth(),
@@ -65,7 +65,7 @@ fun OfferListActivity(
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
                     items(
-                        items = `anOfferViewModel.kt`.value.offerList.value,
+                        items = offerViewModel.value.offerList.value,
                         key = { offer -> offer.id!! }) { offer ->
 
                         offerSheetStates[offer.id!!] = OfferInfos.NONE
@@ -103,7 +103,7 @@ fun OfferListActivity(
 
                                 Button(
                                     onClick = {
-                                        if(`anOfferViewModel.kt`.value.acceptOffer(offer)){
+                                        if(offerViewModel.value.acceptOffer(offer)){
                                             makeToast(
                                                 context,
                                                 context.resources.getString(R.string.acceptedOffer)
@@ -117,7 +117,7 @@ fun OfferListActivity(
                                 }
                                 Button(
                                     onClick = {
-                                        if(`anOfferViewModel.kt`.value.denyOffer(offer)){
+                                        if(offerViewModel.value.denyOffer(offer)){
                                             makeToast(
                                                 context,
                                                 context.resources.getString(R.string.deniedOffer)
@@ -141,7 +141,7 @@ fun OfferListActivity(
                                                 selectedIndex = selectedIndex,
                                                 postType = PostType.FOR_PERSONAL_PROFILE,
                                                 userViewModel = userViewModel.value,
-                                                `anOfferViewModel.kt` = `anOfferViewModel.kt`.value,
+                                                offerViewModel = offerViewModel.value,
                                                 postSheetStates = null
                                             )
                                         }

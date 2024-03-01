@@ -62,9 +62,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserPersonalProfileDto getPersonalProfile(Long id) throws ElementNotFoundException, NullFieldException {
+	public UserPersonalProfileDto getPersonalProfile(String username) throws ElementNotFoundException, NullFieldException {
 		return modelMapper.map(userDao
-				.findById(Optional.ofNullable(id).orElseThrow(() -> new NullFieldException("no id as request param")))
+				.findByUsername(Optional.ofNullable(username).orElseThrow(() -> new NullFieldException("no id as request param")))
 				.orElseThrow(() -> new ElementNotFoundException("user not found")), UserPersonalProfileDto.class);
 	}
 

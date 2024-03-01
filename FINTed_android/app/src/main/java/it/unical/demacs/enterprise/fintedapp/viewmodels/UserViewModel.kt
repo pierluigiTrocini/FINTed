@@ -88,9 +88,9 @@ class UserViewModel: ViewModel() {
         )
     }
 
-    fun getPersonalProfile(id: Long) {
+    fun getPersonalProfile(username: String) {
         CoroutineScope(Dispatchers.IO).launch {
-            personalProfile.value = userApi.getPersonalProfile(id)
+            personalProfile.value = userApi.getPersonalProfile(username)
         }
     }
 
