@@ -1,6 +1,10 @@
 package it.unical.demacs.enterprise.fintedapp.data.services;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.List;
+
+import org.keycloak.representations.AccessTokenResponse;
 
 import it.unical.demacs.enterprise.fintedapp.dto.UserPersonalProfileDto;
 import it.unical.demacs.enterprise.fintedapp.dto.UserProfileDto;
@@ -11,13 +15,13 @@ import it.unical.demacs.enterprise.fintedapp.exception.NullFieldException;
 
 public interface UserService {
 	
-	void delete(Long id);
+	void delete(String username) throws ElementNotFoundException;
 	
-	UserProfileDto save(UserRegistrationDto user) throws CredentialsAlreadyUsedException, NullFieldException;
+	AccessTokenResponse save(UserRegistrationDto user) throws CredentialsAlreadyUsedException, NullFieldException, MalformedURLException, IOException;
 	
 	List<UserProfileDto> getAll(Integer page);
 	
-	UserProfileDto get(long id) throws ElementNotFoundException, NullFieldException;
+	UserProfileDto get(String username) throws ElementNotFoundException, NullFieldException;
 	
 	UserPersonalProfileDto getPersonalProfile(String username) throws ElementNotFoundException, NullFieldException;
 	

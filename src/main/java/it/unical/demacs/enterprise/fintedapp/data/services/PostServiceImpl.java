@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 
 import it.unical.demacs.enterprise.fintedapp.data.dao.OfferDao;
@@ -43,7 +44,11 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public void delete(Long id) {		
+	public void delete(Long id, String username) throws ElementNotFoundException {
+		Post post = postDao.findById(id).orElseThrow(() -> new ElementNotFoundException("post not found") );
+		if(post.getSeller().getUsername() != username)
+			throw new AccessDeniedException("unauthorized");
+		
 		postDao.deleteById(id);
 		offerDao.postDeleted(OfferStatus.POST_DELETED, id);
 		userDao.refundAll(id);

@@ -28,7 +28,7 @@ public class UserRegistrationDto {
 	private String credentialsEmail;
 	
 	@NotBlank
-	@Pattern(regexp = "^(?=.*\\\\d).{8,}$\r\n")
+//	@Pattern(regexp = "^(?=.*\\\\d).{8,}$\r\n")
 	private String credentialsPassword;
 	
     @NotEmpty

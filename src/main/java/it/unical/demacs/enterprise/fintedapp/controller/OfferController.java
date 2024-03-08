@@ -3,6 +3,7 @@ package it.unical.demacs.enterprise.fintedapp.controller;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,13 +30,14 @@ public class OfferController {
 	private final OfferService offerService;
 	
 	@PostMapping("/")
+	@PreAuthorize("authentication.principal.claims['preferred_username'] == #offer.getUserUsername()")
 	public ResponseEntity<OfferDto> save(@RequestBody OfferDto offer) throws ElementNotFoundException, UnavailableException, NoFundException{
 		return ResponseEntity.ok(offerService.save(offer));
 	}
 	
-	@DeleteMapping("/{id}")
-	public void delete(@PathVariable("id") Long id) {
-		offerService.delete(id);
+	@DeleteMapping("/{username}/{id}")
+	public void delete(@PathVariable("id") Long id, @PathVariable("username") String username) throws ElementNotFoundException {
+		offerService.delete(id, username);
 	}
 	
 	@GetMapping("/post/{id}")
@@ -54,11 +56,13 @@ public class OfferController {
 	}
 	
 	@PutMapping("/accept")
+	@PreAuthorize("authentication.principal.claims['preferred_username'] == #offer.getUserUsername()")
 	public ResponseEntity<OfferDto> acceptOffer(@RequestBody OfferDto offer) throws ElementNotFoundException{
 		return ResponseEntity.ok(offerService.acceptOffer(offer));
 	}
 	
 	@PutMapping("/deny")
+	@PreAuthorize("authentication.principal.claims['preferred_username'] == #offer.getUserUsername()")
 	public ResponseEntity<OfferDto> denyOffer(@RequestBody OfferDto offer) throws ElementNotFoundException, UnavailableException{
 		return ResponseEntity.ok(offerService.denyOffer(offer));
 	}

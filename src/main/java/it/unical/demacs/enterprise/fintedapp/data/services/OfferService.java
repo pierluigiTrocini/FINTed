@@ -12,7 +12,7 @@ public interface OfferService {
 	
 	OfferDto save(OfferDto offer) throws ElementNotFoundException, UnavailableException, NoFundException;
 	
-	void delete(Long id);
+	void delete(Long id, String username) throws ElementNotFoundException;
 	
     List<OfferDto> getPostOffers(Long postId) throws ElementNotFoundException, NullFieldException;
 

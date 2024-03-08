@@ -10,7 +10,7 @@ public interface PostService {
 
 	PostDto save(PostDto post) throws ElementNotFoundException;
 	
-	void delete(Long id);
+	void delete(Long id, String username) throws ElementNotFoundException;
 	
 	List<PostDto> getAll(Integer page);
 	

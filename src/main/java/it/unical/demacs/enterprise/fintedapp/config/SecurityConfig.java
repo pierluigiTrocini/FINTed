@@ -27,7 +27,8 @@ public class SecurityConfig {
 					"/v3/api-docs/**", 
 					"/swagger-ui/**",
 					"/users/all/**",
-					"/posts/all/**").permitAll();
+					"/posts/all/**",
+					"/users/register").permitAll();
 			req.anyRequest().authenticated();
 		});
 		http.oauth2ResourceServer(oauth2 -> {

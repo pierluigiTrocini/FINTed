@@ -21,10 +21,13 @@ services:
       - keycloak
       
   keycloak:
-    image: jboss/keycloak
+    image: quay.io/keycloak/keycloak:22.0.4
+    command: start-dev
     ports:
       - 8090:8080
+    restart: unless-stopped
     environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
       DB_VENDOR: h2
-      KEYCLOAK_USER: finted
-      KEYCLOAK_PASSWORD: finted
+      

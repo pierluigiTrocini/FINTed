@@ -3,6 +3,7 @@ package it.unical.demacs.enterprise.fintedapp.controller;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,13 +29,14 @@ public class PostController {
 	private final PostService postService;
 	
 	@PostMapping("/")
+	@PreAuthorize("authentication.principal.claims['preferred_username'] == #post.getSellerUsername()")
 	public ResponseEntity<PostDto> save(@RequestBody PostDto post) throws CredentialsAlreadyUsedException, NullFieldException, ElementNotFoundException{
 		return ResponseEntity.ok(postService.save(post));
 	}
 	
-	@DeleteMapping("/{id}")
-	public void delete(@PathVariable("id") Long id) {
-		postService.delete(id);
+	@DeleteMapping("/username/{id}")
+	public void delete(@PathVariable("id") Long id, @PathVariable("username") String username) throws ElementNotFoundException {
+		postService.delete(id, username);
 	}
 	
 	@GetMapping("/all/{page}")
@@ -54,6 +56,7 @@ public class PostController {
 	}
 	
 	@PutMapping("/")
+	@PreAuthorize("authentication.principal.claims['preferred_username'] == #post.getSellerUsername()")
 	public ResponseEntity<PostDto> update(@RequestBody PostDto post) throws ElementNotFoundException, NullFieldException{
 		return ResponseEntity.ok(postService.update(post));
 	}

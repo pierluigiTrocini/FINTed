@@ -3,6 +3,7 @@ package it.unical.demacs.enterprise.fintedapp.controller;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import it.unical.demacs.enterprise.fintedapp.data.services.ReviewService;
 import it.unical.demacs.enterprise.fintedapp.dto.ReviewDto;
 import it.unical.demacs.enterprise.fintedapp.exception.ElementNotFoundException;
+
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -25,12 +27,14 @@ public class ReviewController {
 	private final ReviewService reviewService;
 	
 	@PostMapping("/")
+	@PreAuthorize("authentication.principal.claims['preferred_username'] == #review.getAuthorUsername()")
 	public ResponseEntity<ReviewDto> save(@RequestBody ReviewDto review) throws ElementNotFoundException{
 		return ResponseEntity.ok(reviewService.save(review));
 	}
 	
-	@DeleteMapping("/{id}")
-	public void delete(@PathVariable("id") Long id) {
+	@DeleteMapping("/{username}/{id}")
+	@PreAuthorize("authentication.principal.claims['preferred_username'] == #username")
+	public void delete(@PathVariable("id") Long id, @PathVariable("username") String username) {
 		reviewService.delete(id);
 	}
 	
