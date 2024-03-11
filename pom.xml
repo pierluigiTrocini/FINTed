@@ -127,7 +127,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
 					<project>
-						<packaging>jar</packaging>
+						<packaging>pom</packaging>
 					</project>
 					<excludes>
 						<exclude>
