@@ -29,9 +29,9 @@ keycloak:
   realm: finted
   domain: http://keycloak:8090
   adminClientId: admin-cli
-  adminClientSecret: oyLMJY7UGvwcXr4mgabjfvxOJjzBxrJo
+  adminClientSecret: xel4hdu0zIHu5GUFojsB0qLTaZmZtuGx
   client: finted
-  secret: dWqsIb2MFlmFhf5t0AuROGYbXnuTYuJc
+  secret: ULrvUcfGNPpS97eErUGQU7ylVYOPUhHk
   urls:
     auth: http://keycloak:8090
 

@@ -44,7 +44,6 @@ public class Post {
 	@Column(name = "starting_price")
 	private Long startingPrice;
 	
-	@Lob
 	@Column(name = "post_image")
 	private String postImage;
 	

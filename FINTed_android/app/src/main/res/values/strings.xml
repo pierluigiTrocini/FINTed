@@ -78,4 +78,5 @@
     <string name="deletedReview">Recensione cancellata</string>
     <string name="logout">logout</string>
     <string name="update">Aggiorna</string>
+    <string name="refresh">Ricarica</string>
 </resources>

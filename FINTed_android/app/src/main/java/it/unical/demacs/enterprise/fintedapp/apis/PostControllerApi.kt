@@ -44,8 +44,8 @@ class PostControllerApi(basePath: kotlin.String = ApiResources().backendUrl) : A
             ResponseType.Success -> Unit
             ResponseType.Informational -> TODO()
             ResponseType.Redirection -> TODO()
-            ResponseType.ClientError -> throw ClientException((response as ClientError<*>).body as? String ?: "Client error")
-            ResponseType.ServerError -> throw ServerException((response as ServerError<*>).message ?: "Server error")
+            ResponseType.ClientError -> TODO()
+            ResponseType.ServerError -> TODO()
         }
     }
     /**
@@ -73,8 +73,8 @@ class PostControllerApi(basePath: kotlin.String = ApiResources().backendUrl) : A
             ResponseType.Success -> (response as Success<*>).data as PostDto
             ResponseType.Informational -> TODO()
             ResponseType.Redirection -> TODO()
-            ResponseType.ClientError -> throw ClientException((response as ClientError<*>).body as? String ?: "Client error")
-            ResponseType.ServerError -> throw ServerException((response as ServerError<*>).message ?: "Server error")
+            ResponseType.ClientError -> TODO()
+            ResponseType.ServerError -> TODO()
         }
     }
     /**
@@ -102,8 +102,8 @@ class PostControllerApi(basePath: kotlin.String = ApiResources().backendUrl) : A
             ResponseType.Success -> (response as Success<*>).data as kotlin.Array<PostDto>
             ResponseType.Informational -> TODO()
             ResponseType.Redirection -> TODO()
-            ResponseType.ClientError -> throw ClientException((response as ClientError<*>).body as? String ?: "Client error")
-            ResponseType.ServerError -> throw ServerException((response as ServerError<*>).message ?: "Server error")
+            ResponseType.ClientError -> TODO()
+            ResponseType.ServerError -> TODO()
         }
     }
     /**
@@ -132,8 +132,8 @@ class PostControllerApi(basePath: kotlin.String = ApiResources().backendUrl) : A
             ResponseType.Success -> (response as Success<*>).data as kotlin.Array<PostDto>
             ResponseType.Informational -> TODO()
             ResponseType.Redirection -> TODO()
-            ResponseType.ClientError -> throw ClientException((response as ClientError<*>).body as? String ?: "Client error")
-            ResponseType.ServerError -> throw ServerException((response as ServerError<*>).message ?: "Server error")
+            ResponseType.ClientError -> TODO()
+            ResponseType.ServerError -> TODO()
         }
     }
     /**
@@ -162,8 +162,8 @@ class PostControllerApi(basePath: kotlin.String = ApiResources().backendUrl) : A
             ResponseType.Success -> (response as Success<*>).data as PostDto
             ResponseType.Informational -> TODO()
             ResponseType.Redirection -> TODO()
-            ResponseType.ClientError -> throw ClientException((response as ClientError<*>).body as? String ?: "Client error")
-            ResponseType.ServerError -> throw ServerException((response as ServerError<*>).message ?: "Server error")
+            ResponseType.ClientError -> TODO()
+            ResponseType.ServerError -> TODO()
         }
     }
     /**
@@ -192,8 +192,8 @@ class PostControllerApi(basePath: kotlin.String = ApiResources().backendUrl) : A
             ResponseType.Success -> (response as Success<*>).data as PostDto
             ResponseType.Informational -> TODO()
             ResponseType.Redirection -> TODO()
-            ResponseType.ClientError -> throw ClientException((response as ClientError<*>).body as? String ?: "Client error")
-            ResponseType.ServerError -> throw ServerException((response as ServerError<*>).message ?: "Server error")
+            ResponseType.ClientError -> TODO()
+            ResponseType.ServerError -> TODO()
         }
     }
 }

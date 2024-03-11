@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import it.unical.demacs.enterprise.fintedapp.data.entities.PostStatus;
+import jakarta.persistence.Lob;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
@@ -34,7 +35,8 @@ public class PostDto {
 	
 	private PostStatus status;
 	
-//	private String postImage;
+	@Lob
+	private String postImage;
 	
 //	private List<OfferDto> offers;
 

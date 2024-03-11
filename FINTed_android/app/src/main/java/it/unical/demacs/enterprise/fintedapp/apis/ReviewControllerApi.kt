@@ -44,8 +44,8 @@ class ReviewControllerApi(basePath: kotlin.String = ApiResources().backendUrl) :
             ResponseType.Success -> Unit
             ResponseType.Informational -> TODO()
             ResponseType.Redirection -> TODO()
-            ResponseType.ClientError -> throw ClientException((response as ClientError<*>).body as? String ?: "Client error")
-            ResponseType.ServerError -> throw ServerException((response as ServerError<*>).message ?: "Server error")
+            ResponseType.ClientError -> TODO()
+            ResponseType.ServerError -> TODO()
         }
     }
     /**
@@ -73,8 +73,8 @@ class ReviewControllerApi(basePath: kotlin.String = ApiResources().backendUrl) :
             ResponseType.Success -> (response as Success<*>).data as kotlin.Array<ReviewDto>
             ResponseType.Informational -> TODO()
             ResponseType.Redirection -> TODO()
-            ResponseType.ClientError -> throw ClientException((response as ClientError<*>).body as? String ?: "Client error")
-            ResponseType.ServerError -> throw ServerException((response as ServerError<*>).message ?: "Server error")
+            ResponseType.ClientError -> TODO()
+            ResponseType.ServerError -> TODO()
         }
     }
     /**
@@ -102,8 +102,8 @@ class ReviewControllerApi(basePath: kotlin.String = ApiResources().backendUrl) :
             ResponseType.Success -> (response as Success<*>).data as kotlin.Array<ReviewDto>
             ResponseType.Informational -> TODO()
             ResponseType.Redirection -> TODO()
-            ResponseType.ClientError -> throw ClientException((response as ClientError<*>).body as? String ?: "Client error")
-            ResponseType.ServerError -> throw ServerException((response as ServerError<*>).message ?: "Server error")
+            ResponseType.ClientError -> TODO()
+            ResponseType.ServerError -> TODO()
         }
     }
     /**
@@ -132,8 +132,8 @@ class ReviewControllerApi(basePath: kotlin.String = ApiResources().backendUrl) :
             ResponseType.Success -> (response as Success<*>).data as ReviewDto
             ResponseType.Informational -> TODO()
             ResponseType.Redirection -> TODO()
-            ResponseType.ClientError -> throw ClientException((response as ClientError<*>).body as? String ?: "Client error")
-            ResponseType.ServerError -> throw ServerException((response as ServerError<*>).message ?: "Server error")
+            ResponseType.ClientError -> TODO()
+            ResponseType.ServerError -> TODO()
         }
     }
 }

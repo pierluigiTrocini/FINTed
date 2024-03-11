@@ -73,6 +73,9 @@ dependencies {
     testImplementation "io.kotlintest:kotlintest:2.0.7"
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.16.1'
 
+    implementation "androidx.compose.material:material:1.4.0-beta01"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-compose"
+
 
     implementation "androidx.compose.material3:material3:1.1.2"
     implementation "androidx.compose.material3:material3-window-size-class:1.1.2"

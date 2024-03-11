@@ -8,6 +8,8 @@ services:
       POSTGRES_PASSWORD: root
     ports:
       - 5432:5432
+    volumes:
+      - ./VOLUME:/app
 
   springboot:
     image: finted-backend
@@ -19,6 +21,8 @@ services:
     depends_on:
       - db_postgres
       - keycloak
+    volumes:
+      - ./VOLUME:/app
       
   keycloak:
     image: quay.io/keycloak/keycloak:22.0.4
@@ -30,4 +34,6 @@ services:
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
       DB_VENDOR: h2
+    volumes:
+      - ./VOLUME:/app
       

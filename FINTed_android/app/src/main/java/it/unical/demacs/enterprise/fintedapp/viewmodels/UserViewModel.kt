@@ -3,6 +3,7 @@ package it.unical.demacs.enterprise.fintedapp.viewmodels
 import android.content.Context
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.lifecycle.ViewModel
 import it.unical.demacs.enterprise.fintedapp.apis.KeycloakControllerApi
 import it.unical.demacs.enterprise.fintedapp.apis.UserControllerApi
@@ -28,10 +29,6 @@ class UserViewModel() : ViewModel() {
         mutableStateOf(UserPersonalProfileDto())
 
     val basicUser: MutableState<UserProfileDto> = mutableStateOf(UserProfileDto())
-
-    init {
-        logged.value = !accessTokenResponse.value.access_token.isNullOrEmpty()
-    }
 
     fun logout(context: Context) {
         CoroutineScope(Dispatchers.IO).launch {
@@ -82,7 +79,7 @@ class UserViewModel() : ViewModel() {
                     addressCity = addressCity
                 )
             )
-
+            logged.value = true
             personalProfile.value = userApi.getPersonalProfile(
                 username = username,
                 token = accessTokenResponse.value.access_token!!

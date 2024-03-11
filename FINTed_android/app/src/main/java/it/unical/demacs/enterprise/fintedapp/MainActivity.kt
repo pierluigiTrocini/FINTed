@@ -10,11 +10,13 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -59,7 +61,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun BottomBar(selectedIndex: MutableState<Index>) {
+fun BottomBar(selectedIndex: MutableState<Index>, userViewModel: MutableState<UserViewModel>) {
     BottomAppBar() {
         NavigationBar {
             NavigationBarItem(
@@ -111,10 +113,30 @@ fun BottomBar(selectedIndex: MutableState<Index>) {
                     }
                 }
             )
+            NavigationBarItem(
+                selected = selectedIndex.value == Index.REFRESH,
+                onClick = {
+                    userViewModel.value.personalProfile.value.username?.let {
+                        userViewModel.value.getPersonalProfile(
+                            it
+                        )
+                    }
+                },
+                icon = {
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Icon(
+                            Icons.Filled.Refresh,
+                            contentDescription = stringResource(R.string.refresh)
+                        )
+                        Text(stringResource(R.string.refresh))
+                    }
+                }
+            )
         }
     }
 }
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun Homepage() {
     val context = LocalContext.current
@@ -139,9 +161,11 @@ fun Homepage() {
 
     if (userViewModel.value.logged.value) {
         Scaffold(
-            bottomBar = { BottomBar(selectedIndex = selectedIndex) }
+            bottomBar = { BottomBar(selectedIndex = selectedIndex, userViewModel = userViewModel) }
         ) {
-            Box(modifier = Modifier.padding(it)) {
+            Box(
+                modifier = Modifier.padding(it)
+            ) {
                 if (selectedIndex.value == Index.HOMEPAGE) {
                     HomepageActivity(
                         context,

@@ -1,5 +1,6 @@
 package it.unical.demacs.enterprise.fintedapp.data.services;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -29,16 +30,19 @@ public class PostServiceImpl implements PostService {
 	
 	private final OfferDao offerDao;
 	
+	private final ImageService imageService;
+	
 	private final ModelMapper modelMapper;
 
 	@Override
-	public PostDto save(PostDto post) throws ElementNotFoundException {
+	public PostDto save(PostDto post) throws ElementNotFoundException, IOException {
 		if(!userDao.existsById(post.getSellerId()))
 			throw new ElementNotFoundException("User [seller] not found");
 		
 		Post newPost =  modelMapper.map(postDao.save(modelMapper.map(post, Post.class)), Post.class);
 		newPost.setPublishedDate(DateManager.getInstance().currentDateSQLFormat());
 		newPost.setStatus(PostStatus.AVAILABLE);
+		newPost.setPostImage(imageService.compress(post.getPostImage()));
 		
 		return modelMapper.map(postDao.save(newPost), PostDto.class);
 	}
@@ -55,10 +59,18 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public List<PostDto> getAll(Integer page) {
+	public List<PostDto> getAll(Integer page) throws Exception{
 		return postDao.findAll(PageRequest.of(page != null && page >= 0 ? page : 0, 10)).stream()
-				.map(post -> modelMapper.map(post, PostDto.class)).collect(Collectors.toList());
-
+				.map(post -> {
+					PostDto p = modelMapper.map(post, PostDto.class);
+					try {
+						p.setPostImage(imageService.decompress(post.getPostImage()));
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					return p;
+				}).collect(Collectors.toList());
 	}
 
 	@Override

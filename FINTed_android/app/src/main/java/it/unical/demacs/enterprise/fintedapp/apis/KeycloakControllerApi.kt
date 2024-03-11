@@ -41,8 +41,8 @@ class KeycloakControllerApi(basePath: kotlin.String = ApiResources().backendUrl)
             ResponseType.Success -> (response as Success<*>).data as AccessTokenResponse
             ResponseType.Informational -> TODO()
             ResponseType.Redirection -> TODO()
-            ResponseType.ClientError -> throw ClientException((response as ClientError<*>).body as? String ?: "Client error")
-            ResponseType.ServerError -> throw ServerException((response as ServerError<*>).message ?: "Server error")
+            ResponseType.ClientError -> TODO()
+            ResponseType.ServerError -> TODO()
         }
     }
     /**
@@ -68,8 +68,8 @@ class KeycloakControllerApi(basePath: kotlin.String = ApiResources().backendUrl)
             ResponseType.Success -> Unit
             ResponseType.Informational -> TODO()
             ResponseType.Redirection -> TODO()
-            ResponseType.ClientError -> throw ClientException((response as ClientError<*>).body as? String ?: "Client error")
-            ResponseType.ServerError -> throw ServerException((response as ServerError<*>).message ?: "Server error")
+            ResponseType.ClientError -> TODO()
+            ResponseType.ServerError -> TODO()
         }
     }
 }

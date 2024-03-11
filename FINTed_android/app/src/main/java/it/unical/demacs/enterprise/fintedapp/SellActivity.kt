@@ -3,6 +3,7 @@ package it.unical.demacs.enterprise.fintedapp
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -14,6 +15,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
@@ -36,7 +38,7 @@ fun SellActivity(
     selectedIndex: MutableState<Index>,
     userViewModel: MutableState<UserViewModel>,
     postViewModel: MutableState<PostViewModel>
-){
+) {
     val title = remember { mutableStateOf("") };
     val startingPrice = remember { mutableStateOf("") };
     val imageContent = remember { mutableStateOf("") }
@@ -48,11 +50,13 @@ fun SellActivity(
 
     val postImage = rememberLauncherForActivityResult(
         ActivityResultContracts.StartActivityForResult()
-    ){
-        result -> imageContent.value = postViewModel.value.updateImage(result, context)
+    ) { result ->
+        imageContent.value = postViewModel.value.updateImage(result, context)
     }
 
-    Column(modifier = Modifier.padding(20.dp)) {
+    Column(
+        modifier = Modifier.padding(20.dp)
+    ) {
         Row() {
             OutlinedTextField(
                 value = title.value,
@@ -64,9 +68,8 @@ fun SellActivity(
         Row() {
             OutlinedTextField(
                 value = startingPrice.value,
-                onValueChange = {
-                        v ->
-                    if(v.all{ it.isDigit() }){
+                onValueChange = { v ->
+                    if (v.all { it.isDigit() }) {
                         startingPrice.value = v
                     }
                 },
@@ -78,30 +81,33 @@ fun SellActivity(
 
         Spacer(modifier = Modifier.height(30.dp))
 
-        if(imageContent.value.isEmpty()){
+        if (imageContent.value.isEmpty()) {
             Text(text = stringResource(id = R.string.noImage))
-        }
-        else{
-            Image(bitmap = postViewModel.value.decodeImageToBitmap(imageContent.value),
-                contentDescription = stringResource(id = R.string.image))
+        } else {
+            Image(
+                bitmap = postViewModel.value.decodeImageToBitmap(imageContent.value),
+                contentDescription = stringResource(id = R.string.image),
+                modifier = Modifier.size(200.dp)
+            )
+
         }
 
 
-        Row(modifier = Modifier.padding(40.dp)){
+        Row(modifier = Modifier.padding(40.dp)) {
             Button(onClick = { postImage.launch(intent) }) {
                 Text(stringResource(id = R.string.postAddImage))
             }
         }
 
-        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End){
+        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
             Button(onClick = {
                 makeToast(context, context.resources.getString(R.string.postPublishing))
                 selectedIndex.value = Index.HOMEPAGE
-
+                
                 postViewModel.value.publishPost(
                     title = title.value,
                     startingPrice = startingPrice.value,
-                    postImage = imageContent.value,
+                    postImage = "",
                     seller = userViewModel.value.personalProfile.value
                 )
             }) {
@@ -112,6 +118,6 @@ fun SellActivity(
     }
 }
 
-private fun makeToast(context: Context, string: String){
+private fun makeToast(context: Context, string: String) {
     Toast.makeText(context, string, Toast.LENGTH_LONG).show()
 }

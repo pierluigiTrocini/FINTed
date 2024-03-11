@@ -1,5 +1,6 @@
 package it.unical.demacs.enterprise.fintedapp.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -30,7 +31,7 @@ public class PostController {
 	
 	@PostMapping("/")
 	@PreAuthorize("authentication.principal.claims['preferred_username'] == #post.getSellerUsername()")
-	public ResponseEntity<PostDto> save(@RequestBody PostDto post) throws CredentialsAlreadyUsedException, NullFieldException, ElementNotFoundException{
+	public ResponseEntity<PostDto> save(@RequestBody PostDto post) throws CredentialsAlreadyUsedException, NullFieldException, ElementNotFoundException, IOException{
 		return ResponseEntity.ok(postService.save(post));
 	}
 	
@@ -40,7 +41,7 @@ public class PostController {
 	}
 	
 	@GetMapping("/all/{page}")
-	public ResponseEntity<List<PostDto>> getAll(@PathVariable("page") Integer page){
+	public ResponseEntity<List<PostDto>> getAll(@PathVariable("page") Integer page) throws Exception{
 		return ResponseEntity.ok(postService.getAll(page));
 	}
 	
