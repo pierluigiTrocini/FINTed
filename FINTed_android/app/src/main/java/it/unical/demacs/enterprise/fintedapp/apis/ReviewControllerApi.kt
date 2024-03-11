@@ -15,22 +15,29 @@ import it.unical.demacs.enterprise.fintedapp.models.ReviewDto
 import it.unical.demacs.enterprise.fintedapp.models.ServiceError
 
 import it.unical.demacs.enterprise.fintedapp.infrastructure.*
+import okhttp3.Headers
+import okhttp3.internal.addHeaderLenient
 
 class ReviewControllerApi(basePath: kotlin.String = ApiResources().backendUrl) : ApiClient(basePath) {
-
     /**
-     * 
-     * 
-     * @param id  
+     *
+     *
+     * @param id
+     * @param username
      * @return void
      */
-    fun delete1(id: kotlin.Long): Unit {
+    fun delete1(id: kotlin.Long, username: kotlin.String, token: String): Unit {
         val localVariableConfig = RequestConfig(
-                RequestMethod.DELETE,
-                "/reviews/{id}".replace("{" + "id" + "}", "$id")
+            RequestMethod.DELETE,
+            "/reviews/{username}/{id}".replace("{" + "id" + "}", "$id").replace("{" + "username" + "}", "$username")
         )
+
+        localVariableConfig.headers = mapOf(
+            "Authorization" to "Bearer $token"
+        )
+
         val response = request<Any?>(
-                localVariableConfig
+            localVariableConfig
         )
 
         return when (response.responseType) {
@@ -42,19 +49,24 @@ class ReviewControllerApi(basePath: kotlin.String = ApiResources().backendUrl) :
         }
     }
     /**
-     * 
-     * 
-     * @param id  
+     *
+     *
+     * @param id
      * @return kotlin.Array<ReviewDto>
      */
     @Suppress("UNCHECKED_CAST")
-    fun getAuthorReviews(id: kotlin.Long): kotlin.Array<ReviewDto> {
+    fun getAuthorReviews(id: kotlin.Long, token: String): kotlin.Array<ReviewDto> {
         val localVariableConfig = RequestConfig(
-                RequestMethod.GET,
-                "/reviews/author/{id}".replace("{" + "id" + "}", "$id")
+            RequestMethod.GET,
+            "/reviews/author/{id}".replace("{" + "id" + "}", "$id")
         )
+
+        localVariableConfig.headers = mapOf(
+            "Authorization" to "Bearer $token"
+        )
+
         val response = request<kotlin.Array<ReviewDto>>(
-                localVariableConfig
+            localVariableConfig
         )
 
         return when (response.responseType) {
@@ -66,19 +78,24 @@ class ReviewControllerApi(basePath: kotlin.String = ApiResources().backendUrl) :
         }
     }
     /**
-     * 
-     * 
-     * @param id  
+     *
+     *
+     * @param id
      * @return kotlin.Array<ReviewDto>
      */
     @Suppress("UNCHECKED_CAST")
-    fun getTargetReviews(id: kotlin.Long): kotlin.Array<ReviewDto> {
+    fun getTargetReviews(id: kotlin.Long, token: String): kotlin.Array<ReviewDto> {
         val localVariableConfig = RequestConfig(
-                RequestMethod.GET,
-                "/reviews/target/{id}".replace("{" + "id" + "}", "$id")
+            RequestMethod.GET,
+            "/reviews/target/{id}".replace("{" + "id" + "}", "$id")
         )
+
+        localVariableConfig.headers = mapOf(
+            "Authorization" to "Bearer $token"
+        )
+
         val response = request<kotlin.Array<ReviewDto>>(
-                localVariableConfig
+            localVariableConfig
         )
 
         return when (response.responseType) {
@@ -90,20 +107,25 @@ class ReviewControllerApi(basePath: kotlin.String = ApiResources().backendUrl) :
         }
     }
     /**
-     * 
-     * 
-     * @param body  
+     *
+     *
+     * @param body
      * @return ReviewDto
      */
     @Suppress("UNCHECKED_CAST")
-    fun save1(body: ReviewDto): ReviewDto {
+    fun save1(body: ReviewDto, token: String): ReviewDto {
         val localVariableBody: kotlin.Any? = body
         val localVariableConfig = RequestConfig(
-                RequestMethod.POST,
-                "/reviews/"
+            RequestMethod.POST,
+            "/reviews/"
         )
+
+        localVariableConfig.headers = mapOf(
+            "Authorization" to "Bearer $token"
+        )
+
         val response = request<ReviewDto>(
-                localVariableConfig, localVariableBody
+            localVariableConfig, localVariableBody
         )
 
         return when (response.responseType) {

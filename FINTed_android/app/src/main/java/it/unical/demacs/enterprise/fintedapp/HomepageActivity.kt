@@ -28,21 +28,21 @@ fun HomepageActivity(
     context: Context,
     selectedIndex: MutableState<Index>,
     coroutineScope: CoroutineScope,
-    postViewModel: PostViewModel,
-    userViewModel: UserViewModel,
-    offerViewModel: OfferViewModel,
-    postSheetStates: SnapshotStateMap<Long, Boolean>,
+    postViewModel: MutableState<PostViewModel>,
+    userViewModel: MutableState<UserViewModel>,
+    offerViewModel: MutableState<OfferViewModel>,
+    postSheetStates: SnapshotStateMap<Long, Boolean>
 ) {
     val page = remember { mutableStateOf(0) }
-    userViewModel.personalProfile.value.id?.let { postViewModel.getHomepage(page.value, it) }
+    userViewModel.value.personalProfile.value.id?.let { postViewModel.value.getHomepage(page.value, it) }
 
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Row() {
-            Text(text = stringResource(id = R.string.helloworld) + userViewModel.personalProfile.value.firstName + "!",
+            Text(text = stringResource(id = R.string.helloworld) + userViewModel.value.personalProfile.value.firstName + "!",
                 style = MaterialTheme.typography.titleLarge, modifier = Modifier.padding(vertical = 10.dp))
         }
         Row(){
-            if (postViewModel.postList.value.isEmpty()) {
+            if (postViewModel.value.postList.value.isEmpty()) {
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
@@ -53,7 +53,7 @@ fun HomepageActivity(
                     verticalArrangement = Arrangement.SpaceEvenly,
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
-                    items(items = postViewModel.postList.value, key = { post -> post.id!! }) { post ->
+                    items(items = postViewModel.value.postList.value, key = { post -> post.id!! }) { post ->
 
                         postSheetStates[post.id!!] = false
 

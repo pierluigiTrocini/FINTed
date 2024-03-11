@@ -15,22 +15,29 @@ import it.unical.demacs.enterprise.fintedapp.models.PostDto
 import it.unical.demacs.enterprise.fintedapp.models.ServiceError
 
 import it.unical.demacs.enterprise.fintedapp.infrastructure.*
+import okhttp3.Headers
+import okhttp3.internal.addHeaderLenient
 
 class PostControllerApi(basePath: kotlin.String = ApiResources().backendUrl) : ApiClient(basePath) {
 
     /**
-     * 
-     * 
-     * @param id  
+     *
+     *
+     * @param id
      * @return void
      */
-    fun delete2(id: kotlin.Long): Unit {
+    fun delete2(id: kotlin.Long, token: String): Unit {
         val localVariableConfig = RequestConfig(
-                RequestMethod.DELETE,
-                "/posts/{id}".replace("{" + "id" + "}", "$id")
+            RequestMethod.DELETE,
+            "/posts/username/{id}".replace("{" + "id" + "}", "$id")
         )
+
+        localVariableConfig.headers = mapOf(
+            "Authorization" to "Bearer $token"
+        )
+
         val response = request<Any?>(
-                localVariableConfig
+            localVariableConfig
         )
 
         return when (response.responseType) {
@@ -42,19 +49,24 @@ class PostControllerApi(basePath: kotlin.String = ApiResources().backendUrl) : A
         }
     }
     /**
-     * 
-     * 
-     * @param id  
+     *
+     *
+     * @param id
      * @return PostDto
      */
     @Suppress("UNCHECKED_CAST")
-    fun get1(id: kotlin.Long): PostDto {
+    fun get1(id: kotlin.Long, token: String): PostDto {
         val localVariableConfig = RequestConfig(
-                RequestMethod.GET,
-                "/posts/{id}".replace("{" + "id" + "}", "$id")
+            RequestMethod.GET,
+            "/posts/{id}".replace("{" + "id" + "}", "$id")
         )
+
+        localVariableConfig.headers = mapOf(
+            "Authorization" to "Bearer $token"
+        )
+
         val response = request<PostDto>(
-                localVariableConfig
+            localVariableConfig
         )
 
         return when (response.responseType) {
@@ -66,19 +78,24 @@ class PostControllerApi(basePath: kotlin.String = ApiResources().backendUrl) : A
         }
     }
     /**
-     * 
-     * 
-     * @param page  
+     *
+     *
+     * @param page
      * @return kotlin.Array<PostDto>
      */
     @Suppress("UNCHECKED_CAST")
-    fun getAll1(page: kotlin.Int): kotlin.Array<PostDto> {
+    fun getAll1(page: kotlin.Int, token: String): kotlin.Array<PostDto> {
         val localVariableConfig = RequestConfig(
-                RequestMethod.GET,
-                "/posts/all/{page}".replace("{" + "page" + "}", "$page")
+            RequestMethod.GET,
+            "/posts/all/{page}".replace("{" + "page" + "}", "$page")
         )
+
+        localVariableConfig.headers = mapOf(
+            "Authorization" to "Bearer $token"
+        )
+
         val response = request<kotlin.Array<PostDto>>(
-                localVariableConfig
+            localVariableConfig
         )
 
         return when (response.responseType) {
@@ -90,20 +107,25 @@ class PostControllerApi(basePath: kotlin.String = ApiResources().backendUrl) : A
         }
     }
     /**
-     * 
-     * 
-     * @param page  
-     * @param user  
+     *
+     *
+     * @param page
+     * @param user
      * @return kotlin.Array<PostDto>
      */
     @Suppress("UNCHECKED_CAST")
-    fun getHomepage(page: kotlin.Int, user: kotlin.Long): kotlin.Array<PostDto> {
+    fun getHomepage(page: kotlin.Int, user: kotlin.Long, token: String): kotlin.Array<PostDto> {
         val localVariableConfig = RequestConfig(
-                RequestMethod.GET,
-                "/posts/home/{user}/{page}".replace("{" + "page" + "}", "$page").replace("{" + "user" + "}", "$user")
+            RequestMethod.GET,
+            "/posts/home/{user}/{page}".replace("{" + "page" + "}", "$page").replace("{" + "user" + "}", "$user")
         )
+
+        localVariableConfig.headers = mapOf(
+            "Authorization" to "Bearer $token"
+        )
+
         val response = request<kotlin.Array<PostDto>>(
-                localVariableConfig
+            localVariableConfig
         )
 
         return when (response.responseType) {
@@ -115,20 +137,25 @@ class PostControllerApi(basePath: kotlin.String = ApiResources().backendUrl) : A
         }
     }
     /**
-     * 
-     * 
-     * @param body  
+     *
+     *
+     * @param body
      * @return PostDto
      */
     @Suppress("UNCHECKED_CAST")
-    fun save2(body: PostDto): PostDto {
+    fun save2(body: PostDto, token: String): PostDto {
         val localVariableBody: kotlin.Any? = body
         val localVariableConfig = RequestConfig(
-                RequestMethod.POST,
-                "/posts/"
+            RequestMethod.POST,
+            "/posts/"
         )
+
+        localVariableConfig.headers = mapOf(
+            "Authorization" to "Bearer $token"
+        )
+
         val response = request<PostDto>(
-                localVariableConfig, localVariableBody
+            localVariableConfig, localVariableBody
         )
 
         return when (response.responseType) {
@@ -140,20 +167,25 @@ class PostControllerApi(basePath: kotlin.String = ApiResources().backendUrl) : A
         }
     }
     /**
-     * 
-     * 
-     * @param body  
+     *
+     *
+     * @param body
      * @return PostDto
      */
     @Suppress("UNCHECKED_CAST")
-    fun update1(body: PostDto): PostDto {
+    fun update1(body: PostDto, token: String): PostDto {
         val localVariableBody: kotlin.Any? = body
         val localVariableConfig = RequestConfig(
-                RequestMethod.PUT,
-                "/posts/"
+            RequestMethod.PUT,
+            "/posts/"
         )
+
+        localVariableConfig.headers = mapOf(
+            "Authorization" to "Bearer $token"
+        )
+
         val response = request<PostDto>(
-                localVariableConfig, localVariableBody
+            localVariableConfig, localVariableBody
         )
 
         return when (response.responseType) {

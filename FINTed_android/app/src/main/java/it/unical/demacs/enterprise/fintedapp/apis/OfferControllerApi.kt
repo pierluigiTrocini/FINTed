@@ -12,27 +12,34 @@
 package it.unical.demacs.enterprise.fintedapp.apis
 
 import it.unical.demacs.enterprise.fintedapp.models.OfferDto
-import it.unical.demacs.enterprise.fintedapp.models.ServiceError
 
 import it.unical.demacs.enterprise.fintedapp.infrastructure.*
+import okhttp3.Headers
+import okhttp3.internal.addHeaderLenient
 
 class OfferControllerApi(basePath: kotlin.String = ApiResources().backendUrl) : ApiClient(basePath) {
 
     /**
-     * 
-     * 
-     * @param body  
+     *
+     *
+     * @param body
      * @return OfferDto
      */
     @Suppress("UNCHECKED_CAST")
-    fun acceptOffer(body: OfferDto): OfferDto {
+    fun acceptOffer(body: OfferDto, token: String): OfferDto {
         val localVariableBody: kotlin.Any? = body
         val localVariableConfig = RequestConfig(
-                RequestMethod.PUT,
-                "/offers/accept"
+            RequestMethod.PUT,
+            "/offers/accept"
         )
+
+        localVariableConfig.headers = mapOf(
+            "Authorization" to "Bearer $token"
+        )
+
+
         val response = request<OfferDto>(
-                localVariableConfig, localVariableBody
+            localVariableConfig, localVariableBody
         )
 
         return when (response.responseType) {
@@ -44,18 +51,24 @@ class OfferControllerApi(basePath: kotlin.String = ApiResources().backendUrl) : 
         }
     }
     /**
-     * 
-     * 
-     * @param id  
+     *
+     *
+     * @param id
+     * @param username
      * @return void
      */
-    fun delete3(id: kotlin.Long): Unit {
+    fun delete3(id: kotlin.Long, username: kotlin.String, token: String): Unit {
         val localVariableConfig = RequestConfig(
-                RequestMethod.DELETE,
-                "/offers/{id}".replace("{" + "id" + "}", "$id")
+            RequestMethod.DELETE,
+            "/offers/{username}/{id}".replace("{" + "id" + "}", "$id").replace("{" + "username" + "}", "$username")
         )
+
+        localVariableConfig.headers = mapOf(
+            "Authorization" to "Bearer $token"
+        )
+
         val response = request<Any?>(
-                localVariableConfig
+            localVariableConfig
         )
 
         return when (response.responseType) {
@@ -67,20 +80,25 @@ class OfferControllerApi(basePath: kotlin.String = ApiResources().backendUrl) : 
         }
     }
     /**
-     * 
-     * 
-     * @param body  
+     *
+     *
+     * @param body
      * @return OfferDto
      */
     @Suppress("UNCHECKED_CAST")
-    fun denyOffer(body: OfferDto): OfferDto {
+    fun denyOffer(body: OfferDto, token: String): OfferDto {
         val localVariableBody: kotlin.Any? = body
         val localVariableConfig = RequestConfig(
-                RequestMethod.PUT,
-                "/offers/deny"
+            RequestMethod.PUT,
+            "/offers/deny"
         )
+
+        localVariableConfig.headers = mapOf(
+            "Authorization" to "Bearer $token"
+        )
+
         val response = request<OfferDto>(
-                localVariableConfig, localVariableBody
+            localVariableConfig, localVariableBody
         )
 
         return when (response.responseType) {
@@ -92,19 +110,24 @@ class OfferControllerApi(basePath: kotlin.String = ApiResources().backendUrl) : 
         }
     }
     /**
-     * 
-     * 
-     * @param id  
+     *
+     *
+     * @param id
      * @return kotlin.Array<OfferDto>
      */
     @Suppress("UNCHECKED_CAST")
-    fun getPostOffers(id: kotlin.Long): kotlin.Array<OfferDto> {
+    fun getPostOffers(id: kotlin.Long, token: String): kotlin.Array<OfferDto> {
         val localVariableConfig = RequestConfig(
-                RequestMethod.GET,
-                "/offers/post/{id}".replace("{" + "id" + "}", "$id")
+            RequestMethod.GET,
+            "/offers/post/{id}".replace("{" + "id" + "}", "$id")
         )
+
+        localVariableConfig.headers = mapOf(
+            "Authorization" to "Bearer $token"
+        )
+
         val response = request<kotlin.Array<OfferDto>>(
-                localVariableConfig
+            localVariableConfig
         )
 
         return when (response.responseType) {
@@ -116,19 +139,24 @@ class OfferControllerApi(basePath: kotlin.String = ApiResources().backendUrl) : 
         }
     }
     /**
-     * 
-     * 
-     * @param id  
+     *
+     *
+     * @param id
      * @return kotlin.Array<OfferDto>
      */
     @Suppress("UNCHECKED_CAST")
-    fun getSellOffers(id: kotlin.Long): kotlin.Array<OfferDto> {
+    fun getSellOffers(id: kotlin.Long, token: String): kotlin.Array<OfferDto> {
         val localVariableConfig = RequestConfig(
-                RequestMethod.GET,
-                "/offers/seller/{id}".replace("{" + "id" + "}", "$id")
+            RequestMethod.GET,
+            "/offers/seller/{id}".replace("{" + "id" + "}", "$id")
         )
+
+        localVariableConfig.headers = mapOf(
+            "Authorization" to "Bearer $token"
+        )
+
         val response = request<kotlin.Array<OfferDto>>(
-                localVariableConfig
+            localVariableConfig
         )
 
         return when (response.responseType) {
@@ -140,19 +168,24 @@ class OfferControllerApi(basePath: kotlin.String = ApiResources().backendUrl) : 
         }
     }
     /**
-     * 
-     * 
-     * @param id  
+     *
+     *
+     * @param id
      * @return kotlin.Array<OfferDto>
      */
     @Suppress("UNCHECKED_CAST")
-    fun getUserOffers(id: kotlin.Long): kotlin.Array<OfferDto> {
+    fun getUserOffers(id: kotlin.Long, token: String): kotlin.Array<OfferDto> {
         val localVariableConfig = RequestConfig(
-                RequestMethod.GET,
-                "/offers/user/{id}".replace("{" + "id" + "}", "$id")
+            RequestMethod.GET,
+            "/offers/user/{id}".replace("{" + "id" + "}", "$id")
         )
+
+        localVariableConfig.headers = mapOf(
+            "Authorization" to "Bearer $token"
+        )
+
         val response = request<kotlin.Array<OfferDto>>(
-                localVariableConfig
+            localVariableConfig
         )
 
         return when (response.responseType) {
@@ -164,20 +197,25 @@ class OfferControllerApi(basePath: kotlin.String = ApiResources().backendUrl) : 
         }
     }
     /**
-     * 
-     * 
-     * @param body  
+     *
+     *
+     * @param body
      * @return OfferDto
      */
     @Suppress("UNCHECKED_CAST")
-    fun save3(body: OfferDto): OfferDto {
+    fun save3(body: OfferDto, token: String): OfferDto {
         val localVariableBody: kotlin.Any? = body
         val localVariableConfig = RequestConfig(
-                RequestMethod.POST,
-                "/offers/"
+            RequestMethod.POST,
+            "/offers/"
         )
+
+        localVariableConfig.headers = mapOf(
+            "Authorization" to "Bearer $token"
+        )
+
         val response = request<OfferDto>(
-                localVariableConfig, localVariableBody
+            localVariableConfig, localVariableBody
         )
 
         return when (response.responseType) {

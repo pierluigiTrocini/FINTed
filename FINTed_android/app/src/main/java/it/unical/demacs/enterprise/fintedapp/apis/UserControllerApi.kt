@@ -11,28 +11,34 @@
  */
 package it.unical.demacs.enterprise.fintedapp.apis
 
-import it.unical.demacs.enterprise.fintedapp.models.ServiceError
 import it.unical.demacs.enterprise.fintedapp.models.UserPersonalProfileDto
 import it.unical.demacs.enterprise.fintedapp.models.UserProfileDto
 import it.unical.demacs.enterprise.fintedapp.models.UserRegistrationDto
 
 import it.unical.demacs.enterprise.fintedapp.infrastructure.*
+import it.unical.demacs.enterprise.fintedapp.models.security.AccessTokenResponse
+import okhttp3.Headers
+import okhttp3.internal.addHeaderLenient
 
 class UserControllerApi(basePath: kotlin.String = ApiResources().backendUrl) : ApiClient(basePath) {
-
     /**
-     * 
-     * 
-     * @param id  
+     *
+     *
+     * @param username
      * @return void
      */
-    fun delete(id: kotlin.Long): Unit {
+    fun delete(username: kotlin.String, token: String): Unit {
         val localVariableConfig = RequestConfig(
-                RequestMethod.DELETE,
-                "/users/{id}".replace("{" + "id" + "}", "$id")
+            RequestMethod.DELETE,
+            "/users/{username}".replace("{" + "username" + "}", "$username")
         )
+
+        localVariableConfig.headers = mapOf(
+            "Authorization" to "Bearer $token"
+        )
+
         val response = request<Any?>(
-                localVariableConfig
+            localVariableConfig
         )
 
         return when (response.responseType) {
@@ -44,19 +50,24 @@ class UserControllerApi(basePath: kotlin.String = ApiResources().backendUrl) : A
         }
     }
     /**
-     * 
-     * 
-     * @param id  
+     *
+     *
+     * @param username
      * @return UserProfileDto
      */
     @Suppress("UNCHECKED_CAST")
-    fun get(id: kotlin.Long): UserProfileDto {
+    fun get(username: kotlin.String, token: String): UserProfileDto {
         val localVariableConfig = RequestConfig(
-                RequestMethod.GET,
-                "/users/{id}".replace("{" + "id" + "}", "$id")
+            RequestMethod.GET,
+            "/users/{username}".replace("{" + "username" + "}", "$username")
         )
+
+        localVariableConfig.headers = mapOf(
+            "Authorization" to "Bearer $token"
+        )
+
         val response = request<UserProfileDto>(
-                localVariableConfig
+            localVariableConfig
         )
 
         return when (response.responseType) {
@@ -68,19 +79,24 @@ class UserControllerApi(basePath: kotlin.String = ApiResources().backendUrl) : A
         }
     }
     /**
-     * 
-     * 
-     * @param page  
+     *
+     *
+     * @param page
      * @return kotlin.Array<UserProfileDto>
      */
     @Suppress("UNCHECKED_CAST")
-    fun getAll(page: kotlin.Int): kotlin.Array<UserProfileDto> {
+    fun getAll(page: kotlin.Int, token: String): kotlin.Array<UserProfileDto> {
         val localVariableConfig = RequestConfig(
-                RequestMethod.GET,
-                "/users/all/{page}".replace("{" + "page" + "}", "$page")
+            RequestMethod.GET,
+            "/users/all/{page}".replace("{" + "page" + "}", "$page")
         )
+
+        localVariableConfig.headers = mapOf(
+            "Authorization" to "Bearer $token"
+        )
+
         val response = request<kotlin.Array<UserProfileDto>>(
-                localVariableConfig
+            localVariableConfig
         )
 
         return when (response.responseType) {
@@ -92,19 +108,25 @@ class UserControllerApi(basePath: kotlin.String = ApiResources().backendUrl) : A
         }
     }
     /**
-     * 
-     * 
-     * @param id  
+     *
+     *
+     * @param username
      * @return UserPersonalProfileDto
      */
     @Suppress("UNCHECKED_CAST")
-    fun getPersonalProfile(username: kotlin.String): UserPersonalProfileDto {
-        val localVariableConfig = RequestConfig(
-                RequestMethod.GET,
-                "/users/personal/{username}".replace("{" + "username" + "}", "$username")
+    fun getPersonalProfile(username: kotlin.String, token: String): UserPersonalProfileDto {
+        var localVariableConfig = RequestConfig(
+            RequestMethod.GET,
+            "/users/personal/{username}".replace("{" + "username" + "}", "$username")
         )
+
+        localVariableConfig.headers = mapOf(
+            "Authorization" to "Bearer $token"
+        )
+
+
         val response = request<UserPersonalProfileDto>(
-                localVariableConfig
+            localVariableConfig
         )
 
         return when (response.responseType) {
@@ -116,24 +138,25 @@ class UserControllerApi(basePath: kotlin.String = ApiResources().backendUrl) : A
         }
     }
     /**
-     * 
-     * 
-     * @param body  
-     * @return UserProfileDto
+     *
+     *
+     * @param body
+     * @return AccessTokenResponse
      */
     @Suppress("UNCHECKED_CAST")
-    fun save(body: UserRegistrationDto): UserProfileDto {
+    fun save(body: UserRegistrationDto): AccessTokenResponse {
         val localVariableBody: kotlin.Any? = body
         val localVariableConfig = RequestConfig(
-                RequestMethod.POST,
-                "/users/"
+            RequestMethod.POST,
+            "/users/register"
         )
-        val response = request<UserProfileDto>(
-                localVariableConfig, localVariableBody
+
+        val response = request<AccessTokenResponse>(
+            localVariableConfig, localVariableBody
         )
 
         return when (response.responseType) {
-            ResponseType.Success -> (response as Success<*>).data as UserProfileDto
+            ResponseType.Success -> (response as Success<*>).data as AccessTokenResponse
             ResponseType.Informational -> TODO()
             ResponseType.Redirection -> TODO()
             ResponseType.ClientError -> throw ClientException((response as ClientError<*>).body as? String ?: "Client error")
@@ -141,20 +164,25 @@ class UserControllerApi(basePath: kotlin.String = ApiResources().backendUrl) : A
         }
     }
     /**
-     * 
-     * 
-     * @param body  
+     *
+     *
+     * @param body
      * @return UserPersonalProfileDto
      */
     @Suppress("UNCHECKED_CAST")
-    fun update(body: UserPersonalProfileDto): UserPersonalProfileDto {
+    fun update(body: UserPersonalProfileDto, token: String): UserPersonalProfileDto {
         val localVariableBody: kotlin.Any? = body
         val localVariableConfig = RequestConfig(
-                RequestMethod.PUT,
-                "/users/"
+            RequestMethod.PUT,
+            "/users/"
         )
+
+        localVariableConfig.headers = mapOf(
+            "Authorization" to "Bearer $token"
+        )
+
         val response = request<UserPersonalProfileDto>(
-                localVariableConfig, localVariableBody
+            localVariableConfig, localVariableBody
         )
 
         return when (response.responseType) {

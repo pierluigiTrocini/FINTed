@@ -38,11 +38,12 @@ fun ProfileActivity(
     context: Context,
     selectedIndex: MutableState<Index>,
     profile: UserProfileDto,
-    reviewViewModel: ReviewViewModel) {
+    reviewViewModel: MutableState<ReviewViewModel>
+) {
 
-    reviewViewModel.getByTarget(profile.id!!)
+    reviewViewModel.value.getByTarget(profile.id!!)
 
-    val receivedReviews = reviewViewModel.reviewList.value
+    val receivedReviews = reviewViewModel.value.reviewList.value
 
     Column(modifier = Modifier.fillMaxWidth()) {
         Card(

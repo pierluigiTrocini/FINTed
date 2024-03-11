@@ -76,4 +76,6 @@
     <string name="yourSentReviews">recensioni inviate</string>
     <string name="deleteReview">cancella recensione</string>
     <string name="deletedReview">Recensione cancellata</string>
+    <string name="logout">logout</string>
+    <string name="update">Aggiorna</string>
 </resources>

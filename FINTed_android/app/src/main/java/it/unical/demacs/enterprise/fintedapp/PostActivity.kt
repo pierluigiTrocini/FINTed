@@ -43,8 +43,8 @@ fun PostActivity(
     context: Context,
     selectedIndex: MutableState<Index>,
     postType: PostType,
-    userViewModel: UserViewModel,
-    offerViewModel: OfferViewModel,
+    userViewModel: MutableState<UserViewModel>,
+    offerViewModel: MutableState<OfferViewModel>,
     postSheetStates: SnapshotStateMap<Long, Boolean>?
 ){
     Card(
@@ -122,8 +122,8 @@ fun PostActivity(
 
                                 if (post.id != null) {
                                     post?.id.let {
-                                        userViewModel.personalProfile.value.id?.let { it1 ->
-                                            offerViewModel.save(
+                                        userViewModel.value.personalProfile.value.id?.let { it1 ->
+                                            offerViewModel.value.save(
                                                 postId = it,
                                                 userId = it1,
                                                 offer = offerPrice.value
@@ -135,8 +135,8 @@ fun PostActivity(
                                 coroutineScope.launch {
                                     postSheetStates[post.id!!] = false
                                     makeToast(context, context.resources.getString(R.string.offerPublishedToast))
-                                    userViewModel.personalProfile.value.id?.let {
-                                        offerViewModel.save(post?.id,
+                                    userViewModel.value.personalProfile.value.id?.let {
+                                        offerViewModel.value.save(post?.id,
                                             it, offerPrice.value)
                                     }
                                 }

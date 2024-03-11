@@ -44,7 +44,7 @@ fun OfferListActivity(
     userViewModel: MutableState<UserViewModel>,
     offerSheetStates: SnapshotStateMap<Long, OfferInfos>,
     postViewModel: MutableState<PostViewModel>,
-    reviewViewModel: ReviewViewModel,
+    reviewViewModel: MutableState<ReviewViewModel>,
     coroutineScope: CoroutineScope
 ) {
     offerViewModel.value.getSellOffers(userViewModel.value.personalProfile.value.id!!)
@@ -140,14 +140,14 @@ fun OfferListActivity(
                                                 context = context,
                                                 selectedIndex = selectedIndex,
                                                 postType = PostType.FOR_PERSONAL_PROFILE,
-                                                userViewModel = userViewModel.value,
-                                                offerViewModel = offerViewModel.value,
+                                                userViewModel = userViewModel,
+                                                offerViewModel = offerViewModel,
                                                 postSheetStates = null
                                             )
                                         }
                                     }
                                     else if ( offerSheetStates[offer.id!!] == OfferInfos.USER ){
-                                        userViewModel.value.getUser(offer.userId!!)
+                                        userViewModel.value.getUser(offer.userUsername!!)
 
                                         Dialog(onDismissRequest = { offerSheetStates[offer.id!!] = OfferInfos.NONE }) {
                                             ProfileActivity(

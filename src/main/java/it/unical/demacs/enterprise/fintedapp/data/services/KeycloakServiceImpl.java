@@ -79,12 +79,6 @@ public class KeycloakServiceImpl implements KeycloakService {
 	}
 
 	@Override
-	public UserRepresentation getUserById(String userId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public void deleteUser(String username) {
 		for(UserRepresentation user: keycloak.realm(realm).users().searchByUsername(username, true)) {
 			keycloak.realm(realm).users().delete(user.getId());
@@ -107,8 +101,16 @@ public class KeycloakServiceImpl implements KeycloakService {
 				.getAccessToken();
 	}
 
-
-
-
-
+	@Override
+	public void logout(String accessToken) {
+		KeycloakBuilder.builder()
+		.serverUrl(authServerUrl)
+		.realm(realm)
+		.clientId(fintedClientId)
+		.clientSecret(fintedClientSecret)
+		.grantType(OAuth2Constants.CLIENT_CREDENTIALS)
+		.build()
+		.tokenManager()
+		.invalidate(accessToken);
+	}
 }

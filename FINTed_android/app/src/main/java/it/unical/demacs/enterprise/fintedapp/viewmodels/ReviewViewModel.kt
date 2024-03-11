@@ -22,7 +22,9 @@ data class ReviewState (
     val content: String = ""
 )
 
-class ReviewViewModel: ViewModel() {
+class ReviewViewModel(userViewModel: MutableState<UserViewModel>): ViewModel() {
+    private val userViewModel = userViewModel
+
     private val _reviewState = MutableStateFlow(ReviewState())
     val reviewState: StateFlow<ReviewState> = _reviewState.asStateFlow()
     val reviewList: MutableState<List<ReviewDto>> = mutableStateOf(listOf())
@@ -31,32 +33,36 @@ class ReviewViewModel: ViewModel() {
 
     fun publish() {
         CoroutineScope(Dispatchers.IO).launch {
-            reviewApi.save1(
-                ReviewDto(
-                    authorId = reviewState.value.authorId,
-                    targetId = reviewState.value.targetId,
-                    content = reviewState.value.content,
-                    publishDate = null
+            userViewModel.value.accessTokenResponse.value.access_token?.let {
+                reviewApi.save1(
+                    ReviewDto(
+                        authorId = reviewState.value.authorId,
+                        targetId = reviewState.value.targetId,
+                        authorUsername = userViewModel.value.personalProfile.value.username,
+                        content = reviewState.value.content,
+                        publishDate = null
+                    ),
+                    token = it
                 )
-            )
+            }
         }
     }
 
     fun getByAuthor(id: Long) {
         CoroutineScope(Dispatchers.IO).launch {
-            reviewList.value = reviewApi.getAuthorReviews(id).toList()
+            reviewList.value = userViewModel.value.accessTokenResponse.value.access_token?.let { reviewApi.getAuthorReviews(id, token = it).toList() }!!
         }
     }
 
     fun getByTarget(id: Long){
         CoroutineScope(Dispatchers.IO).launch {
-            reviewList.value = reviewApi.getTargetReviews(id).toList()
+            reviewList.value = userViewModel.value.accessTokenResponse.value.access_token?.let { reviewApi.getTargetReviews(id, token = it).toList() }!!
         }
     }
 
-    fun delete(id: Long){
+    fun delete(id: Long, username: String){
         CoroutineScope(Dispatchers.IO).launch {
-            reviewApi.delete1(id)
+            userViewModel.value.accessTokenResponse.value.access_token?.let { reviewApi.delete1(id, username = username, token = it) }
         }
     }
 }

@@ -3,7 +3,6 @@ package it.unical.demacs.enterprise.fintedapp
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -35,8 +34,8 @@ import it.unical.demacs.enterprise.fintedapp.viewmodels.UserViewModel
 fun SellActivity(
     context: Context,
     selectedIndex: MutableState<Index>,
-    userViewModel: UserViewModel,
-    postViewModel: PostViewModel
+    userViewModel: MutableState<UserViewModel>,
+    postViewModel: MutableState<PostViewModel>
 ){
     val title = remember { mutableStateOf("") };
     val startingPrice = remember { mutableStateOf("") };
@@ -50,7 +49,7 @@ fun SellActivity(
     val postImage = rememberLauncherForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ){
-        result -> imageContent.value = postViewModel.updateImage(result, context)
+        result -> imageContent.value = postViewModel.value.updateImage(result, context)
     }
 
     Column(modifier = Modifier.padding(20.dp)) {
@@ -83,7 +82,7 @@ fun SellActivity(
             Text(text = stringResource(id = R.string.noImage))
         }
         else{
-            Image(bitmap = postViewModel.decodeImageToBitmap(imageContent.value),
+            Image(bitmap = postViewModel.value.decodeImageToBitmap(imageContent.value),
                 contentDescription = stringResource(id = R.string.image))
         }
 
@@ -99,11 +98,11 @@ fun SellActivity(
                 makeToast(context, context.resources.getString(R.string.postPublishing))
                 selectedIndex.value = Index.HOMEPAGE
 
-                postViewModel.publishPost(
+                postViewModel.value.publishPost(
                     title = title.value,
                     startingPrice = startingPrice.value,
                     postImage = imageContent.value,
-                    seller = userViewModel.personalProfile.value
+                    seller = userViewModel.value.personalProfile.value
                 )
             }) {
                 Text(stringResource(id = R.string.publish))

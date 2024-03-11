@@ -28,7 +28,8 @@ public class SecurityConfig {
 					"/swagger-ui/**",
 					"/users/all/**",
 					"/posts/all/**",
-					"/users/register").permitAll();
+					"/users/register",
+					"/keycloak/login").permitAll();
 			req.anyRequest().authenticated();
 		});
 		http.oauth2ResourceServer(oauth2 -> {

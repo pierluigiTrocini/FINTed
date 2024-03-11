@@ -32,7 +32,9 @@ data class PostState(
     val publishDate: LocalDateTime? = null,
 )
 
-class PostViewModel : ViewModel() {
+class PostViewModel(userViewModel: MutableState<UserViewModel>) : ViewModel() {
+    private val userViewModel = userViewModel
+
     val postPublishState = MutableStateFlow(PostState())
 
     val postList: MutableState<List<PostDto>> = mutableStateOf(listOf())
@@ -41,40 +43,29 @@ class PostViewModel : ViewModel() {
 
     private val postApi: PostControllerApi = PostControllerApi()
 
-    fun publish() {
-        CoroutineScope(Dispatchers.IO).launch {
-            postApi.save2(
-                PostDto(
-                    sellerId = postPublishState.value.sellerId,
-                    title = postPublishState.value.title,
-                    startingPrice = postPublishState.value.startingPrice.toLong(),
-                    postImage = postPublishState.value.postImage
-                )
-            )
-        }
-    }
-
     fun delete(id: Long) {
         CoroutineScope(Dispatchers.IO).launch {
-            postApi.delete2(id)
+            userViewModel.value.accessTokenResponse.value.access_token?.let { postApi.delete2(id, token = it) }
         }
     }
 
     fun getAll(page: Int) {
         CoroutineScope(Dispatchers.IO).launch {
-            postList.value = postApi.getAll1(page).toList()
+            postList.value =
+                userViewModel.value.accessTokenResponse.value.access_token?.let { postApi.getAll1(page, token = it).toList() }!!
         }
     }
 
     fun getHomepage(page: Int, userId: Long){
         CoroutineScope(Dispatchers.IO).launch {
-            postList.value = postApi.getHomepage(page = page, user = userId).toList()
+            postList.value = userViewModel.value.accessTokenResponse.value.access_token?.let { postApi.getHomepage(page = page, user = userId, token = it).toList() }!!
         }
     }
 
     fun get(id: Long) {
         CoroutineScope(Dispatchers.IO).launch {
-            post.value = postApi.get1(id);
+            post.value =
+                userViewModel.value.accessTokenResponse.value.access_token?.let { postApi.get1(id, token = it) }!!;
         }
     }
     fun publishPost(
@@ -84,14 +75,18 @@ class PostViewModel : ViewModel() {
         seller: UserPersonalProfileDto
     ) {
         CoroutineScope(Dispatchers.IO).launch {
-            postApi.save2(
-                PostDto(
-                    title = title,
-                    startingPrice = startingPrice.toLong(),
-                    postImage = postImage,
-                    sellerId = seller.id
+            userViewModel.value.accessTokenResponse.value.access_token?.let {
+                postApi.save2(
+                    PostDto(
+                        title = title,
+                        startingPrice = startingPrice.toLong(),
+                        postImage = postImage,
+                        sellerId = seller.id,
+                        sellerUsername = userViewModel.value.personalProfile.value.username
+                    ),
+                    token = it
                 )
-            )
+            }
         }
     }
     fun updateImage(result: ActivityResult, context: Context): String {
