@@ -2,8 +2,10 @@ it\unical\demacs\enterprise\fintedapp\config\KeycloakConfig.class
 it\unical\demacs\enterprise\fintedapp\data\entities\Offer.class
 it\unical\demacs\enterprise\fintedapp\controller\OfferController.class
 it\unical\demacs\enterprise\fintedapp\dto\security\Credentials.class
+it\unical\demacs\enterprise\fintedapp\data\services\ImageServiceImpl.class
 it\unical\demacs\enterprise\fintedapp\config\JwtAuthConverter.class
 it\unical\demacs\enterprise\fintedapp\data\dao\UserDao.class
+it\unical\demacs\enterprise\fintedapp\data\services\ImageService.class
 it\unical\demacs\enterprise\fintedapp\dto\UserProfileDto.class
 it\unical\demacs\enterprise\fintedapp\data\entities\Credential.class
 it\unical\demacs\enterprise\fintedapp\data\services\OfferServiceImpl.class
