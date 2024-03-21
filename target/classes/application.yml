@@ -1,0 +1,38 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    url: jdbc:postgresql://db_postgres:5432/postgres
+    username: root
+    password: root
+    hikari:
+      auto-commit: true
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://keycloak:8090/realms/finted
+          jwk-set-uri: http://keycloak:8090/realms/finted/protocol/openid-connect/certs
+
+jwt:
+  auth:
+    converter:
+      resource-id: finted-client
+      principle-attribute: preferred_username
+
+keycloak:
+  realm: finted
+  domain: http://keycloak:8090
+  adminClientId: admin-cli
+  adminClientSecret: xel4hdu0zIHu5GUFojsB0qLTaZmZtuGx
+  client: finted
+  secret: ULrvUcfGNPpS97eErUGQU7ylVYOPUhHk
+  urls:
+    auth: http://keycloak:8090
+
+
