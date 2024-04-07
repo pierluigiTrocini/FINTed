@@ -3,7 +3,7 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://db_postgres:5432/postgres
+    url: jdbc:postgresql://postgres:5432/postgres
     username: root
     password: root
     hikari:
@@ -29,9 +29,9 @@ keycloak:
   realm: finted
   domain: http://keycloak:8090
   adminClientId: admin-cli
-  adminClientSecret: xel4hdu0zIHu5GUFojsB0qLTaZmZtuGx
+  adminClientSecret: qUeaGpCmKJPe2iTdnFk9FSEf8bD3HLCv
   client: finted
-  secret: ULrvUcfGNPpS97eErUGQU7ylVYOPUhHk
+  secret: rJnaRxhqI0V2uUwl3j4bca1MahnbjgKg
   urls:
     auth: http://keycloak:8090
 

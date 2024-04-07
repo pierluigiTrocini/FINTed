@@ -19,6 +19,8 @@ public interface UserService {
 	
 	AccessTokenResponse save(UserRegistrationDto user) throws CredentialsAlreadyUsedException, NullFieldException, MalformedURLException, IOException;
 	
+	UserPersonalProfileDto save1(UserRegistrationDto user) throws CredentialsAlreadyUsedException;
+	
 	List<UserProfileDto> getAll(Integer page);
 	
 	UserProfileDto get(String username) throws ElementNotFoundException, NullFieldException;
