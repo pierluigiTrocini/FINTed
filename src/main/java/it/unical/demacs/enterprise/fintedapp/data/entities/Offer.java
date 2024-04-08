@@ -1,6 +1,6 @@
 package it.unical.demacs.enterprise.fintedapp.data.entities;
 
-import java.sql.Date;
+import java.util.Date;
 
 import it.unical.demacs.enterprise.fintedapp.handler.DateManager;
 import jakarta.persistence.Column;
@@ -32,7 +32,7 @@ public class Offer {
 	private User user;
 	
 	@Column(name = "publish_date")
-	private Date publishDate = DateManager.getInstance().currentDateSQLFormat();;
+	private Date publishDate;
 	
 	@Column
 	private Long offer;

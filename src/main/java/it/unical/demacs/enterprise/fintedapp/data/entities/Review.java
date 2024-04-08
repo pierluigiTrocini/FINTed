@@ -1,6 +1,6 @@
 package it.unical.demacs.enterprise.fintedapp.data.entities;
 
-import java.sql.Date;
+import java.util.Date;
 
 import it.unical.demacs.enterprise.fintedapp.handler.DateManager;
 import jakarta.persistence.Column;
@@ -30,7 +30,7 @@ public class Review {
 	private User target;
 	
 	@Column(name = "published_date")
-	private Date publishedDate = DateManager.getInstance().currentDateSQLFormat();
+	private Date publishedDate;
 	
 	@Column
 	private String content;

@@ -10,7 +10,7 @@ public interface ReviewService {
 
     void delete(Long id);
 
-    List<ReviewDto> getTargetReviews(Long targetId) throws ElementNotFoundException;
-
-    List<ReviewDto> getAuthorReviews(Long authorId) throws ElementNotFoundException;
+    List<ReviewDto> getByTarget(String targetUsername);
+    
+    List<ReviewDto> getPersonal(String username);
 }

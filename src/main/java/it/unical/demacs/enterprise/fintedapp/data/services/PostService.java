@@ -9,16 +9,15 @@ import it.unical.demacs.enterprise.fintedapp.exception.NullFieldException;
 
 public interface PostService {
 
-	PostDto save(PostDto post) throws ElementNotFoundException, IOException;
+	PostDto save(PostDto post);
 	
-	void delete(Long id, String username) throws ElementNotFoundException;
+	void delete(Long postId);
 	
-	List<PostDto> getAll(Integer page) throws Exception;
+	PostDto update(PostDto post);
 	
-	PostDto get(Long id) throws ElementNotFoundException, NullFieldException;
+	PostDto get(Long postId);
 	
-	PostDto update(PostDto post) throws ElementNotFoundException, NullFieldException;
-
-	List<PostDto> getHomepage(Integer page, Long userId);
+	List<PostDto> getByUser(String username);
 	
+	List<PostDto> getAll(Integer page);
 }

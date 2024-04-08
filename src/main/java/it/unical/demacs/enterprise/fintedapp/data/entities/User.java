@@ -1,6 +1,6 @@
 package it.unical.demacs.enterprise.fintedapp.data.entities;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -40,7 +40,7 @@ public class User {
 	private String username;
 	
 	@Column(name = "registration_date")
-	private Date registrationDate = DateManager.getInstance().currentDateSQLFormat();
+	private Date registrationDate;
 	
 	@Column(name = "account_disabled_date", nullable = true)
 	private Date accountDisableDate = null;

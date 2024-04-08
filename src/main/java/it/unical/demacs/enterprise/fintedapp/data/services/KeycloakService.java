@@ -12,7 +12,7 @@ public interface KeycloakService {
 	
 	void deleteUser(String username);
 	
-	AccessTokenResponse getAccessToken(String username, String password) throws MalformedURLException, IOException;
+	AccessTokenResponse login(String username, String password) throws MalformedURLException, IOException;
 	
 	void logout(String accessToken);
 	

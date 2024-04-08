@@ -1,32 +1,28 @@
 package it.unical.demacs.enterprise.fintedapp.data.services;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.List;
 
 import org.keycloak.representations.AccessTokenResponse;
 
+import it.unical.demacs.enterprise.fintedapp.dto.UserDto;
 import it.unical.demacs.enterprise.fintedapp.dto.UserPersonalProfileDto;
 import it.unical.demacs.enterprise.fintedapp.dto.UserProfileDto;
 import it.unical.demacs.enterprise.fintedapp.dto.UserRegistrationDto;
-import it.unical.demacs.enterprise.fintedapp.exception.CredentialsAlreadyUsedException;
-import it.unical.demacs.enterprise.fintedapp.exception.ElementNotFoundException;
-import it.unical.demacs.enterprise.fintedapp.exception.NullFieldException;
 
 public interface UserService {
 	
-	void delete(String username) throws ElementNotFoundException;
+	AccessTokenResponse save(UserRegistrationDto user);
 	
-	AccessTokenResponse save(UserRegistrationDto user) throws CredentialsAlreadyUsedException, NullFieldException, MalformedURLException, IOException;
+	void delete(String username);
 	
-	UserPersonalProfileDto save1(UserRegistrationDto user) throws CredentialsAlreadyUsedException;
+	UserPersonalProfileDto update(UserRegistrationDto user);
 	
-	List<UserProfileDto> getAll(Integer page);
+	UserProfileDto get(String username);
 	
-	UserProfileDto get(String username) throws ElementNotFoundException, NullFieldException;
+	UserPersonalProfileDto getPersonal(String username);
 	
-	UserPersonalProfileDto getPersonalProfile(String username) throws ElementNotFoundException, NullFieldException;
+	List<UserDto> searchByUsername(String username);
 	
-	UserPersonalProfileDto update(UserPersonalProfileDto user) throws ElementNotFoundException, NullFieldException;
+	List<UserDto> getAll(Integer page);
 	
 }

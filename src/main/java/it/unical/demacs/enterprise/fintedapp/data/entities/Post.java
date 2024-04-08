@@ -1,6 +1,6 @@
 package it.unical.demacs.enterprise.fintedapp.data.entities;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -39,7 +39,7 @@ public class Post {
 	private User seller;
 	
 	@Column(name = "published_date")
-	private Date publishedDate = DateManager.getInstance().currentDateSQLFormat();;
+	private Date publishedDate;
 	
 	@Column(name = "starting_price")
 	private Long startingPrice;
