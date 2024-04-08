@@ -1,11 +1,9 @@
 package it.unical.demacs.enterprise.fintedapp.data.services;
 
-import java.io.IOException;
+
 import java.util.List;
 
 import it.unical.demacs.enterprise.fintedapp.dto.PostDto;
-import it.unical.demacs.enterprise.fintedapp.exception.ElementNotFoundException;
-import it.unical.demacs.enterprise.fintedapp.exception.NullFieldException;
 
 public interface PostService {
 

@@ -1,5 +1,6 @@
 package it.unical.demacs.enterprise.fintedapp.data.dao;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -17,6 +18,8 @@ public interface UserDao extends JpaRepository<User, Long>{
 	boolean existsByCredentialsEmail(String email);
 	
 	boolean existsByUsername(String username);
+	
+	List<User> findByUsernameLike(String username);
 	
 	@Modifying
 	@Transactional

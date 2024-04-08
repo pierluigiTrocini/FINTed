@@ -42,9 +42,6 @@ public class User {
 	@Column(name = "registration_date")
 	private Date registrationDate;
 	
-	@Column(name = "account_disabled_date", nullable = true)
-	private Date accountDisableDate = null;
-	
 	@Column(name = "balance")
 	private Long balance = (long) 500;
 	

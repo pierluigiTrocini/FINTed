@@ -8,7 +8,7 @@ import it.unical.demacs.enterprise.fintedapp.data.entities.User;
 
 public interface KeycloakService {
 
-	AccessTokenResponse createKeycloakUser(User user, String password) throws MalformedURLException, IOException;
+	void createKeycloakUser(User user, String password) throws MalformedURLException, IOException;
 	
 	void deleteUser(String username);
 	

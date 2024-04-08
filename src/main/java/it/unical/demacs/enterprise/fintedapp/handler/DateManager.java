@@ -16,10 +16,5 @@ public class DateManager {
 
     public Date currentDate(){
         return new Date(Calendar.getInstance().getTime().getTime());
-    }
-    
-    public java.sql.Date currentDateSQLFormat(){
-    	return new java.sql.Date(Calendar.getInstance().getTimeInMillis());
-    }
- 
+    } 
 }

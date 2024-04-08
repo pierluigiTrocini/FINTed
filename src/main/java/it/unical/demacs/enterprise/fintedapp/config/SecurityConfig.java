@@ -28,7 +28,7 @@ public class SecurityConfig {
 					"/swagger-ui/**",
 					"/users/all/**",
 					"/posts/all/**",
-					"/users/register",
+					"/users/",
 					"/keycloak/login").permitAll();
 			req.anyRequest().authenticated();
 		});
