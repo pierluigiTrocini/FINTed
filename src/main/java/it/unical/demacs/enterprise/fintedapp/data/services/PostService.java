@@ -1,21 +1,21 @@
 package it.unical.demacs.enterprise.fintedapp.data.services;
 
 
+import java.io.IOException;
 import java.util.List;
 
 import it.unical.demacs.enterprise.fintedapp.dto.PostDto;
+import it.unical.demacs.enterprise.fintedapp.exception.ElementNotFoundException;
 
 public interface PostService {
 
-	PostDto save(PostDto post);
+	PostDto save(PostDto post) throws ElementNotFoundException, IOException;
 	
-	void delete(Long postId);
+	void delete(Long postId, String username) throws ElementNotFoundException;
 	
-	PostDto update(PostDto post);
+	PostDto get(Long postId) throws ElementNotFoundException;
 	
-	PostDto get(Long postId);
-	
-	List<PostDto> getByUser(String username);
+	List<PostDto> getByUser(String username) throws ElementNotFoundException;
 	
 	List<PostDto> getAll(Integer page);
 }

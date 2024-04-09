@@ -20,6 +20,7 @@ public class PostDto {
 	
 	private Long id;
 
+	@NotEmpty
 	private String title;
 	
 	@NotNull
