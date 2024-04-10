@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class PostController {
 	private final PostService postService;
 	
-	@PostMapping("/{username}")
+	@PostMapping("/")
 	@PreAuthorize("authentication.principal.claims['preferred_username'].equals(#post.getSellerUsername())")
 	public ResponseEntity<PostDto> save(@RequestBody PostDto post) throws ElementNotFoundException, IOException{
 		return ResponseEntity.ok(postService.save(post));
