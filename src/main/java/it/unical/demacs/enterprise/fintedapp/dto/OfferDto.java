@@ -33,8 +33,10 @@ public class OfferDto {
     
     private String userLastName;
     
-    @NotNull
     private Long postSellerId;
+    
+    @NotNull
+    private String postSellerUsername;
 
     private Long offer;
 

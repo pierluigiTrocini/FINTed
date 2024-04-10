@@ -24,12 +24,12 @@ public interface OfferDao extends JpaRepository<Offer, Long> {
 
 	Boolean existsByUserIdAndPostId(Long userId, Long postId);
 
-	@Transactional
-	@Modifying
-	@Query("UPDATE Offer o SET o.offerStatus = :status WHERE o.post.id = :postId AND o.id != :offerId")
-	void setStatus(@Param("postId") Long id, @Param("status") OfferStatus status, @Param("offerId") Long offerId);
-	
-	@Query("UPDATE Offer o SET o.offerStatus = :status WHERE o.post.id = :id AND o.offerStatus != ACCEPTED")
-	void postDeleted(@Param("status") OfferStatus status, @Param("id") Long postId);
+//	@Transactional
+//	@Modifying
+//	@Query("UPDATE Offer o SET o.offerStatus = :status WHERE o.post.id = :postId AND o.id != :offerId")
+//	void setStatus(@Param("postId") Long id, @Param("status") OfferStatus status, @Param("offerId") Long offerId);
+//	
+//	@Query("UPDATE Offer o SET o.offerStatus = :status WHERE o.post.id = :id AND o.offerStatus != ACCEPTED")
+//	void postDeleted(@Param("status") OfferStatus status, @Param("id") Long postId);
 	
 }

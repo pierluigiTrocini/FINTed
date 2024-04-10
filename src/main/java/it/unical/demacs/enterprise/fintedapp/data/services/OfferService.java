@@ -14,9 +14,9 @@ public interface OfferService {
 	
 	void delete(Long id, String username) throws ElementNotFoundException;
 	
-	List<OfferDto> getPersonalOffers(String username);
+	List<OfferDto> getPersonalOffers(String username) throws ElementNotFoundException;
 	
-	OfferDto acceptOffer(OfferDto offer);
+	void acceptOffer(OfferDto offer, String sellerUsername) throws ElementNotFoundException;
 	
-	OfferDto denyOffer(OfferDto offer);
+	void denyOffer(OfferDto offer, String sellerUsername) throws ElementNotFoundException;
 }

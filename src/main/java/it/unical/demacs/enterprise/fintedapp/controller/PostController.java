@@ -28,8 +28,8 @@ public class PostController {
 	private final PostService postService;
 	
 	@PostMapping("/{username}")
-	@PreAuthorize("authentication.principal.claims['preferred_username'].equals(#username)")
-	public ResponseEntity<PostDto> save(@RequestBody PostDto post, @PathVariable("username") String username) throws ElementNotFoundException, IOException{
+	@PreAuthorize("authentication.principal.claims['preferred_username'].equals(#post.getSellerUsername())")
+	public ResponseEntity<PostDto> save(@RequestBody PostDto post) throws ElementNotFoundException, IOException{
 		return ResponseEntity.ok(postService.save(post));
 	}
 	

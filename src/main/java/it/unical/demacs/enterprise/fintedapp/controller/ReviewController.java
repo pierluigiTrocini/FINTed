@@ -26,8 +26,8 @@ public class ReviewController {
 	private final ReviewService reviewService;
 	
 	@PostMapping("/{username}")
-	@PreAuthorize("authentication.principal.claims['preferred_username'].equals(#username)")
-	public ResponseEntity<ReviewDto> save(@RequestBody ReviewDto review, @PathVariable("username") String username) throws ElementNotFoundException{
+	@PreAuthorize("authentication.principal.claims['preferred_username'].equals(#review.getAuthorUsername())")
+	public ResponseEntity<ReviewDto> save(@RequestBody ReviewDto review) throws ElementNotFoundException{
 		return ResponseEntity.ok(reviewService.save(review));
 	}
 	
