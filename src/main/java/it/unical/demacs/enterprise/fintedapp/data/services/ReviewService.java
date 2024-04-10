@@ -8,9 +8,9 @@ import it.unical.demacs.enterprise.fintedapp.exception.ElementNotFoundException;
 public interface ReviewService {
     ReviewDto save(ReviewDto review) throws ElementNotFoundException;
 
-    void delete(Long id);
+    void delete(Long id, String username) throws ElementNotFoundException;
 
-    List<ReviewDto> getByTarget(String targetUsername);
+    List<ReviewDto> getByTarget(String targetUsername) throws ElementNotFoundException;
     
-    List<ReviewDto> getPersonal(String username);
+    List<ReviewDto> getPersonal(String username) throws ElementNotFoundException;
 }

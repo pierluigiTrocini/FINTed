@@ -18,10 +18,12 @@ public class ReviewDto {
     @NotNull
     private Long authorId;
     
+    @NotNull
     private String authorUsername;
     
     @NotNull
     private Long targetId;
+    
     
     private String targetUsername;
 

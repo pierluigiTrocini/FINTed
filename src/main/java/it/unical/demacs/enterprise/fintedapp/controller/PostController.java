@@ -44,7 +44,7 @@ public class PostController {
 		return ResponseEntity.ok(postService.get(postId));
 	} 
 	
-	@GetMapping("/{username}")
+	@GetMapping("/user/{username}")
 	public ResponseEntity<List<PostDto>> getByUser(@PathVariable("username") String username) throws ElementNotFoundException{
 		return ResponseEntity.ok(postService.getByUser(username));
 	}
