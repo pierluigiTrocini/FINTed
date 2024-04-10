@@ -3,6 +3,7 @@ package it.unical.demacs.enterprise.fintedapp.data.services;
 import java.util.List;
 
 import it.unical.demacs.enterprise.fintedapp.dto.OfferDto;
+import it.unical.demacs.enterprise.fintedapp.dto.SpeditionDto;
 import it.unical.demacs.enterprise.fintedapp.exception.ElementNotFoundException;
 import it.unical.demacs.enterprise.fintedapp.exception.NoFundException;
 import it.unical.demacs.enterprise.fintedapp.exception.NullFieldException;
@@ -16,7 +17,7 @@ public interface OfferService {
 	
 	List<OfferDto> getPersonalOffers(String username) throws ElementNotFoundException;
 	
-	void acceptOffer(OfferDto offer, String sellerUsername) throws ElementNotFoundException;
+	SpeditionDto acceptOffer(OfferDto offer, String sellerUsername) throws ElementNotFoundException;
 	
 	void denyOffer(OfferDto offer, String sellerUsername) throws ElementNotFoundException;
 }

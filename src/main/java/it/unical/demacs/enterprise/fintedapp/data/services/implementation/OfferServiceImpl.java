@@ -14,7 +14,9 @@ import it.unical.demacs.enterprise.fintedapp.data.entities.Offer;
 import it.unical.demacs.enterprise.fintedapp.data.entities.OfferStatus;
 import it.unical.demacs.enterprise.fintedapp.data.entities.User;
 import it.unical.demacs.enterprise.fintedapp.data.services.OfferService;
+import it.unical.demacs.enterprise.fintedapp.data.services.SpeditionService;
 import it.unical.demacs.enterprise.fintedapp.dto.OfferDto;
+import it.unical.demacs.enterprise.fintedapp.dto.SpeditionDto;
 import it.unical.demacs.enterprise.fintedapp.exception.ElementNotFoundException;
 import it.unical.demacs.enterprise.fintedapp.exception.NoFundException;
 import it.unical.demacs.enterprise.fintedapp.handler.DateManager;
@@ -28,6 +30,8 @@ public class OfferServiceImpl implements OfferService {
 	private final OfferDao offerDao;
 	private final UserDao userDao;
 	private final PostDao postDao;
+	
+	private final SpeditionService speditionService;
 	
 	private final ModelMapper modelMapper;
 	
@@ -66,20 +70,22 @@ public class OfferServiceImpl implements OfferService {
 	}
 
 	@Override
-	public void acceptOffer(OfferDto offer, String sellerUsername) throws ElementNotFoundException {
+	public SpeditionDto acceptOffer(OfferDto offer, String sellerUsername) throws ElementNotFoundException {
 		Offer o = offerDao.findById(offer.getId()).orElseThrow(() -> new ElementNotFoundException("offer not found"));	
 		
 		if(!o.getPost().getSeller().getUsername().equals(sellerUsername))
 			throw new AuthorizationDeniedException("unauthorized", null);
-		
+
 		o.setOfferStatus(OfferStatus.ACCEPTED);
 		offerDao.save(o);
+		offerDao.setStatus(o.getPost().getId(), OfferStatus.DENIED, o.getId());
+		
+		return speditionService.save(o);
 	}
 
 	@Override
 	public void denyOffer(OfferDto offer, String sellerUsername) throws ElementNotFoundException {
 		Offer o = offerDao.findById(offer.getId()).orElseThrow(() -> new ElementNotFoundException("offer not found"));
-		User u = userDao.findByUsername(offer.getUserUsername()).orElseThrow(() -> new ElementNotFoundException("user not found"));
 		
 		if(!o.getPost().getSeller().getUsername().equals(sellerUsername))
 			throw new AuthorizationDeniedException("unauthorized", null);

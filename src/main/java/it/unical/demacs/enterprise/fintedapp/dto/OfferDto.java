@@ -44,4 +44,6 @@ public class OfferDto {
     
     private OfferStatus offerStatus;
     
+    private String speditionSpeditionCode;
+    
 }

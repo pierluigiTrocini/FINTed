@@ -28,11 +28,11 @@ public class SecurityConfig {
 					"/v3/api-docs/**", 
 					"/swagger-ui/**",
 					"/users/all/{page}",
+					"/posts/{postId}",
 					"/posts/user/{username}",
 					"/posts/all/{page}",
 					"/reviews/target/{username}").permitAll();
 			req.requestMatchers(HttpMethod.POST, "/users/").permitAll();
-			req.requestMatchers(HttpMethod.GET, "/posts/").permitAll();
 			req.requestMatchers(HttpMethod.POST, "/auth/login").permitAll();
 			req.requestMatchers(HttpMethod.POST, "/auth/logout").permitAll();
 
