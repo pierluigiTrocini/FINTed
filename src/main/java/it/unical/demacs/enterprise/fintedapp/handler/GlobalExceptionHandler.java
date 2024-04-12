@@ -23,6 +23,7 @@ import it.unical.demacs.enterprise.fintedapp.exception.NullFieldException;
 import jakarta.servlet.UnavailableException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ValidationException;
+import jakarta.ws.rs.ForbiddenException;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -90,6 +91,13 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(value = { UnsupportedOperationException.class })
 	@ResponseStatus(HttpStatus.NOT_IMPLEMENTED)
 	public ServiceError handleUnsupportedOperationException(WebRequest req, Exception ex) {
+		LoggerFactory.getLogger(ConsoleAppender.class).error(ex.getMessage(), ex);
+		return errorResponse(req, ex.getMessage());
+	}
+	
+	@ExceptionHandler(value = { ForbiddenException.class })
+	@ResponseStatus(HttpStatus.FORBIDDEN)
+	public ServiceError handleForbiddenException(WebRequest req, Exception ex) {
 		LoggerFactory.getLogger(ConsoleAppender.class).error(ex.getMessage(), ex);
 		return errorResponse(req, ex.getMessage());
 	}

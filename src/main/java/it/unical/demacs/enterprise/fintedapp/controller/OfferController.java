@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import it.unical.demacs.enterprise.fintedapp.data.services.OfferService;
 import it.unical.demacs.enterprise.fintedapp.dto.OfferDto;
+import it.unical.demacs.enterprise.fintedapp.dto.SpeditionDto;
 import it.unical.demacs.enterprise.fintedapp.exception.ElementNotFoundException;
 import it.unical.demacs.enterprise.fintedapp.exception.NoFundException;
 import jakarta.servlet.UnavailableException;
@@ -45,15 +46,21 @@ public class OfferController {
 		return ResponseEntity.ok(offerService.getPersonalOffers(username));
 	}
 	
+	@GetMapping("/your-posts/{username}")
+	@PreAuthorize("authentication.principal.claims['preferred_username'].equals(#username)")
+	public ResponseEntity<List<OfferDto>> getSellsOffers(@PathVariable("username") String username) throws ElementNotFoundException{
+		return ResponseEntity.ok(offerService.getBySellerUsername(username));
+	}
+	
 	@PostMapping("/accept/{username}")
 	@PreAuthorize("authentication.principal.claims['preferred_username'].equals(#offer.getPostSellerUsername())")
-	public void acceptOffer(@RequestBody OfferDto offer, @PathVariable("username") String username) throws ElementNotFoundException {
-		offerService.acceptOffer(offer, username);
+	public ResponseEntity<SpeditionDto> acceptOffer(@RequestBody OfferDto offer, @PathVariable("username") String username) throws ElementNotFoundException {
+		return ResponseEntity.ok(offerService.acceptOffer(offer, username));
 	}
 	
 	@PostMapping("/deny/{username}")
 	@PreAuthorize("authentication.principal.claims['preferred_username'].equals(#offer.getPostSellerUsername())")
-	public void debyOffer(@RequestBody OfferDto offer, @PathVariable("username") String username) throws ElementNotFoundException {
+	public void denyOffer(@RequestBody OfferDto offer, @PathVariable("username") String username) throws ElementNotFoundException {
 		offerService.denyOffer(offer, username);
 	}
 

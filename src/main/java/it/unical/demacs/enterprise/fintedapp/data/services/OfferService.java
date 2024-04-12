@@ -17,6 +17,8 @@ public interface OfferService {
 	
 	List<OfferDto> getPersonalOffers(String username) throws ElementNotFoundException;
 	
+	List<OfferDto> getBySellerUsername(String username) throws ElementNotFoundException;
+	
 	SpeditionDto acceptOffer(OfferDto offer, String sellerUsername) throws ElementNotFoundException;
 	
 	void denyOffer(OfferDto offer, String sellerUsername) throws ElementNotFoundException;

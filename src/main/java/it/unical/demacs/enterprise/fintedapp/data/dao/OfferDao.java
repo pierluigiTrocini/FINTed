@@ -21,6 +21,8 @@ public interface OfferDao extends JpaRepository<Offer, Long> {
 	List<Offer> findAllByUser(User user);
 
 	List<Offer> findAllByPostSellerIdAndOfferStatus(Long sellerId, OfferStatus status);
+	
+	List<Offer> findAllByPostSeller(User seller);
 
 	Boolean existsByUserIdAndPostId(Long userId, Long postId);
 

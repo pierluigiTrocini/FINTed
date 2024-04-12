@@ -36,7 +36,7 @@ public class SpeditionServiceImpl implements SpeditionService {
 		newSpedition.setDate(DateManager.getInstance().currentDate());
 		
 		
-		return modelMapper.map(newSpedition, SpeditionDto.class);
+		return modelMapper.map(speditionDao.save(newSpedition), SpeditionDto.class);
 	}
 
 	@Override

@@ -21,6 +21,7 @@ import it.unical.demacs.enterprise.fintedapp.exception.ElementNotFoundException;
 import it.unical.demacs.enterprise.fintedapp.exception.NoFundException;
 import it.unical.demacs.enterprise.fintedapp.handler.DateManager;
 import jakarta.servlet.UnavailableException;
+import jakarta.ws.rs.ForbiddenException;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -75,6 +76,9 @@ public class OfferServiceImpl implements OfferService {
 		
 		if(!o.getPost().getSeller().getUsername().equals(sellerUsername))
 			throw new AuthorizationDeniedException("unauthorized", null);
+		
+		if(o.getOfferStatus().equals(OfferStatus.DENIED))
+			throw new ForbiddenException("offer already denied");
 
 		o.setOfferStatus(OfferStatus.ACCEPTED);
 		offerDao.save(o);
@@ -92,6 +96,12 @@ public class OfferServiceImpl implements OfferService {
 		
 		o.setOfferStatus(OfferStatus.DENIED);		
 		offerDao.save(o);
+	}
+
+	@Override
+	public List<OfferDto> getBySellerUsername(String username) throws ElementNotFoundException {
+		return offerDao.findAllByPostSeller(userDao.findByUsername(username).orElseThrow(() -> new ElementNotFoundException("user not found")))
+				.stream().map(offer -> modelMapper.map(offer, OfferDto.class)).collect(Collectors.toList());
 	}
 
 }

@@ -12,16 +12,15 @@ services:
     volumes:
       - ./VOLUMES/postgres:/var/lib/postgresql/data
 
-#  springboot:
-#    image: finted-backend
-#    build:
-#      context: .
-#      dockerfile: Dockerfile
-#    ports:
-#      - 8080:8080
-#    depends_on:
-#      - postgres
-#      - keycloak
+  springboot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+      - keycloak
       
   keycloak:
     container_name: keycloak
