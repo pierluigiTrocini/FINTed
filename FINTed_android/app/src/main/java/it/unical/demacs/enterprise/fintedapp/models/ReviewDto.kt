@@ -25,11 +25,11 @@ package it.unical.demacs.enterprise.fintedapp.models
 data class ReviewDto (
 
     val id: kotlin.Long? = null,
-    val authorId: kotlin.Long,
-    val authorUsername: kotlin.String,
-    val targetId: kotlin.Long,
+    val authorId: kotlin.Long? = null,
+    val authorUsername: kotlin.String? = null,
+    val targetId: kotlin.Long? = null,
     val targetUsername: kotlin.String? = null,
-    val publishDate: java.time.LocalDateTime,
-    val content: kotlin.String
+    val publishDate: java.time.LocalDateTime? = null,
+    val content: kotlin.String? = null
 ) {
 }

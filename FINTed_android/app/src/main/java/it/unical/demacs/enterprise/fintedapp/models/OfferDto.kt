@@ -31,14 +31,14 @@ package it.unical.demacs.enterprise.fintedapp.models
 data class OfferDto (
 
     val id: kotlin.Long? = null,
-    val postId: kotlin.Long,
+    val postId: kotlin.Long? = null,
     val postTitle: kotlin.String? = null,
-    val userId: kotlin.Long,
+    val userId: kotlin.Long? = null,
     val userUsername: kotlin.String? = null,
     val userFirstName: kotlin.String? = null,
     val userLastName: kotlin.String? = null,
     val postSellerId: kotlin.Long? = null,
-    val postSellerUsername: kotlin.String,
+    val postSellerUsername: kotlin.String? = null,
     val offer: kotlin.Long? = null,
     val publishDate: java.time.LocalDateTime? = null,
     val offerStatus: OfferStatus? = null,
