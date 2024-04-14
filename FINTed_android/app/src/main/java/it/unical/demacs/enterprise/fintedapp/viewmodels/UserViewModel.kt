@@ -28,7 +28,7 @@ class UserViewModel() : ViewModel() {
         addressRoute: String
     ){
         CoroutineScope(Dispatchers.IO).launch {
-            AccessToken.accessTokenResponse = userControllerApi.save(
+            AuthValues.accessTokenResponse = userControllerApi.save(
                 UserRegistrationDto(
                     id = null,
                     firstName = firstName,
@@ -46,7 +46,7 @@ class UserViewModel() : ViewModel() {
 
     fun getPersonal(username: String){
         CoroutineScope(Dispatchers.IO).launch {
-            personalProfile.value = AccessToken.accessTokenResponse.accessToken?.let {
+            personalProfile.value = AuthValues.accessTokenResponse.accessToken?.let {
                 userControllerApi.getPersonal(
                     username = username,
                     authorization = it
@@ -69,7 +69,7 @@ class UserViewModel() : ViewModel() {
 
     fun delete(username: String){
         CoroutineScope(Dispatchers.IO).launch {
-            AccessToken.accessTokenResponse.accessToken?.let { userControllerApi.delete(username = username, authorization = it) }
+            AuthValues.accessTokenResponse.accessToken?.let { userControllerApi.delete(username = username, authorization = it) }
         }
     }
 }
