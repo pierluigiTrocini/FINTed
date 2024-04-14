@@ -25,12 +25,18 @@ class UserControllerApi(basePath: kotlin.String = "http://localhost:8080") : Api
      * 
      * 
      * @param username  
+     * @param authorization  
      * @return void
      */
-    fun delete(username: kotlin.String): Unit {
+    fun delete(username: kotlin.String, authorization: kotlin.String): Unit {
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        authorization.apply {
+            localVariableHeaders["Authorization"] = this.toString()
+        }
+        localVariableHeaders["Accept"] = "*/*"
         val localVariableConfig = RequestConfig(
                 RequestMethod.DELETE,
-                "/users/{username}".replace("{" + "username" + "}", "$username")
+                "/users/{username}".replace("{" + "username" + "}", "$username"), headers = localVariableHeaders
         )
         val response = request<Any?>(
                 localVariableConfig
@@ -72,13 +78,19 @@ class UserControllerApi(basePath: kotlin.String = "http://localhost:8080") : Api
      * 
      * 
      * @param username  
+     * @param authorization  
      * @return UserPersonalProfileDto
      */
     @Suppress("UNCHECKED_CAST")
-    fun getPersonal(username: kotlin.String): UserPersonalProfileDto {
+    fun getPersonal(username: kotlin.String, authorization: kotlin.String): UserPersonalProfileDto {
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        authorization.apply {
+            localVariableHeaders["Authorization"] = this.toString()
+        }
+        localVariableHeaders["Accept"] = "*/*"
         val localVariableConfig = RequestConfig(
                 RequestMethod.GET,
-                "/users/personal/{username}".replace("{" + "username" + "}", "$username")
+                "/users/personal/{username}".replace("{" + "username" + "}", "$username"), headers = localVariableHeaders
         )
         val response = request<UserPersonalProfileDto>(
                 localVariableConfig
@@ -120,15 +132,46 @@ class UserControllerApi(basePath: kotlin.String = "http://localhost:8080") : Api
     /**
      * 
      * 
+     * @param content  
+     * @return kotlin.Array<UserDto>
+     */
+    @Suppress("UNCHECKED_CAST")
+    fun searchUser(content: kotlin.String): kotlin.Array<UserDto> {
+        val localVariableConfig = RequestConfig(
+                RequestMethod.GET,
+                "/users/search/{content}".replace("{" + "content" + "}", "$content")
+        )
+        val response = request<kotlin.Array<UserDto>>(
+                localVariableConfig
+        )
+
+        return when (response.responseType) {
+            ResponseType.Success -> (response as Success<*>).data as kotlin.Array<UserDto>
+            ResponseType.Informational -> TODO()
+            ResponseType.Redirection -> TODO()
+            ResponseType.ClientError -> throw ClientException((response as ClientError<*>).body as? String ?: "Client error")
+            ResponseType.ServerError -> throw ServerException((response as ServerError<*>).message ?: "Server error")
+        }
+    }
+    /**
+     * 
+     * 
      * @param body  
+     * @param authorization  
      * @return UserPersonalProfileDto
      */
     @Suppress("UNCHECKED_CAST")
-    fun update(body: UserPersonalProfileDto): UserPersonalProfileDto {
+    fun update(body: UserPersonalProfileDto, authorization: kotlin.String): UserPersonalProfileDto {
         val localVariableBody: kotlin.Any? = body
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        authorization.apply {
+            localVariableHeaders["Authorization"] = this.toString()
+        }
+        localVariableHeaders["Content-Type"] = "application/json"
+        localVariableHeaders["Accept"] = "*/*"
         val localVariableConfig = RequestConfig(
                 RequestMethod.PUT,
-                "/users/"
+                "/users/", headers = localVariableHeaders
         )
         val response = request<UserPersonalProfileDto>(
                 localVariableConfig, localVariableBody

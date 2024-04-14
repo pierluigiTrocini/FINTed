@@ -23,15 +23,22 @@ class OfferControllerApi(basePath: kotlin.String = "http://localhost:8080") : Ap
      * 
      * 
      * @param body  
+     * @param authorization  
      * @param username  
      * @return SpeditionDto
      */
     @Suppress("UNCHECKED_CAST")
-    fun acceptOffer(body: OfferDto, username: kotlin.String): SpeditionDto {
+    fun acceptOffer(body: OfferDto, authorization: kotlin.String, username: kotlin.String): SpeditionDto {
         val localVariableBody: kotlin.Any? = body
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        authorization.apply {
+            localVariableHeaders["Authorization"] = this.toString()
+        }
+        localVariableHeaders["Content-Type"] = "application/json"
+        localVariableHeaders["Accept"] = "*/*"
         val localVariableConfig = RequestConfig(
                 RequestMethod.POST,
-                "/offers/accept/{username}".replace("{" + "username" + "}", "$username")
+                "/offers/accept/{username}".replace("{" + "username" + "}", "$username"), headers = localVariableHeaders
         )
         val response = request<SpeditionDto>(
                 localVariableConfig, localVariableBody
@@ -50,12 +57,18 @@ class OfferControllerApi(basePath: kotlin.String = "http://localhost:8080") : Ap
      * 
      * @param username  
      * @param id  
+     * @param authorization  
      * @return void
      */
-    fun delete3(username: kotlin.String, id: kotlin.Long): Unit {
+    fun delete3(username: kotlin.String, id: kotlin.Long, authorization: kotlin.String): Unit {
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        authorization.apply {
+            localVariableHeaders["Authorization"] = this.toString()
+        }
+        localVariableHeaders["Accept"] = "*/*"
         val localVariableConfig = RequestConfig(
                 RequestMethod.DELETE,
-                "/offers/{username}/{id}".replace("{" + "username" + "}", "$username").replace("{" + "id" + "}", "$id")
+                "/offers/{username}/{id}".replace("{" + "username" + "}", "$username").replace("{" + "id" + "}", "$id"), headers = localVariableHeaders
         )
         val response = request<Any?>(
                 localVariableConfig
@@ -73,14 +86,21 @@ class OfferControllerApi(basePath: kotlin.String = "http://localhost:8080") : Ap
      * 
      * 
      * @param body  
+     * @param authorization  
      * @param username  
      * @return void
      */
-    fun denyOffer(body: OfferDto, username: kotlin.String): Unit {
+    fun denyOffer(body: OfferDto, authorization: kotlin.String, username: kotlin.String): Unit {
         val localVariableBody: kotlin.Any? = body
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        authorization.apply {
+            localVariableHeaders["Authorization"] = this.toString()
+        }
+        localVariableHeaders["Content-Type"] = "application/json"
+        localVariableHeaders["Accept"] = "*/*"
         val localVariableConfig = RequestConfig(
                 RequestMethod.POST,
-                "/offers/deny/{username}".replace("{" + "username" + "}", "$username")
+                "/offers/deny/{username}".replace("{" + "username" + "}", "$username"), headers = localVariableHeaders
         )
         val response = request<Any?>(
                 localVariableConfig, localVariableBody
@@ -98,13 +118,19 @@ class OfferControllerApi(basePath: kotlin.String = "http://localhost:8080") : Ap
      * 
      * 
      * @param username  
+     * @param authorization  
      * @return kotlin.Array<OfferDto>
      */
     @Suppress("UNCHECKED_CAST")
-    fun getPersonalOffers(username: kotlin.String): kotlin.Array<OfferDto> {
+    fun getPersonalOffers(username: kotlin.String, authorization: kotlin.String): kotlin.Array<OfferDto> {
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        authorization.apply {
+            localVariableHeaders["Authorization"] = this.toString()
+        }
+        localVariableHeaders["Accept"] = "*/*"
         val localVariableConfig = RequestConfig(
                 RequestMethod.GET,
-                "/offers/personal/{username}".replace("{" + "username" + "}", "$username")
+                "/offers/personal/{username}".replace("{" + "username" + "}", "$username"), headers = localVariableHeaders
         )
         val response = request<kotlin.Array<OfferDto>>(
                 localVariableConfig
@@ -122,13 +148,19 @@ class OfferControllerApi(basePath: kotlin.String = "http://localhost:8080") : Ap
      * 
      * 
      * @param username  
+     * @param authorization  
      * @return kotlin.Array<OfferDto>
      */
     @Suppress("UNCHECKED_CAST")
-    fun getSellsOffers(username: kotlin.String): kotlin.Array<OfferDto> {
+    fun getSellsOffers(username: kotlin.String, authorization: kotlin.String): kotlin.Array<OfferDto> {
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        authorization.apply {
+            localVariableHeaders["Authorization"] = this.toString()
+        }
+        localVariableHeaders["Accept"] = "*/*"
         val localVariableConfig = RequestConfig(
                 RequestMethod.GET,
-                "/offers/your-posts/{username}".replace("{" + "username" + "}", "$username")
+                "/offers/your-posts/{username}".replace("{" + "username" + "}", "$username"), headers = localVariableHeaders
         )
         val response = request<kotlin.Array<OfferDto>>(
                 localVariableConfig
@@ -146,14 +178,21 @@ class OfferControllerApi(basePath: kotlin.String = "http://localhost:8080") : Ap
      * 
      * 
      * @param body  
+     * @param authorization  
      * @return OfferDto
      */
     @Suppress("UNCHECKED_CAST")
-    fun save3(body: OfferDto): OfferDto {
+    fun save3(body: OfferDto, authorization: kotlin.String): OfferDto {
         val localVariableBody: kotlin.Any? = body
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        authorization.apply {
+            localVariableHeaders["Authorization"] = this.toString()
+        }
+        localVariableHeaders["Content-Type"] = "application/json"
+        localVariableHeaders["Accept"] = "*/*"
         val localVariableConfig = RequestConfig(
                 RequestMethod.POST,
-                "/offers/"
+                "/offers/", headers = localVariableHeaders
         )
         val response = request<OfferDto>(
                 localVariableConfig, localVariableBody

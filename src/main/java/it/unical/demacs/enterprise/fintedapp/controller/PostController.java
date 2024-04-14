@@ -18,6 +18,7 @@ import it.unical.demacs.enterprise.fintedapp.exception.ElementNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 
 
 @RestController
@@ -29,13 +30,13 @@ public class PostController {
 	
 	@PostMapping("/")
 	@PreAuthorize("authentication.principal.claims['preferred_username'].equals(#post.getSellerUsername())")
-	public ResponseEntity<PostDto> save(@RequestBody PostDto post) throws ElementNotFoundException, IOException{
+	public ResponseEntity<PostDto> save(@RequestBody PostDto post, @RequestHeader(value="Authorization") String token) throws ElementNotFoundException, IOException{
 		return ResponseEntity.ok(postService.save(post));
 	}
 	
 	@DeleteMapping("/{username}/{postId}")
 	@PreAuthorize("authentication.principal.claims['preferred_username'].equals(#username)")
-	public void delete(@PathVariable("postId") Long postId, @PathVariable("username") String username) throws ElementNotFoundException {
+	public void delete(@PathVariable("postId") Long postId, @PathVariable("username") String username, @RequestHeader(value="Authorization") String token) throws ElementNotFoundException {
 		postService.delete(postId, username);
 	}
 	
@@ -49,8 +50,13 @@ public class PostController {
 		return ResponseEntity.ok(postService.getByUser(username));
 	}
 	
-	@GetMapping("all/{page}")
+	@GetMapping("/all/{page}")
 	public ResponseEntity<List<PostDto>> getAll(@PathVariable("page") Integer page) throws ElementNotFoundException{
 		return ResponseEntity.ok(postService.getAll(page));
+	}
+	
+	@GetMapping("/search/{content}")
+	public ResponseEntity<List<PostDto>> searchByTitle(@PathVariable("content") String content){
+		return ResponseEntity.ok(postService.searchByTitle(content));
 	}
 }

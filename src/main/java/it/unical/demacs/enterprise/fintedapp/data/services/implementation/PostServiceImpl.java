@@ -53,6 +53,12 @@ public class PostServiceImpl implements it.unical.demacs.enterprise.fintedapp.da
 		
 		postDao.delete(post);
 	}
+	
+	@Override
+	public List<PostDto> searchByTitle(String title){
+		return postDao.findAllByTitleLike(title).stream()
+				.map(post -> modelMapper.map(post, PostDto.class)).collect(Collectors.toList());
+	}
 
 	@Override
 	public PostDto get(Long postId) throws ElementNotFoundException {

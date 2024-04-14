@@ -22,13 +22,19 @@ class SpeditionControllerApi(basePath: kotlin.String = "http://localhost:8080") 
      * 
      * 
      * @param username  
+     * @param authorization  
      * @return kotlin.Array<SpeditionDto>
      */
     @Suppress("UNCHECKED_CAST")
-    fun getPersonal1(username: kotlin.String): kotlin.Array<SpeditionDto> {
+    fun getPersonal1(username: kotlin.String, authorization: kotlin.String): kotlin.Array<SpeditionDto> {
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        authorization.apply {
+            localVariableHeaders["Authorization"] = this.toString()
+        }
+        localVariableHeaders["Accept"] = "*/*"
         val localVariableConfig = RequestConfig(
                 RequestMethod.GET,
-                "/speditions/personal/{username}".replace("{" + "username" + "}", "$username")
+                "/speditions/personal/{username}".replace("{" + "username" + "}", "$username"), headers = localVariableHeaders
         )
         val response = request<kotlin.Array<SpeditionDto>>(
                 localVariableConfig

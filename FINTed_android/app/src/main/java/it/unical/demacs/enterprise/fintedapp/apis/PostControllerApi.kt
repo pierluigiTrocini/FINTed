@@ -23,12 +23,18 @@ class PostControllerApi(basePath: kotlin.String = "http://localhost:8080") : Api
      * 
      * @param postId  
      * @param username  
+     * @param authorization  
      * @return void
      */
-    fun delete2(postId: kotlin.Long, username: kotlin.String): Unit {
+    fun delete2(postId: kotlin.Long, username: kotlin.String, authorization: kotlin.String): Unit {
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        authorization.apply {
+            localVariableHeaders["Authorization"] = this.toString()
+        }
+        localVariableHeaders["Accept"] = "*/*"
         val localVariableConfig = RequestConfig(
                 RequestMethod.DELETE,
-                "/posts/{username}/{postId}".replace("{" + "postId" + "}", "$postId").replace("{" + "username" + "}", "$username")
+                "/posts/{username}/{postId}".replace("{" + "postId" + "}", "$postId").replace("{" + "username" + "}", "$username"), headers = localVariableHeaders
         )
         val response = request<Any?>(
                 localVariableConfig
@@ -118,14 +124,21 @@ class PostControllerApi(basePath: kotlin.String = "http://localhost:8080") : Api
      * 
      * 
      * @param body  
+     * @param authorization  
      * @return PostDto
      */
     @Suppress("UNCHECKED_CAST")
-    fun save2(body: PostDto): PostDto {
+    fun save2(body: PostDto, authorization: kotlin.String): PostDto {
         val localVariableBody: kotlin.Any? = body
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        authorization.apply {
+            localVariableHeaders["Authorization"] = this.toString()
+        }
+        localVariableHeaders["Content-Type"] = "application/json"
+        localVariableHeaders["Accept"] = "*/*"
         val localVariableConfig = RequestConfig(
                 RequestMethod.POST,
-                "/posts/"
+                "/posts/", headers = localVariableHeaders
         )
         val response = request<PostDto>(
                 localVariableConfig, localVariableBody
@@ -133,6 +146,30 @@ class PostControllerApi(basePath: kotlin.String = "http://localhost:8080") : Api
 
         return when (response.responseType) {
             ResponseType.Success -> (response as Success<*>).data as PostDto
+            ResponseType.Informational -> TODO()
+            ResponseType.Redirection -> TODO()
+            ResponseType.ClientError -> throw ClientException((response as ClientError<*>).body as? String ?: "Client error")
+            ResponseType.ServerError -> throw ServerException((response as ServerError<*>).message ?: "Server error")
+        }
+    }
+    /**
+     * 
+     * 
+     * @param content  
+     * @return kotlin.Array<PostDto>
+     */
+    @Suppress("UNCHECKED_CAST")
+    fun searchByTitle(content: kotlin.String): kotlin.Array<PostDto> {
+        val localVariableConfig = RequestConfig(
+                RequestMethod.GET,
+                "/posts/search/{content}".replace("{" + "content" + "}", "$content")
+        )
+        val response = request<kotlin.Array<PostDto>>(
+                localVariableConfig
+        )
+
+        return when (response.responseType) {
+            ResponseType.Success -> (response as Success<*>).data as kotlin.Array<PostDto>
             ResponseType.Informational -> TODO()
             ResponseType.Redirection -> TODO()
             ResponseType.ClientError -> throw ClientException((response as ClientError<*>).body as? String ?: "Client error")

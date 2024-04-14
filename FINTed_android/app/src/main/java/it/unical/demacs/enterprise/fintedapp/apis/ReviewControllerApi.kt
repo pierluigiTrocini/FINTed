@@ -23,12 +23,18 @@ class ReviewControllerApi(basePath: kotlin.String = "http://localhost:8080") : A
      * 
      * @param username  
      * @param id  
+     * @param authorization  
      * @return void
      */
-    fun delete1(username: kotlin.String, id: kotlin.Long): Unit {
+    fun delete1(username: kotlin.String, id: kotlin.Long, authorization: kotlin.String): Unit {
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        authorization.apply {
+            localVariableHeaders["Authorization"] = this.toString()
+        }
+        localVariableHeaders["Accept"] = "*/*"
         val localVariableConfig = RequestConfig(
                 RequestMethod.DELETE,
-                "/reviews/{username}/{id}".replace("{" + "username" + "}", "$username").replace("{" + "id" + "}", "$id")
+                "/reviews/{username}/{id}".replace("{" + "username" + "}", "$username").replace("{" + "id" + "}", "$id"), headers = localVariableHeaders
         )
         val response = request<Any?>(
                 localVariableConfig
@@ -70,13 +76,19 @@ class ReviewControllerApi(basePath: kotlin.String = "http://localhost:8080") : A
      * 
      * 
      * @param username  
+     * @param authorization  
      * @return kotlin.Array<ReviewDto>
      */
     @Suppress("UNCHECKED_CAST")
-    fun getPersonal2(username: kotlin.String): kotlin.Array<ReviewDto> {
+    fun getPersonal2(username: kotlin.String, authorization: kotlin.String): kotlin.Array<ReviewDto> {
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        authorization.apply {
+            localVariableHeaders["Authorization"] = this.toString()
+        }
+        localVariableHeaders["Accept"] = "*/*"
         val localVariableConfig = RequestConfig(
                 RequestMethod.GET,
-                "/reviews/personal/{username}".replace("{" + "username" + "}", "$username")
+                "/reviews/personal/{username}".replace("{" + "username" + "}", "$username"), headers = localVariableHeaders
         )
         val response = request<kotlin.Array<ReviewDto>>(
                 localVariableConfig
@@ -94,14 +106,21 @@ class ReviewControllerApi(basePath: kotlin.String = "http://localhost:8080") : A
      * 
      * 
      * @param body  
+     * @param authorization  
      * @return ReviewDto
      */
     @Suppress("UNCHECKED_CAST")
-    fun save1(body: ReviewDto): ReviewDto {
+    fun save1(body: ReviewDto, authorization: kotlin.String): ReviewDto {
         val localVariableBody: kotlin.Any? = body
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        authorization.apply {
+            localVariableHeaders["Authorization"] = this.toString()
+        }
+        localVariableHeaders["Content-Type"] = "application/json"
+        localVariableHeaders["Accept"] = "*/*"
         val localVariableConfig = RequestConfig(
                 RequestMethod.POST,
-                "/reviews/{username}"
+                "/reviews/{username}", headers = localVariableHeaders
         )
         val response = request<ReviewDto>(
                 localVariableConfig, localVariableBody

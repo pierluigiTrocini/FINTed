@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,13 +28,13 @@ public class ReviewController {
 	
 	@PostMapping("/{username}")
 	@PreAuthorize("authentication.principal.claims['preferred_username'].equals(#review.getAuthorUsername())")
-	public ResponseEntity<ReviewDto> save(@RequestBody ReviewDto review) throws ElementNotFoundException{
+	public ResponseEntity<ReviewDto> save(@RequestBody ReviewDto review, @RequestHeader(value="Authorization") String token) throws ElementNotFoundException{
 		return ResponseEntity.ok(reviewService.save(review));
 	}
 	
 	@DeleteMapping("/{username}/{id}")
 	@PreAuthorize("authentication.principal.claims['preferred_username'].equals(#username)")
-	public void delete(@PathVariable("username") String username, @PathVariable("id") Long id) throws ElementNotFoundException {
+	public void delete(@PathVariable("username") String username, @PathVariable("id") Long id, @RequestHeader(value="Authorization") String token) throws ElementNotFoundException {
 		reviewService.delete(id, username);
 	}
 	
@@ -44,7 +45,7 @@ public class ReviewController {
 	
 	@GetMapping("/personal/{username}")
 	@PreAuthorize("authentication.principal.claims['preferred_username'].equals(#username)")
-	public ResponseEntity<List<ReviewDto>> getPersonal(@PathVariable("username") String username) throws ElementNotFoundException{
+	public ResponseEntity<List<ReviewDto>> getPersonal(@PathVariable("username") String username, @RequestHeader(value="Authorization") String token) throws ElementNotFoundException{
 		return ResponseEntity.ok(reviewService.getByTarget(username));
 	}
 

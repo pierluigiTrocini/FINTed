@@ -1,3 +1,5 @@
+#comando: docker-compose up --build -d
+
 version: '3.1'
 services:
   postgres:
@@ -13,6 +15,7 @@ services:
       - ./VOLUMES/postgres:/var/lib/postgresql/data
 
   springboot:
+    restart: always
     build:
       context: .
       dockerfile: Dockerfile

@@ -18,4 +18,6 @@ public interface PostService {
 	List<PostDto> getByUser(String username) throws ElementNotFoundException;
 	
 	List<PostDto> getAll(Integer page);
+
+	List<PostDto> searchByTitle(String title);
 }

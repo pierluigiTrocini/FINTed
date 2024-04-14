@@ -13,4 +13,6 @@ public interface PostDao extends JpaRepository<Post, Long> {
 
 	List<Post> findAllBySellerIdNot(Long sellerId, PageRequest pageRequest);
 	
+	List<Post> findAllByTitleLike(String title);
+	
 }

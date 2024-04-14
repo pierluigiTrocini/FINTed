@@ -13,6 +13,7 @@ import it.unical.demacs.enterprise.fintedapp.dto.SpeditionDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
 
 
 @RestController
@@ -24,7 +25,7 @@ public class SpeditionController {
 	
 	@GetMapping("/personal/{username}")
 	@PreAuthorize("authentication.principal.claims['preferred_username'].equals(#username)")
-	public ResponseEntity<List<SpeditionDto>> getPersonal(@PathVariable("username") String username) {
+	public ResponseEntity<List<SpeditionDto>> getPersonal(@PathVariable("username") String username, @RequestHeader(value="Authorization") String token) {
 		return ResponseEntity.ok(speditionService.getBySeller(username));
 	}
 	
