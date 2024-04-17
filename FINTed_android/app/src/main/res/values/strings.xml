@@ -79,8 +79,6 @@
     <string name="logout">logout</string>
     <string name="update">Aggiorna</string>
     <string name="refresh">Ricarica</string>
-
-    <string name="backend_url">http://192.168.137.1:8080</string>
     <string name="policy">
 <![CDATA[Registrandomi confermo di aver letto e accettato i Termini e Condizioni e l\'Informativa sulla Privacy di Finted. Confermo di avere almeno 18 anni e accetto di ricevere offerte speciali e promozioni Finted.]]></string>
 </resources>

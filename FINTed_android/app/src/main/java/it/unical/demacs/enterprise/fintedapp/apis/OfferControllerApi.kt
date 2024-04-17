@@ -12,14 +12,16 @@
 package it.unical.demacs.enterprise.fintedapp.apis
 
 import android.content.Context
+import android.content.res.Resources
 import android.widget.Toast
+import it.unical.demacs.enterprise.fintedapp.R
 import it.unical.demacs.enterprise.fintedapp.models.OfferDto
 import it.unical.demacs.enterprise.fintedapp.models.SpeditionDto
 
 import it.unical.demacs.enterprise.fintedapp.infrastructure.*
 import it.unical.demacs.enterprise.fintedapp.models.AccessTokenResponse
 
-class OfferControllerApi(basePath: String = "http://localhost:8080", context: Context) : ApiClient(basePath) {
+class OfferControllerApi(basePath: String = ApiUrl.url, context: Context) : ApiClient(basePath) {
 
     val context = context
 

@@ -12,7 +12,9 @@
 package it.unical.demacs.enterprise.fintedapp.apis
 
 import android.content.Context
+import android.content.res.Resources
 import android.widget.Toast
+import it.unical.demacs.enterprise.fintedapp.R
 import it.unical.demacs.enterprise.fintedapp.models.AccessTokenResponse
 import it.unical.demacs.enterprise.fintedapp.models.UserDto
 import it.unical.demacs.enterprise.fintedapp.models.UserPersonalProfileDto
@@ -20,7 +22,7 @@ import it.unical.demacs.enterprise.fintedapp.models.UserRegistrationDto
 
 import it.unical.demacs.enterprise.fintedapp.infrastructure.*
 
-class UserControllerApi(basePath: String = "http://localhost:8080", context: Context) : ApiClient(basePath) {
+class UserControllerApi(basePath: String = ApiUrl.url, context: Context) : ApiClient(basePath) {
 
     val context = context
 

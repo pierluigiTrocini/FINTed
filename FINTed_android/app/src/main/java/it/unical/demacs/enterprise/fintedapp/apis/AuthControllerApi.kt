@@ -12,8 +12,10 @@
 package it.unical.demacs.enterprise.fintedapp.apis
 
 import android.content.Context
+import android.content.res.Resources
 import android.widget.Toast
 import androidx.compose.ui.platform.LocalContext
+import it.unical.demacs.enterprise.fintedapp.R
 import it.unical.demacs.enterprise.fintedapp.models.AccessTokenResponse
 import it.unical.demacs.enterprise.fintedapp.models.Credentials
 import it.unical.demacs.enterprise.fintedapp.models.ServiceError
@@ -21,7 +23,7 @@ import it.unical.demacs.enterprise.fintedapp.models.ServiceError
 import it.unical.demacs.enterprise.fintedapp.infrastructure.*
 import it.unical.demacs.enterprise.fintedapp.ui.utility.ToastMaker
 
-class AuthControllerApi(basePath: kotlin.String = "http://localhost:8080", context: Context) : ApiClient(basePath) {
+class AuthControllerApi(basePath: kotlin.String = ApiUrl.url, context: Context) : ApiClient(basePath) {
 
     val context = context
 
@@ -55,11 +57,11 @@ class AuthControllerApi(basePath: kotlin.String = "http://localhost:8080", conte
             ResponseType.Informational -> TODO()
             ResponseType.Redirection -> TODO()
             ResponseType.ClientError -> {
-                showMessage("Client error: ${(response as ClientError<*>).body as? String ?: "Client error"}")
+                showMessage("Client error")
                 (response as Success<*>).data as AccessTokenResponse
             }
             ResponseType.ServerError -> {
-                showMessage("Server error: ${(response as ClientError<*>).body as? String ?: "Server error"}")
+                showMessage("Server error")
                 (response as Success<*>).data as AccessTokenResponse
             }
         }
