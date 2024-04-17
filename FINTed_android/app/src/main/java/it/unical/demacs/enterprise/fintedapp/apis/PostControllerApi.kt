@@ -11,12 +11,20 @@
  */
 package it.unical.demacs.enterprise.fintedapp.apis
 
+import android.content.Context
+import android.widget.Toast
 import it.unical.demacs.enterprise.fintedapp.models.PostDto
-import it.unical.demacs.enterprise.fintedapp.models.ServiceError
 
 import it.unical.demacs.enterprise.fintedapp.infrastructure.*
+import it.unical.demacs.enterprise.fintedapp.models.AccessTokenResponse
 
-class PostControllerApi(basePath: kotlin.String = "http://localhost:8080") : ApiClient(basePath) {
+class PostControllerApi(basePath: String = "http://localhost:8080", context: Context) : ApiClient(basePath) {
+
+    val context = context
+
+    private fun showMessage(message: String) {
+        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+    }
 
     /**
      * 
@@ -44,8 +52,12 @@ class PostControllerApi(basePath: kotlin.String = "http://localhost:8080") : Api
             ResponseType.Success -> Unit
             ResponseType.Informational -> TODO()
             ResponseType.Redirection -> TODO()
-            ResponseType.ClientError -> throw ClientException((response as ClientError<*>).body as? String ?: "Client error")
-            ResponseType.ServerError -> throw ServerException((response as ServerError<*>).message ?: "Server error")
+            ResponseType.ClientError -> {
+                showMessage("Client error: ${(response as ClientError<*>).body as? String ?: "Client error"}")
+            }
+            ResponseType.ServerError -> {
+                showMessage("Server error: ${(response as ClientError<*>).body as? String ?: "Server error"}")
+            }
         }
     }
     /**
@@ -68,8 +80,14 @@ class PostControllerApi(basePath: kotlin.String = "http://localhost:8080") : Api
             ResponseType.Success -> (response as Success<*>).data as PostDto
             ResponseType.Informational -> TODO()
             ResponseType.Redirection -> TODO()
-            ResponseType.ClientError -> throw ClientException((response as ClientError<*>).body as? String ?: "Client error")
-            ResponseType.ServerError -> throw ServerException((response as ServerError<*>).message ?: "Server error")
+            ResponseType.ClientError -> {
+                showMessage("Client error: ${(response as ClientError<*>).body as? String ?: "Client error"}")
+                (response as Success<*>).data as PostDto
+            }
+            ResponseType.ServerError -> {
+                showMessage("Server error: ${(response as ClientError<*>).body as? String ?: "Server error"}")
+                (response as Success<*>).data as PostDto
+            }
         }
     }
     /**
@@ -92,8 +110,14 @@ class PostControllerApi(basePath: kotlin.String = "http://localhost:8080") : Api
             ResponseType.Success -> (response as Success<*>).data as kotlin.Array<PostDto>
             ResponseType.Informational -> TODO()
             ResponseType.Redirection -> TODO()
-            ResponseType.ClientError -> throw ClientException((response as ClientError<*>).body as? String ?: "Client error")
-            ResponseType.ServerError -> throw ServerException((response as ServerError<*>).message ?: "Server error")
+            ResponseType.ClientError -> {
+                showMessage("Client error: ${(response as ClientError<*>).body as? String ?: "Client error"}")
+                (response as Success<*>).data as Array<PostDto>
+            }
+            ResponseType.ServerError -> {
+                showMessage("Server error: ${(response as ClientError<*>).body as? String ?: "Server error"}")
+                (response as Success<*>).data as Array<PostDto>
+            }
         }
     }
     /**
@@ -116,8 +140,14 @@ class PostControllerApi(basePath: kotlin.String = "http://localhost:8080") : Api
             ResponseType.Success -> (response as Success<*>).data as kotlin.Array<PostDto>
             ResponseType.Informational -> TODO()
             ResponseType.Redirection -> TODO()
-            ResponseType.ClientError -> throw ClientException((response as ClientError<*>).body as? String ?: "Client error")
-            ResponseType.ServerError -> throw ServerException((response as ServerError<*>).message ?: "Server error")
+            ResponseType.ClientError -> {
+                showMessage("Client error: ${(response as ClientError<*>).body as? String ?: "Client error"}")
+                (response as Success<*>).data as Array<PostDto>
+            }
+            ResponseType.ServerError -> {
+                showMessage("Server error: ${(response as ClientError<*>).body as? String ?: "Server error"}")
+                (response as Success<*>).data as Array<PostDto>
+            }
         }
     }
     /**
@@ -148,8 +178,14 @@ class PostControllerApi(basePath: kotlin.String = "http://localhost:8080") : Api
             ResponseType.Success -> (response as Success<*>).data as PostDto
             ResponseType.Informational -> TODO()
             ResponseType.Redirection -> TODO()
-            ResponseType.ClientError -> throw ClientException((response as ClientError<*>).body as? String ?: "Client error")
-            ResponseType.ServerError -> throw ServerException((response as ServerError<*>).message ?: "Server error")
+            ResponseType.ClientError -> {
+                showMessage("Client error: ${(response as ClientError<*>).body as? String ?: "Client error"}")
+                (response as Success<*>).data as PostDto
+            }
+            ResponseType.ServerError -> {
+                showMessage("Server error: ${(response as ClientError<*>).body as? String ?: "Server error"}")
+                (response as Success<*>).data as PostDto
+            }
         }
     }
     /**
@@ -172,8 +208,14 @@ class PostControllerApi(basePath: kotlin.String = "http://localhost:8080") : Api
             ResponseType.Success -> (response as Success<*>).data as kotlin.Array<PostDto>
             ResponseType.Informational -> TODO()
             ResponseType.Redirection -> TODO()
-            ResponseType.ClientError -> throw ClientException((response as ClientError<*>).body as? String ?: "Client error")
-            ResponseType.ServerError -> throw ServerException((response as ServerError<*>).message ?: "Server error")
+            ResponseType.ClientError -> {
+                showMessage("Client error: ${(response as ClientError<*>).body as? String ?: "Client error"}")
+                (response as Success<*>).data as Array<PostDto>
+            }
+            ResponseType.ServerError -> {
+                showMessage("Server error: ${(response as ClientError<*>).body as? String ?: "Server error"}")
+                (response as Success<*>).data as Array<PostDto>
+            }
         }
     }
 }

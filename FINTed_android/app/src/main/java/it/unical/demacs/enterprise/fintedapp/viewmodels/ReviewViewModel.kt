@@ -1,5 +1,6 @@
 package it.unical.demacs.enterprise.fintedapp.viewmodels
 
+import android.content.Context
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -9,8 +10,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class ReviewViewModel() : ViewModel() {
-    private val reviewControllerApi: ReviewControllerApi = ReviewControllerApi()
+class ReviewViewModel(context: Context) : ViewModel() {
+    private val reviewControllerApi: ReviewControllerApi = ReviewControllerApi(context = context)
 
     val reviewList: MutableState<List<ReviewDto>> = mutableStateOf(listOf())
     val review: MutableState<ReviewDto> = mutableStateOf(ReviewDto())

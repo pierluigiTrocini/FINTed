@@ -11,13 +11,13 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class AuthViewModel() : ViewModel(){
-    private val authControllerApi: AuthControllerApi = AuthControllerApi()
-    private val userControllerApi: UserControllerApi = UserControllerApi()
+class AuthViewModel(context: Context) : ViewModel(){
+    private val authControllerApi: AuthControllerApi = AuthControllerApi(context = context)
+    private val userControllerApi: UserControllerApi = UserControllerApi(context = context)
 
     fun login(credentials: Credentials, context: Context) {
         CoroutineScope(Dispatchers.IO).launch {
-            AuthValues.accessTokenResponse = authControllerApi.login(Credentials())
+            AuthValues.accessTokenResponse = authControllerApi.login(credentials)
             AuthValues.personalProfile = userControllerApi.getPersonal(
                 authorization = AuthValues.accessTokenResponse.accessToken!!,
                 username = credentials.username!!)

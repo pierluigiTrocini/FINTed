@@ -19,7 +19,7 @@
     <string name="publishDate">"pubblicato il: "</string>
     <string name="makeOffer">fai un\'offerta</string>
     <string name="postImage">[immagine]</string>
-    <string name="username">[username]</string>
+    <string name="username">username</string>
     <string name="offerLabel">[offer]</string>
     <string name="usernameLabel">[username]</string>
     <string name="postLabel">[post title]</string>
@@ -81,4 +81,6 @@
     <string name="refresh">Ricarica</string>
 
     <string name="backend_url">http://192.168.137.1:8080</string>
+    <string name="policy">
+<![CDATA[Registrandomi confermo di aver letto e accettato i Termini e Condizioni e l\'Informativa sulla Privacy di Finted. Confermo di avere almeno 18 anni e accetto di ricevere offerte speciali e promozioni Finted.]]></string>
 </resources>

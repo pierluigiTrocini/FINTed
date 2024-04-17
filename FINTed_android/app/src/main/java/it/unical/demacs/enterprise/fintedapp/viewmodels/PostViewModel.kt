@@ -1,5 +1,6 @@
 package it.unical.demacs.enterprise.fintedapp.viewmodels
 
+import android.content.Context
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -9,8 +10,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class PostViewModel(): ViewModel() {
-    private val postControllerApi: PostControllerApi = PostControllerApi()
+class PostViewModel(context: Context) : ViewModel() {
+    private val postControllerApi: PostControllerApi = PostControllerApi(context = context)
 
     val postList: MutableState<List<PostDto>> = mutableStateOf(listOf())
     val post: MutableState<PostDto> = mutableStateOf(PostDto())

@@ -1,5 +1,6 @@
 package it.unical.demacs.enterprise.fintedapp.viewmodels
 
+import android.content.Context
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -11,8 +12,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class UserViewModel() : ViewModel() {
-    private val userControllerApi: UserControllerApi = UserControllerApi()
+class UserViewModel(context: Context) : ViewModel() {
+    private val userControllerApi: UserControllerApi = UserControllerApi(context = context)
 
     val personalProfile: MutableState<UserPersonalProfileDto> = mutableStateOf(UserPersonalProfileDto())
     val userList: MutableState<List<UserDto>> = mutableStateOf(listOf())

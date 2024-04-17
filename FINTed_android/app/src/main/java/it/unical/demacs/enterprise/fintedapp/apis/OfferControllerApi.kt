@@ -11,13 +11,21 @@
  */
 package it.unical.demacs.enterprise.fintedapp.apis
 
+import android.content.Context
+import android.widget.Toast
 import it.unical.demacs.enterprise.fintedapp.models.OfferDto
-import it.unical.demacs.enterprise.fintedapp.models.ServiceError
 import it.unical.demacs.enterprise.fintedapp.models.SpeditionDto
 
 import it.unical.demacs.enterprise.fintedapp.infrastructure.*
+import it.unical.demacs.enterprise.fintedapp.models.AccessTokenResponse
 
-class OfferControllerApi(basePath: kotlin.String = "http://localhost:8080") : ApiClient(basePath) {
+class OfferControllerApi(basePath: String = "http://localhost:8080", context: Context) : ApiClient(basePath) {
+
+    val context = context
+
+    private fun showMessage(message: String) {
+        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+    }
 
     /**
      * 
@@ -48,8 +56,14 @@ class OfferControllerApi(basePath: kotlin.String = "http://localhost:8080") : Ap
             ResponseType.Success -> (response as Success<*>).data as SpeditionDto
             ResponseType.Informational -> TODO()
             ResponseType.Redirection -> TODO()
-            ResponseType.ClientError -> throw ClientException((response as ClientError<*>).body as? String ?: "Client error")
-            ResponseType.ServerError -> throw ServerException((response as ServerError<*>).message ?: "Server error")
+            ResponseType.ClientError -> {
+                showMessage("Client error: ${(response as ClientError<*>).body as? String ?: "Client error"}")
+                (response as Success<*>).data as SpeditionDto
+            }
+            ResponseType.ServerError -> {
+                showMessage("Server error: ${(response as ClientError<*>).body as? String ?: "Server error"}")
+                (response as Success<*>).data as SpeditionDto
+            }
         }
     }
     /**
@@ -78,8 +92,12 @@ class OfferControllerApi(basePath: kotlin.String = "http://localhost:8080") : Ap
             ResponseType.Success -> Unit
             ResponseType.Informational -> TODO()
             ResponseType.Redirection -> TODO()
-            ResponseType.ClientError -> throw ClientException((response as ClientError<*>).body as? String ?: "Client error")
-            ResponseType.ServerError -> throw ServerException((response as ServerError<*>).message ?: "Server error")
+            ResponseType.ClientError -> {
+                showMessage("Client error: ${(response as ClientError<*>).body as? String ?: "Client error"}")
+            }
+            ResponseType.ServerError -> {
+                showMessage("Server error: ${(response as ClientError<*>).body as? String ?: "Server error"}")
+            }
         }
     }
     /**
@@ -110,8 +128,12 @@ class OfferControllerApi(basePath: kotlin.String = "http://localhost:8080") : Ap
             ResponseType.Success -> Unit
             ResponseType.Informational -> TODO()
             ResponseType.Redirection -> TODO()
-            ResponseType.ClientError -> throw ClientException((response as ClientError<*>).body as? String ?: "Client error")
-            ResponseType.ServerError -> throw ServerException((response as ServerError<*>).message ?: "Server error")
+            ResponseType.ClientError -> {
+                showMessage("Client error: ${(response as ClientError<*>).body as? String ?: "Client error"}")
+            }
+            ResponseType.ServerError -> {
+                showMessage("Server error: ${(response as ClientError<*>).body as? String ?: "Server error"}")
+            }
         }
     }
     /**
@@ -140,8 +162,14 @@ class OfferControllerApi(basePath: kotlin.String = "http://localhost:8080") : Ap
             ResponseType.Success -> (response as Success<*>).data as kotlin.Array<OfferDto>
             ResponseType.Informational -> TODO()
             ResponseType.Redirection -> TODO()
-            ResponseType.ClientError -> throw ClientException((response as ClientError<*>).body as? String ?: "Client error")
-            ResponseType.ServerError -> throw ServerException((response as ServerError<*>).message ?: "Server error")
+            ResponseType.ClientError -> {
+                showMessage("Client error: ${(response as ClientError<*>).body as? String ?: "Client error"}")
+                (response as Success<*>).data as Array<OfferDto>
+            }
+            ResponseType.ServerError -> {
+                showMessage("Server error: ${(response as ClientError<*>).body as? String ?: "Server error"}")
+                (response as Success<*>).data as Array<OfferDto>
+            }
         }
     }
     /**
@@ -170,8 +198,14 @@ class OfferControllerApi(basePath: kotlin.String = "http://localhost:8080") : Ap
             ResponseType.Success -> (response as Success<*>).data as kotlin.Array<OfferDto>
             ResponseType.Informational -> TODO()
             ResponseType.Redirection -> TODO()
-            ResponseType.ClientError -> throw ClientException((response as ClientError<*>).body as? String ?: "Client error")
-            ResponseType.ServerError -> throw ServerException((response as ServerError<*>).message ?: "Server error")
+            ResponseType.ClientError -> {
+                showMessage("Client error: ${(response as ClientError<*>).body as? String ?: "Client error"}")
+                (response as Success<*>).data as Array<OfferDto>
+            }
+            ResponseType.ServerError -> {
+                showMessage("Server error: ${(response as ClientError<*>).body as? String ?: "Server error"}")
+                (response as Success<*>).data as Array<OfferDto>
+            }
         }
     }
     /**
@@ -202,8 +236,14 @@ class OfferControllerApi(basePath: kotlin.String = "http://localhost:8080") : Ap
             ResponseType.Success -> (response as Success<*>).data as OfferDto
             ResponseType.Informational -> TODO()
             ResponseType.Redirection -> TODO()
-            ResponseType.ClientError -> throw ClientException((response as ClientError<*>).body as? String ?: "Client error")
-            ResponseType.ServerError -> throw ServerException((response as ServerError<*>).message ?: "Server error")
+            ResponseType.ClientError -> {
+                showMessage("Client error: ${(response as ClientError<*>).body as? String ?: "Client error"}")
+                (response as Success<*>).data as OfferDto
+            }
+            ResponseType.ServerError -> {
+                showMessage("Server error: ${(response as ClientError<*>).body as? String ?: "Server error"}")
+                (response as Success<*>).data as OfferDto
+            }
         }
     }
 }

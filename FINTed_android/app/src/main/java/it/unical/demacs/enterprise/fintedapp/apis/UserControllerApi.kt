@@ -11,15 +11,22 @@
  */
 package it.unical.demacs.enterprise.fintedapp.apis
 
+import android.content.Context
+import android.widget.Toast
 import it.unical.demacs.enterprise.fintedapp.models.AccessTokenResponse
-import it.unical.demacs.enterprise.fintedapp.models.ServiceError
 import it.unical.demacs.enterprise.fintedapp.models.UserDto
 import it.unical.demacs.enterprise.fintedapp.models.UserPersonalProfileDto
 import it.unical.demacs.enterprise.fintedapp.models.UserRegistrationDto
 
 import it.unical.demacs.enterprise.fintedapp.infrastructure.*
 
-class UserControllerApi(basePath: kotlin.String = "http://localhost:8080") : ApiClient(basePath) {
+class UserControllerApi(basePath: String = "http://localhost:8080", context: Context) : ApiClient(basePath) {
+
+    val context = context
+
+    private fun showMessage(message: String) {
+        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+    }
 
     /**
      * 
@@ -46,8 +53,12 @@ class UserControllerApi(basePath: kotlin.String = "http://localhost:8080") : Api
             ResponseType.Success -> Unit
             ResponseType.Informational -> TODO()
             ResponseType.Redirection -> TODO()
-            ResponseType.ClientError -> throw ClientException((response as ClientError<*>).body as? String ?: "Client error")
-            ResponseType.ServerError -> throw ServerException((response as ServerError<*>).message ?: "Server error")
+            ResponseType.ClientError -> {
+                showMessage("Client error: ${(response as ClientError<*>).body as? String ?: "Client error"}")
+            }
+            ResponseType.ServerError -> {
+                showMessage("Server error: ${(response as ClientError<*>).body as? String ?: "Server error"}")
+            }
         }
     }
     /**
@@ -70,8 +81,14 @@ class UserControllerApi(basePath: kotlin.String = "http://localhost:8080") : Api
             ResponseType.Success -> (response as Success<*>).data as kotlin.Array<UserDto>
             ResponseType.Informational -> TODO()
             ResponseType.Redirection -> TODO()
-            ResponseType.ClientError -> throw ClientException((response as ClientError<*>).body as? String ?: "Client error")
-            ResponseType.ServerError -> throw ServerException((response as ServerError<*>).message ?: "Server error")
+            ResponseType.ClientError -> {
+                showMessage("Client error: ${(response as ClientError<*>).body as? String ?: "Client error"}")
+                (response as Success<*>).data as Array<UserDto>
+            }
+            ResponseType.ServerError -> {
+                showMessage("Server error: ${(response as ClientError<*>).body as? String ?: "Server error"}")
+                (response as Success<*>).data as Array<UserDto>
+            }
         }
     }
     /**
@@ -100,8 +117,14 @@ class UserControllerApi(basePath: kotlin.String = "http://localhost:8080") : Api
             ResponseType.Success -> (response as Success<*>).data as UserPersonalProfileDto
             ResponseType.Informational -> TODO()
             ResponseType.Redirection -> TODO()
-            ResponseType.ClientError -> throw ClientException((response as ClientError<*>).body as? String ?: "Client error")
-            ResponseType.ServerError -> throw ServerException((response as ServerError<*>).message ?: "Server error")
+            ResponseType.ClientError -> {
+                showMessage("Client error: ${(response as ClientError<*>).body as? String ?: "Client error"}")
+                (response as Success<*>).data as UserPersonalProfileDto
+            }
+            ResponseType.ServerError -> {
+                showMessage("Server error: ${(response as ClientError<*>).body as? String ?: "Server error"}")
+                (response as Success<*>).data as UserPersonalProfileDto
+            }
         }
     }
     /**
@@ -125,8 +148,14 @@ class UserControllerApi(basePath: kotlin.String = "http://localhost:8080") : Api
             ResponseType.Success -> (response as Success<*>).data as AccessTokenResponse
             ResponseType.Informational -> TODO()
             ResponseType.Redirection -> TODO()
-            ResponseType.ClientError -> throw ClientException((response as ClientError<*>).body as? String ?: "Client error")
-            ResponseType.ServerError -> throw ServerException((response as ServerError<*>).message ?: "Server error")
+            ResponseType.ClientError -> {
+                showMessage("Client error: ${(response as ClientError<*>).body as? String ?: "Client error"}")
+                (response as Success<*>).data as AccessTokenResponse
+            }
+            ResponseType.ServerError -> {
+                showMessage("Server error: ${(response as ClientError<*>).body as? String ?: "Server error"}")
+                (response as Success<*>).data as AccessTokenResponse
+            }
         }
     }
     /**
@@ -149,8 +178,14 @@ class UserControllerApi(basePath: kotlin.String = "http://localhost:8080") : Api
             ResponseType.Success -> (response as Success<*>).data as kotlin.Array<UserDto>
             ResponseType.Informational -> TODO()
             ResponseType.Redirection -> TODO()
-            ResponseType.ClientError -> throw ClientException((response as ClientError<*>).body as? String ?: "Client error")
-            ResponseType.ServerError -> throw ServerException((response as ServerError<*>).message ?: "Server error")
+            ResponseType.ClientError -> {
+                showMessage("Client error: ${(response as ClientError<*>).body as? String ?: "Client error"}")
+                (response as Success<*>).data as Array<UserDto>
+            }
+            ResponseType.ServerError -> {
+                showMessage("Server error: ${(response as ClientError<*>).body as? String ?: "Server error"}")
+                (response as Success<*>).data as Array<UserDto>
+            }
         }
     }
     /**
@@ -181,8 +216,14 @@ class UserControllerApi(basePath: kotlin.String = "http://localhost:8080") : Api
             ResponseType.Success -> (response as Success<*>).data as UserPersonalProfileDto
             ResponseType.Informational -> TODO()
             ResponseType.Redirection -> TODO()
-            ResponseType.ClientError -> throw ClientException((response as ClientError<*>).body as? String ?: "Client error")
-            ResponseType.ServerError -> throw ServerException((response as ServerError<*>).message ?: "Server error")
+            ResponseType.ClientError -> {
+                showMessage("Client error: ${(response as ClientError<*>).body as? String ?: "Client error"}")
+                (response as Success<*>).data as UserPersonalProfileDto
+            }
+            ResponseType.ServerError -> {
+                showMessage("Server error: ${(response as ClientError<*>).body as? String ?: "Server error"}")
+                (response as Success<*>).data as UserPersonalProfileDto
+            }
         }
     }
 }
