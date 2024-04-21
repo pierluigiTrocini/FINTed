@@ -22,9 +22,9 @@ class ReviewViewModel(context: Context) : ViewModel() {
     ){
         CoroutineScope(Dispatchers.IO).launch {
             review.value = reviewControllerApi.save1(
-                authorization = AuthValues.accessTokenResponse.accessToken!!,
+                authorization = AuthValues.accessToken.value.accessToken!!,
                 body = ReviewDto(
-                    authorUsername = AuthValues.personalProfile.username,
+                    authorUsername = AuthValues.username.value,
                     targetUsername = targetUsername,
                     content = content
                 )
@@ -35,8 +35,8 @@ class ReviewViewModel(context: Context) : ViewModel() {
     fun getPersonal(){
         CoroutineScope(Dispatchers.IO).launch {
             reviewList.value = reviewControllerApi.getPersonal2(
-                authorization = AuthValues.accessTokenResponse.accessToken!!,
-                username = AuthValues.personalProfile.username!!
+                authorization = AuthValues.accessToken.value.accessToken!!,
+                username = AuthValues.username.value
             ).toList()
         }
     }
@@ -52,9 +52,9 @@ class ReviewViewModel(context: Context) : ViewModel() {
     fun delete(id: Long){
         CoroutineScope(Dispatchers.IO).launch {
             reviewControllerApi.delete1(
-                username = AuthValues.personalProfile.username!!,
+                username = AuthValues.username.value,
                 id = id,
-                authorization = AuthValues.accessTokenResponse.accessToken!!
+                authorization = AuthValues.accessToken.value.accessToken!!
             )
         }
     }

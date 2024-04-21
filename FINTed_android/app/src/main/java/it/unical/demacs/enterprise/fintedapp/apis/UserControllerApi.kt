@@ -12,9 +12,7 @@
 package it.unical.demacs.enterprise.fintedapp.apis
 
 import android.content.Context
-import android.content.res.Resources
-import android.widget.Toast
-import it.unical.demacs.enterprise.fintedapp.R
+import android.util.Log
 import it.unical.demacs.enterprise.fintedapp.models.AccessTokenResponse
 import it.unical.demacs.enterprise.fintedapp.models.UserDto
 import it.unical.demacs.enterprise.fintedapp.models.UserPersonalProfileDto
@@ -22,13 +20,13 @@ import it.unical.demacs.enterprise.fintedapp.models.UserRegistrationDto
 
 import it.unical.demacs.enterprise.fintedapp.infrastructure.*
 
+
+class ClientException : Exception {
+    constructor(message: String) : super(message)
+    constructor(message: String, cause: Throwable) : super(message, cause)
+}
+
 class UserControllerApi(basePath: String = ApiUrl.url, context: Context) : ApiClient(basePath) {
-
-    val context = context
-
-    private fun showMessage(message: String) {
-        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
-    }
 
     /**
      * 
@@ -55,12 +53,8 @@ class UserControllerApi(basePath: String = ApiUrl.url, context: Context) : ApiCl
             ResponseType.Success -> Unit
             ResponseType.Informational -> TODO()
             ResponseType.Redirection -> TODO()
-            ResponseType.ClientError -> {
-                showMessage("Client error: ${(response as ClientError<*>).body as? String ?: "Client error"}")
-            }
-            ResponseType.ServerError -> {
-                showMessage("Server error: ${(response as ClientError<*>).body as? String ?: "Server error"}")
-            }
+            ResponseType.ClientError -> throw ClientException((response as ClientError<*>).body as? String ?: "Client error")
+            ResponseType.ServerError -> throw ServerException((response as ServerError<*>).message ?: "Server error")
         }
     }
     /**
@@ -83,14 +77,8 @@ class UserControllerApi(basePath: String = ApiUrl.url, context: Context) : ApiCl
             ResponseType.Success -> (response as Success<*>).data as kotlin.Array<UserDto>
             ResponseType.Informational -> TODO()
             ResponseType.Redirection -> TODO()
-            ResponseType.ClientError -> {
-                showMessage("Client error: ${(response as ClientError<*>).body as? String ?: "Client error"}")
-                (response as Success<*>).data as Array<UserDto>
-            }
-            ResponseType.ServerError -> {
-                showMessage("Server error: ${(response as ClientError<*>).body as? String ?: "Server error"}")
-                (response as Success<*>).data as Array<UserDto>
-            }
+            ResponseType.ClientError -> throw ClientException((response as ClientError<*>).body as? String ?: "Client error")
+            ResponseType.ServerError -> throw ServerException((response as ServerError<*>).message ?: "Server error")
         }
     }
     /**
@@ -119,14 +107,8 @@ class UserControllerApi(basePath: String = ApiUrl.url, context: Context) : ApiCl
             ResponseType.Success -> (response as Success<*>).data as UserPersonalProfileDto
             ResponseType.Informational -> TODO()
             ResponseType.Redirection -> TODO()
-            ResponseType.ClientError -> {
-                showMessage("Client error: ${(response as ClientError<*>).body as? String ?: "Client error"}")
-                (response as Success<*>).data as UserPersonalProfileDto
-            }
-            ResponseType.ServerError -> {
-                showMessage("Server error: ${(response as ClientError<*>).body as? String ?: "Server error"}")
-                (response as Success<*>).data as UserPersonalProfileDto
-            }
+            ResponseType.ClientError -> throw ClientException((response as ClientError<*>).body as? String ?: "Client error", Exception("Client error with response: $response"))
+            ResponseType.ServerError -> throw ServerException((response as ServerError<*>).message ?: "Server error")
         }
     }
     /**
@@ -150,14 +132,8 @@ class UserControllerApi(basePath: String = ApiUrl.url, context: Context) : ApiCl
             ResponseType.Success -> (response as Success<*>).data as AccessTokenResponse
             ResponseType.Informational -> TODO()
             ResponseType.Redirection -> TODO()
-            ResponseType.ClientError -> {
-                showMessage("Client error: ${(response as ClientError<*>).body as? String ?: "Client error"}")
-                (response as Success<*>).data as AccessTokenResponse
-            }
-            ResponseType.ServerError -> {
-                showMessage("Server error: ${(response as ClientError<*>).body as? String ?: "Server error"}")
-                (response as Success<*>).data as AccessTokenResponse
-            }
+            ResponseType.ClientError -> throw ClientException((response as ClientError<*>).body as? String ?: "Client error")
+            ResponseType.ServerError -> throw ServerException((response as ServerError<*>).message ?: "Server error")
         }
     }
     /**
@@ -180,14 +156,8 @@ class UserControllerApi(basePath: String = ApiUrl.url, context: Context) : ApiCl
             ResponseType.Success -> (response as Success<*>).data as kotlin.Array<UserDto>
             ResponseType.Informational -> TODO()
             ResponseType.Redirection -> TODO()
-            ResponseType.ClientError -> {
-                showMessage("Client error: ${(response as ClientError<*>).body as? String ?: "Client error"}")
-                (response as Success<*>).data as Array<UserDto>
-            }
-            ResponseType.ServerError -> {
-                showMessage("Server error: ${(response as ClientError<*>).body as? String ?: "Server error"}")
-                (response as Success<*>).data as Array<UserDto>
-            }
+            ResponseType.ClientError -> throw ClientException((response as ClientError<*>).body as? String ?: "Client error")
+            ResponseType.ServerError -> throw ServerException((response as ServerError<*>).message ?: "Server error")
         }
     }
     /**
@@ -218,14 +188,8 @@ class UserControllerApi(basePath: String = ApiUrl.url, context: Context) : ApiCl
             ResponseType.Success -> (response as Success<*>).data as UserPersonalProfileDto
             ResponseType.Informational -> TODO()
             ResponseType.Redirection -> TODO()
-            ResponseType.ClientError -> {
-                showMessage("Client error: ${(response as ClientError<*>).body as? String ?: "Client error"}")
-                (response as Success<*>).data as UserPersonalProfileDto
-            }
-            ResponseType.ServerError -> {
-                showMessage("Server error: ${(response as ClientError<*>).body as? String ?: "Server error"}")
-                (response as Success<*>).data as UserPersonalProfileDto
-            }
+            ResponseType.ClientError -> throw ClientException((response as ClientError<*>).body as? String ?: "Client error")
+            ResponseType.ServerError -> throw ServerException((response as ServerError<*>).message ?: "Server error")
         }
     }
 }

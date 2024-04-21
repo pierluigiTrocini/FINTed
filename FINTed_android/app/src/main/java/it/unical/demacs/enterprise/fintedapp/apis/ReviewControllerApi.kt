@@ -12,21 +12,11 @@
 package it.unical.demacs.enterprise.fintedapp.apis
 
 import android.content.Context
-import android.content.res.Resources
-import android.widget.Toast
-import it.unical.demacs.enterprise.fintedapp.R
 import it.unical.demacs.enterprise.fintedapp.models.ReviewDto
 
 import it.unical.demacs.enterprise.fintedapp.infrastructure.*
-import it.unical.demacs.enterprise.fintedapp.models.AccessTokenResponse
 
 class ReviewControllerApi(basePath: String = ApiUrl.url, context: Context) : ApiClient(basePath) {
-
-    val context = context
-
-    private fun showMessage(message: String) {
-        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
-    }
 
     /**
      * 
@@ -54,12 +44,8 @@ class ReviewControllerApi(basePath: String = ApiUrl.url, context: Context) : Api
             ResponseType.Success -> Unit
             ResponseType.Informational -> TODO()
             ResponseType.Redirection -> TODO()
-            ResponseType.ClientError -> {
-                showMessage("Client error: ${(response as ClientError<*>).body as? String ?: "Client error"}")
-            }
-            ResponseType.ServerError -> {
-                showMessage("Server error: ${(response as ClientError<*>).body as? String ?: "Server error"}")
-            }
+            ResponseType.ClientError -> throw ClientException((response as ClientError<*>).body as? String ?: "Client error")
+            ResponseType.ServerError -> throw ServerException((response as ServerError<*>).message ?: "Server error")
         }
     }
     /**
@@ -82,14 +68,8 @@ class ReviewControllerApi(basePath: String = ApiUrl.url, context: Context) : Api
             ResponseType.Success -> (response as Success<*>).data as kotlin.Array<ReviewDto>
             ResponseType.Informational -> TODO()
             ResponseType.Redirection -> TODO()
-            ResponseType.ClientError -> {
-                showMessage("Client error: ${(response as ClientError<*>).body as? String ?: "Client error"}")
-                (response as Success<*>).data as Array<ReviewDto>
-            }
-            ResponseType.ServerError -> {
-                showMessage("Server error: ${(response as ClientError<*>).body as? String ?: "Server error"}")
-                (response as Success<*>).data as Array<ReviewDto>
-            }
+            ResponseType.ClientError -> throw ClientException((response as ClientError<*>).body as? String ?: "Client error")
+            ResponseType.ServerError -> throw ServerException((response as ServerError<*>).message ?: "Server error")
         }
     }
     /**
@@ -118,14 +98,8 @@ class ReviewControllerApi(basePath: String = ApiUrl.url, context: Context) : Api
             ResponseType.Success -> (response as Success<*>).data as kotlin.Array<ReviewDto>
             ResponseType.Informational -> TODO()
             ResponseType.Redirection -> TODO()
-            ResponseType.ClientError -> {
-                showMessage("Client error: ${(response as ClientError<*>).body as? String ?: "Client error"}")
-                (response as Success<*>).data as Array<ReviewDto>
-            }
-            ResponseType.ServerError -> {
-                showMessage("Server error: ${(response as ClientError<*>).body as? String ?: "Server error"}")
-                (response as Success<*>).data as Array<ReviewDto>
-            }
+            ResponseType.ClientError -> throw ClientException((response as ClientError<*>).body as? String ?: "Client error")
+            ResponseType.ServerError -> throw ServerException((response as ServerError<*>).message ?: "Server error")
         }
     }
     /**
@@ -156,14 +130,8 @@ class ReviewControllerApi(basePath: String = ApiUrl.url, context: Context) : Api
             ResponseType.Success -> (response as Success<*>).data as ReviewDto
             ResponseType.Informational -> TODO()
             ResponseType.Redirection -> TODO()
-            ResponseType.ClientError -> {
-                showMessage("Client error: ${(response as ClientError<*>).body as? String ?: "Client error"}")
-                (response as Success<*>).data as ReviewDto
-            }
-            ResponseType.ServerError -> {
-                showMessage("Server error: ${(response as ClientError<*>).body as? String ?: "Server error"}")
-                (response as Success<*>).data as ReviewDto
-            }
+            ResponseType.ClientError -> throw ClientException((response as ClientError<*>).body as? String ?: "Client error")
+            ResponseType.ServerError -> throw ServerException((response as ServerError<*>).message ?: "Server error")
         }
     }
 }

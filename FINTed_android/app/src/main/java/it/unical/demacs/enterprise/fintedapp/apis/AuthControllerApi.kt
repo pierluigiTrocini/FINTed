@@ -12,26 +12,12 @@
 package it.unical.demacs.enterprise.fintedapp.apis
 
 import android.content.Context
-import android.content.res.Resources
-import android.widget.Toast
-import androidx.compose.ui.platform.LocalContext
-import it.unical.demacs.enterprise.fintedapp.R
 import it.unical.demacs.enterprise.fintedapp.models.AccessTokenResponse
 import it.unical.demacs.enterprise.fintedapp.models.Credentials
-import it.unical.demacs.enterprise.fintedapp.models.ServiceError
 
 import it.unical.demacs.enterprise.fintedapp.infrastructure.*
-import it.unical.demacs.enterprise.fintedapp.ui.utility.ToastMaker
 
-class AuthControllerApi(basePath: kotlin.String = ApiUrl.url, context: Context) : ApiClient(basePath) {
-
-    val context = context
-
-    private fun showMessage(message: String) {
-        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
-    }
-
-
+class AuthControllerApi(basePath: String = ApiUrl.url, context: Context) : ApiClient(basePath) {
     /**
      * 
      * 
@@ -50,20 +36,11 @@ class AuthControllerApi(basePath: kotlin.String = ApiUrl.url, context: Context) 
         )
 
         return when (response.responseType) {
-            ResponseType.Success -> {
-                showMessage("Login successful!")
-                (response as Success<*>).data as AccessTokenResponse
-            }
+            ResponseType.Success -> (response as Success<*>).data as AccessTokenResponse
             ResponseType.Informational -> TODO()
             ResponseType.Redirection -> TODO()
-            ResponseType.ClientError -> {
-                showMessage("Client error")
-                (response as Success<*>).data as AccessTokenResponse
-            }
-            ResponseType.ServerError -> {
-                showMessage("Server error")
-                (response as Success<*>).data as AccessTokenResponse
-            }
+            ResponseType.ClientError -> throw ClientException((response as ClientError<*>).body as? String ?: "Client error")
+            ResponseType.ServerError -> throw ServerException((response as ServerError<*>).message ?: "Server error")
         }
     }
     /**
@@ -90,13 +67,8 @@ class AuthControllerApi(basePath: kotlin.String = ApiUrl.url, context: Context) 
             ResponseType.Success -> Unit
             ResponseType.Informational -> TODO()
             ResponseType.Redirection -> TODO()
-            ResponseType.ClientError -> {
-                showMessage("Client error: ${(response as ClientError<*>).body as? String ?: "Client error"}")
-            }
-            ResponseType.ServerError -> {
-                showMessage("Server error: ${(response as ClientError<*>).body as? String ?: "Server error"}")
-            }
+            ResponseType.ClientError -> throw ClientException((response as ClientError<*>).body as? String ?: "Client error")
+            ResponseType.ServerError -> throw ServerException((response as ServerError<*>).message ?: "Server error")
         }
     }
-
 }

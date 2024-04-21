@@ -31,7 +31,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
-import it.unical.demacs.enterprise.fintedapp.models.Credentials
 import it.unical.demacs.enterprise.fintedapp.ui.utility.AppIndex
 import it.unical.demacs.enterprise.fintedapp.ui.utility.LoginIndex
 import it.unical.demacs.enterprise.fintedapp.viewmodels.AuthViewModel
@@ -103,13 +102,11 @@ fun LoginActivity(
                     label = { Text(stringResource(id = R.string.registrationPassword)) })
                 Spacer(modifier = Modifier.height(24.dp))
                 Button(onClick = {
-
                     authViewModel.value.login(
-                        credentials = Credentials(
-                            username = username.value, password = password.value
-                        ), context
+                        username = username.value, password = password.value,
+                        context = context
                     )
-
+                    appIndex.value = AppIndex.HOMEPAGE
                 }) {
                     Text(text = stringResource(id = R.string.loginLabel))
                 }
@@ -214,7 +211,8 @@ fun LoginActivity(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceEvenly
                 ) {
-                    OutlinedTextField(value = password.value,
+                    OutlinedTextField(
+                        value = password.value,
                         onValueChange = { v -> password.value = v },
                         label = { androidx.wear.compose.material.Text(stringResource(id = R.string.registrationPassword)) },
                         visualTransformation = PasswordVisualTransformation(),
@@ -227,7 +225,8 @@ fun LoginActivity(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceEvenly
                 ) {
-                    OutlinedTextField(value = addressRoute.value,
+                    OutlinedTextField(
+                        value = addressRoute.value,
                         onValueChange = { v -> addressRoute.value = v },
                         label = { androidx.wear.compose.material.Text(stringResource(R.string.addressRoute)) },
                         singleLine = true,
@@ -239,7 +238,8 @@ fun LoginActivity(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceEvenly
                 ) {
-                    OutlinedTextField(value = addressNumber.value,
+                    OutlinedTextField(
+                        value = addressNumber.value,
                         onValueChange = { v ->
                             if (v.all { it.isDigit() }) {
                                 addressNumber.value = v
@@ -249,7 +249,8 @@ fun LoginActivity(
                         singleLine = true,
                         modifier = Modifier.weight(1f)
                     )
-                    OutlinedTextField(value = addressCity.value,
+                    OutlinedTextField(
+                        value = addressCity.value,
                         onValueChange = { v -> addressCity.value = v },
                         label = { androidx.wear.compose.material.Text(stringResource(R.string.addressCity)) },
                         singleLine = true,

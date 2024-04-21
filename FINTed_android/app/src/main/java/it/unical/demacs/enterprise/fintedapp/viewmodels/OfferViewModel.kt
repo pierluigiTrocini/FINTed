@@ -24,12 +24,12 @@ class OfferViewModel(context: Context) : ViewModel() {
 
     fun save(
         postId: Long,
-        userUsername: String = AuthValues.personalProfile.username!!,
+        userUsername: String = AuthValues.username.value,
         offerLong: Long
     ){
         CoroutineScope(Dispatchers.IO).launch {
             offer.value = offerControllerApi.save3(
-                authorization = AuthValues.accessTokenResponse.accessToken!!,
+                authorization = AuthValues.accessToken.value.accessToken!!,
                 body = OfferDto(
                     postId = postId,
                     userUsername = userUsername,
@@ -42,8 +42,8 @@ class OfferViewModel(context: Context) : ViewModel() {
     fun getPersonal(){
         CoroutineScope(Dispatchers.IO).launch {
             offerList.value = offerControllerApi.getPersonalOffers(
-                username = AuthValues.personalProfile.username!!,
-                authorization = AuthValues.accessTokenResponse.accessToken!!
+                username = AuthValues.username.value,
+                authorization = AuthValues.accessToken.value.accessToken!!
             ).toList()
         }
     }
@@ -51,8 +51,8 @@ class OfferViewModel(context: Context) : ViewModel() {
     fun getOffersOnYouPosts(){
         CoroutineScope(Dispatchers.IO).launch {
             offerList.value = offerControllerApi.getPersonalOffers(
-                username = AuthValues.personalProfile.username!!,
-                authorization = AuthValues.accessTokenResponse.accessToken!!
+                username = AuthValues.username.value,
+                authorization = AuthValues.accessToken.value.accessToken!!
             ).toList()
         }
     }
@@ -60,8 +60,8 @@ class OfferViewModel(context: Context) : ViewModel() {
     fun delete(id: Long){
         CoroutineScope(Dispatchers.IO).launch {
             offerControllerApi.delete3(
-                username = AuthValues.personalProfile.username!!,
-                authorization = AuthValues.accessTokenResponse.accessToken!!,
+                username = AuthValues.username.value,
+                authorization = AuthValues.accessToken.value.accessToken!!,
                 id = id
             )
         }
@@ -71,8 +71,8 @@ class OfferViewModel(context: Context) : ViewModel() {
         CoroutineScope(Dispatchers.IO).launch {
             offerControllerApi.denyOffer(
                 body = offer,
-                username = AuthValues.personalProfile.username!!,
-                authorization = AuthValues.accessTokenResponse.accessToken!!
+                username = AuthValues.username.value,
+                authorization = AuthValues.accessToken.value.accessToken!!
             )
         }
     }
@@ -81,17 +81,17 @@ class OfferViewModel(context: Context) : ViewModel() {
         CoroutineScope(Dispatchers.IO).launch {
             spedition.value = offerControllerApi.acceptOffer(
                 body = offer,
-                username = AuthValues.personalProfile.username!!,
-                authorization = AuthValues.accessTokenResponse.accessToken!!
-            )
+                username = AuthValues.username.value,
+                authorization = AuthValues.accessToken.value.accessToken!!
+            ) as SpeditionDto
         }
     }
 
     fun getPersonalSpedition(){
         CoroutineScope(Dispatchers.IO).launch {
             speditionList.value = speditionControllerApi.getPersonal1(
-                username = AuthValues.personalProfile.username!!,
-                authorization = AuthValues.accessTokenResponse.accessToken!!
+                username = AuthValues.username.value,
+                authorization = AuthValues.accessToken.value.accessToken!!
             ).toList()
         }
     }

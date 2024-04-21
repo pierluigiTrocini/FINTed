@@ -14,16 +14,16 @@ services:
     volumes:
       - ./VOLUMES/postgres:/var/lib/postgresql/data
 
-  springboot:
-    restart: always
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - "8080:8080"
-    depends_on:
-      - postgres
-      - keycloak
+#  springboot:
+#    restart: always
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+#    ports:
+#      - "8080:8080"
+#    depends_on:
+#      - postgres
+#      - keycloak
       
   keycloak:
     container_name: keycloak

@@ -27,10 +27,9 @@ class PostViewModel(context: Context) : ViewModel() {
                     title = title,
                     startingPrice = startingPrice,
                     postImage = postImage,
-                    sellerUsername = AuthValues.personalProfile.username!!,
-                    sellerId = AuthValues.personalProfile.id!!
+                    sellerUsername = AuthValues.username.value
                 ),
-                authorization = AuthValues.accessTokenResponse.accessToken!!
+                authorization = AuthValues.accessToken.value.accessToken!!
             )
         }
     }
@@ -61,7 +60,7 @@ class PostViewModel(context: Context) : ViewModel() {
 
     fun delete(username: String, id: Long) {
         CoroutineScope(Dispatchers.IO).launch {
-            postControllerApi.delete2(postId = id, username = username, authorization = AuthValues.accessTokenResponse.accessToken!!)
+            postControllerApi.delete2(postId = id, username = username, authorization = AuthValues.accessToken.value.accessToken!!)
         }
     }
 

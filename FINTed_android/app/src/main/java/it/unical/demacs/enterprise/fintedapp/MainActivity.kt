@@ -4,8 +4,10 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.Home
@@ -69,14 +71,23 @@ fun Homepage() {
     val offerViewModel = remember { mutableStateOf(OfferViewModel(context = context)) }
     val reviewViewModel = remember { mutableStateOf(ReviewViewModel(context = context)) }
 
-    if(AuthValues.accessTokenResponse.accessToken == null || AuthValues.personalProfile.username == null) {
+    if(AuthValues.accessToken.value.accessToken == null) {
         LoginActivity(authViewModel = authViewModel, userViewModel = userViewModel, context = context, appIndex = appIndex)
     }
     else {
         Scaffold(
             bottomBar = { BottomBar( appIndex = appIndex ) }
         ) {
-
+            Box(modifier = Modifier.padding(it)){
+                if(appIndex.value == AppIndex.HOMEPAGE){
+                    HomepageActivity(
+                        context = context,
+                        appIndex = appIndex,
+                        userViewModel = userViewModel,
+                        postViewModel = postViewModel
+                    )
+                }
+            }
         }
     }
 
