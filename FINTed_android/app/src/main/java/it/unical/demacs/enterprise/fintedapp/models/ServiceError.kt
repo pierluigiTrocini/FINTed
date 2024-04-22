@@ -20,7 +20,7 @@ package it.unical.demacs.enterprise.fintedapp.models
  */
 data class ServiceError (
 
-    val timestamp: java.time.LocalDateTime? = null,
+    val timestamp: java.util.Date? = null,
     val url: kotlin.String? = null,
     val message: kotlin.String? = null
 ) {

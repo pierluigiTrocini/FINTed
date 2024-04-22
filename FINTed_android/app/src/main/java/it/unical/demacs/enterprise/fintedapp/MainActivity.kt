@@ -84,7 +84,8 @@ fun Homepage() {
                         context = context,
                         appIndex = appIndex,
                         userViewModel = userViewModel,
-                        postViewModel = postViewModel
+                        postViewModel = postViewModel,
+                        offerViewModel = offerViewModel
                     )
                 }
             }

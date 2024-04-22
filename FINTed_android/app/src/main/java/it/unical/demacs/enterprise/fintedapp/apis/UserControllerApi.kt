@@ -12,7 +12,6 @@
 package it.unical.demacs.enterprise.fintedapp.apis
 
 import android.content.Context
-import android.util.Log
 import it.unical.demacs.enterprise.fintedapp.models.AccessTokenResponse
 import it.unical.demacs.enterprise.fintedapp.models.UserDto
 import it.unical.demacs.enterprise.fintedapp.models.UserPersonalProfileDto

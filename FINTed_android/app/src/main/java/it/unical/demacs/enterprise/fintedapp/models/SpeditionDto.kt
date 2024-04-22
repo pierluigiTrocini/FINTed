@@ -31,7 +31,7 @@ data class SpeditionDto (
     val purchaserAddressRoute: kotlin.String? = null,
     val purchaserAddressNumber: kotlin.String? = null,
     val purchaserAddressCity: kotlin.String? = null,
-    val date: java.time.LocalDateTime? = null,
+    val date: java.util.Date? = null,
     val speditionCode: kotlin.String? = null
 ) {
 }

@@ -46,11 +46,8 @@ fun LoginActivity(
 ) {
     val loginIndex = remember { mutableStateOf(LoginIndex.LOGIN) }
 
-    val firstName = remember { mutableStateOf("") }
-    val lastName = remember { mutableStateOf("") }
-
-    val username = remember { mutableStateOf("") }
-    val password = remember { mutableStateOf("") }
+    val username = remember { mutableStateOf("pierluigitrc") }
+    val password = remember { mutableStateOf("1234") }
 
     Scaffold(bottomBar = {
         BottomAppBar {
@@ -113,6 +110,9 @@ fun LoginActivity(
                 Spacer(modifier = Modifier.height(24.dp))
             }
         } else {
+            val firstName = remember { mutableStateOf("") }
+            val lastName = remember { mutableStateOf("") }
+
             val email = remember { mutableStateOf("") }
 
             val addressRoute = remember { mutableStateOf("") }
@@ -269,6 +269,8 @@ fun LoginActivity(
                         addressNumber = addressNumber.value,
                         addressRoute = addressRoute.value
                     )
+
+                    appIndex.value = AppIndex.HOMEPAGE
                 }) {
                     androidx.wear.compose.material.Text(text = stringResource(id = R.string.registration))
                 }

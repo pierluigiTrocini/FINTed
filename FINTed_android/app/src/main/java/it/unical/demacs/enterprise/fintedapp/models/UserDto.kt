@@ -26,6 +26,6 @@ data class UserDto (
     val firstName: kotlin.String? = null,
     val lastName: kotlin.String? = null,
     val username: kotlin.String? = null,
-    val registrationDate: java.time.LocalDateTime? = null
+    val registrationDate: java.util.Date? = null
 ) {
 }

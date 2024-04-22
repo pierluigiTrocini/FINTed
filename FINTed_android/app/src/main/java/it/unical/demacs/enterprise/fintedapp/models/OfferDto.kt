@@ -40,7 +40,7 @@ data class OfferDto (
     val postSellerId: kotlin.Long? = null,
     val postSellerUsername: kotlin.String? = null,
     val offer: kotlin.Long? = null,
-    val publishDate: java.time.LocalDateTime? = null,
+    val publishDate: java.util.Date? = null,
     val offerStatus: OfferStatus? = null,
     val speditionSpeditionCode: kotlin.String? = null
 ) {
