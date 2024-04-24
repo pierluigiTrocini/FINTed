@@ -35,6 +35,7 @@ services:
     environment:
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
+      KEYCLOAK_LOGLEVEL: INFO
       DB_VENDOR: h2
     volumes:
       - ./VOLUMES/keycloak:/opt/keycloak/data

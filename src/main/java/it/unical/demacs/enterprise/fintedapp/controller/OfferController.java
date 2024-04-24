@@ -31,37 +31,37 @@ public class OfferController {
 	
 	@PostMapping("/")
 	@PreAuthorize("authentication.principal.claims['preferred_username'].equals(#offer.getUserUsername())")
-	public ResponseEntity<OfferDto> save(@RequestBody OfferDto offer, @RequestHeader(value="Authorization") String token) throws UnavailableException, ElementNotFoundException, NoFundException{
+	public ResponseEntity<OfferDto> save(@RequestBody OfferDto offer) throws UnavailableException, ElementNotFoundException, NoFundException{
 		return ResponseEntity.ok(offerService.save(offer));
 	}
 	
 	@DeleteMapping("/{username}/{id}")
 	@PreAuthorize("authentication.principal.claims['preferred_username'].equals(#username)")
-	public void delete(@PathVariable("username") String username, @PathVariable("id") Long id, @RequestHeader(value="Authorization") String token) throws ElementNotFoundException {
+	public void delete(@PathVariable("username") String username, @PathVariable("id") Long id) throws ElementNotFoundException {
 		offerService.delete(id, username);
 	}
 	
 	@GetMapping("/personal/{username}")
 	@PreAuthorize("authentication.principal.claims['preferred_username'].equals(#username)")
-	public ResponseEntity<List<OfferDto>> getPersonalOffers(@PathVariable("username") String username, @RequestHeader(value="Authorization") String token) throws ElementNotFoundException{
+	public ResponseEntity<List<OfferDto>> getPersonalOffers(@PathVariable("username") String username) throws ElementNotFoundException{
 		return ResponseEntity.ok(offerService.getPersonalOffers(username));
 	}
 	
 	@GetMapping("/your-posts/{username}")
 	@PreAuthorize("authentication.principal.claims['preferred_username'].equals(#username)")
-	public ResponseEntity<List<OfferDto>> getSellsOffers(@PathVariable("username") String username, @RequestHeader(value="Authorization") String token) throws ElementNotFoundException{
+	public ResponseEntity<List<OfferDto>> getSellsOffers(@PathVariable("username") String username) throws ElementNotFoundException{
 		return ResponseEntity.ok(offerService.getBySellerUsername(username));
 	}
 	
 	@PostMapping("/accept/{username}")
 	@PreAuthorize("authentication.principal.claims['preferred_username'].equals(#offer.getPostSellerUsername())")
-	public ResponseEntity<SpeditionDto> acceptOffer(@RequestBody OfferDto offer, @PathVariable("username") String username, @RequestHeader(value="Authorization") String token) throws ElementNotFoundException {
+	public ResponseEntity<SpeditionDto> acceptOffer(@RequestBody OfferDto offer, @PathVariable("username") String username) throws ElementNotFoundException {
 		return ResponseEntity.ok(offerService.acceptOffer(offer, username));
 	}
 	
 	@PostMapping("/deny/{username}")
 	@PreAuthorize("authentication.principal.claims['preferred_username'].equals(#offer.getPostSellerUsername())")
-	public void denyOffer(@RequestBody OfferDto offer, @PathVariable("username") String username, @RequestHeader(value="Authorization") String token) throws ElementNotFoundException {
+	public void denyOffer(@RequestBody OfferDto offer, @PathVariable("username") String username) throws ElementNotFoundException {
 		offerService.denyOffer(offer, username);
 	}
 

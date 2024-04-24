@@ -25,7 +25,7 @@ public class SpeditionController {
 	
 	@GetMapping("/personal/{username}")
 	@PreAuthorize("authentication.principal.claims['preferred_username'].equals(#username)")
-	public ResponseEntity<List<SpeditionDto>> getPersonal(@PathVariable("username") String username, @RequestHeader(value="Authorization") String token) {
+	public ResponseEntity<List<SpeditionDto>> getPersonal(@PathVariable("username") String username) {
 		return ResponseEntity.ok(speditionService.getBySeller(username));
 	}
 	

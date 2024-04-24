@@ -41,19 +41,19 @@ public class UserController {
 	
 	@DeleteMapping("/{username}")
 	@PreAuthorize("authentication.principal.claims['preferred_username'].equals(#username)")
-	public void delete(@PathVariable("username") String username, @RequestHeader(value="Authorization") String token) throws ElementNotFoundException {
+	public void delete(@PathVariable("username") String username) throws ElementNotFoundException {
 		userService.delete(username);
 	}
 	
 	@PutMapping("/")
 	@PreAuthorize("authentication.principal.claims['preferred_username'].equals(#user.getUsername())")
-	public ResponseEntity<UserPersonalProfileDto> update(@RequestBody UserPersonalProfileDto user, @RequestHeader(value="Authorization") String token) throws ElementNotFoundException{
+	public ResponseEntity<UserPersonalProfileDto> update(@RequestBody UserPersonalProfileDto user) throws ElementNotFoundException{
 		return ResponseEntity.ok(userService.update(user));
 	}
 	
 	@GetMapping("/personal/{username}")
 	@PreAuthorize("authentication.principal.claims['preferred_username'].equals(#username)")
-	public ResponseEntity<UserPersonalProfileDto> getPersonal(@PathVariable("username") String username, @RequestHeader(value="Authorization") String token) throws ElementNotFoundException{
+	public ResponseEntity<UserPersonalProfileDto> getPersonal(@PathVariable("username") String username) throws ElementNotFoundException{
 		return ResponseEntity.ok(userService.getPersonal(username));
 	}
 	

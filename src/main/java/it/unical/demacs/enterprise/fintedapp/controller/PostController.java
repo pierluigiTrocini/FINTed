@@ -30,13 +30,13 @@ public class PostController {
 	
 	@PostMapping("/")
 	@PreAuthorize("authentication.principal.claims['preferred_username'].equals(#post.getSellerUsername())")
-	public ResponseEntity<PostDto> save(@RequestBody PostDto post, @RequestHeader(value="Authorization") String token) throws ElementNotFoundException, IOException{
+	public ResponseEntity<PostDto> save(@RequestBody PostDto post) throws ElementNotFoundException, IOException{
 		return ResponseEntity.ok(postService.save(post));
 	}
 	
 	@DeleteMapping("/{username}/{postId}")
 	@PreAuthorize("authentication.principal.claims['preferred_username'].equals(#username)")
-	public void delete(@PathVariable("postId") Long postId, @PathVariable("username") String username, @RequestHeader(value="Authorization") String token) throws ElementNotFoundException {
+	public void delete(@PathVariable("postId") Long postId, @PathVariable("username") String username) throws ElementNotFoundException {
 		postService.delete(postId, username);
 	}
 	
