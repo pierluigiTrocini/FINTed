@@ -28,9 +28,7 @@ class SpeditionControllerApi(basePath: String = ApiUrl.url, context: Context) : 
     @Suppress("UNCHECKED_CAST")
     fun getPersonal1(username: kotlin.String, authorization: kotlin.String): kotlin.Array<SpeditionDto> {
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
-        authorization.apply {
-            localVariableHeaders["Authorization"] = this.toString()
-        }
+localVariableHeaders["Authorization"] = "Bearer $authorization"
         localVariableHeaders["Accept"] = "*/*"
         val localVariableConfig = RequestConfig(
                 RequestMethod.GET,

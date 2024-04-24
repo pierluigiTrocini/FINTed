@@ -36,9 +36,7 @@ class UserControllerApi(basePath: String = ApiUrl.url, context: Context) : ApiCl
      */
     fun delete(username: kotlin.String, authorization: kotlin.String): Unit {
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
-        authorization.apply {
-            localVariableHeaders["Authorization"] = this.toString()
-        }
+localVariableHeaders["Authorization"] = "Bearer $authorization"
         localVariableHeaders["Accept"] = "*/*"
         val localVariableConfig = RequestConfig(
                 RequestMethod.DELETE,
@@ -90,9 +88,7 @@ class UserControllerApi(basePath: String = ApiUrl.url, context: Context) : ApiCl
     @Suppress("UNCHECKED_CAST")
     fun getPersonal(username: kotlin.String, authorization: kotlin.String): UserPersonalProfileDto {
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
-        authorization.apply {
-            localVariableHeaders["Authorization"] = this.toString()
-        }
+localVariableHeaders["Authorization"] = "Bearer $authorization"
         localVariableHeaders["Accept"] = "*/*"
         val localVariableConfig = RequestConfig(
                 RequestMethod.GET,
@@ -170,9 +166,7 @@ class UserControllerApi(basePath: String = ApiUrl.url, context: Context) : ApiCl
     fun update(body: UserPersonalProfileDto, authorization: kotlin.String): UserPersonalProfileDto {
         val localVariableBody: kotlin.Any? = body
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
-        authorization.apply {
-            localVariableHeaders["Authorization"] = this.toString()
-        }
+localVariableHeaders["Authorization"] = "Bearer $authorization"
         localVariableHeaders["Content-Type"] = "application/json"
         localVariableHeaders["Accept"] = "*/*"
         val localVariableConfig = RequestConfig(

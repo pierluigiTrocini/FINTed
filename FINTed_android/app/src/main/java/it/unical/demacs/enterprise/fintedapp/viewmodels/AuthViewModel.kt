@@ -24,6 +24,8 @@ class AuthViewModel(context: Context) : ViewModel() {
                 )
             )
             AuthValues.username.value = username
+
+            Log.d("PIERLUIGI", AuthValues.accessToken.value.accessToken!!)
         }
     }
 

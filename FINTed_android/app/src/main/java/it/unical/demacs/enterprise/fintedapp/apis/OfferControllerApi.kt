@@ -31,9 +31,7 @@ class OfferControllerApi(basePath: String = ApiUrl.url, context: Context) : ApiC
     fun acceptOffer(body: OfferDto, authorization: kotlin.String, username: kotlin.String): SpeditionDto {
         val localVariableBody: kotlin.Any? = body
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
-        authorization.apply {
-            localVariableHeaders["Authorization"] = this.toString()
-        }
+localVariableHeaders["Authorization"] = "Bearer $authorization"
         localVariableHeaders["Content-Type"] = "application/json"
         localVariableHeaders["Accept"] = "*/*"
         val localVariableConfig = RequestConfig(
@@ -62,9 +60,7 @@ class OfferControllerApi(basePath: String = ApiUrl.url, context: Context) : ApiC
      */
     fun delete3(username: kotlin.String, id: kotlin.Long, authorization: kotlin.String): Unit {
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
-        authorization.apply {
-            localVariableHeaders["Authorization"] = this.toString()
-        }
+localVariableHeaders["Authorization"] = "Bearer $authorization"
         localVariableHeaders["Accept"] = "*/*"
         val localVariableConfig = RequestConfig(
                 RequestMethod.DELETE,
@@ -93,9 +89,7 @@ class OfferControllerApi(basePath: String = ApiUrl.url, context: Context) : ApiC
     fun denyOffer(body: OfferDto, authorization: kotlin.String, username: kotlin.String): Unit {
         val localVariableBody: kotlin.Any? = body
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
-        authorization.apply {
-            localVariableHeaders["Authorization"] = this.toString()
-        }
+localVariableHeaders["Authorization"] = "Bearer $authorization"
         localVariableHeaders["Content-Type"] = "application/json"
         localVariableHeaders["Accept"] = "*/*"
         val localVariableConfig = RequestConfig(
@@ -124,9 +118,7 @@ class OfferControllerApi(basePath: String = ApiUrl.url, context: Context) : ApiC
     @Suppress("UNCHECKED_CAST")
     fun getPersonalOffers(username: kotlin.String, authorization: kotlin.String): kotlin.Array<OfferDto> {
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
-        authorization.apply {
-            localVariableHeaders["Authorization"] = this.toString()
-        }
+localVariableHeaders["Authorization"] = "Bearer $authorization"
         localVariableHeaders["Accept"] = "*/*"
         val localVariableConfig = RequestConfig(
                 RequestMethod.GET,
@@ -154,9 +146,7 @@ class OfferControllerApi(basePath: String = ApiUrl.url, context: Context) : ApiC
     @Suppress("UNCHECKED_CAST")
     fun getSellsOffers(username: kotlin.String, authorization: kotlin.String): kotlin.Array<OfferDto> {
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
-        authorization.apply {
-            localVariableHeaders["Authorization"] = this.toString()
-        }
+localVariableHeaders["Authorization"] = "Bearer $authorization"
         localVariableHeaders["Accept"] = "*/*"
         val localVariableConfig = RequestConfig(
                 RequestMethod.GET,
@@ -185,9 +175,7 @@ class OfferControllerApi(basePath: String = ApiUrl.url, context: Context) : ApiC
     fun save3(body: OfferDto, authorization: kotlin.String): OfferDto {
         val localVariableBody: kotlin.Any? = body
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
-        authorization.apply {
-            localVariableHeaders["Authorization"] = this.toString()
-        }
+localVariableHeaders["Authorization"] = "Bearer $authorization"
         localVariableHeaders["Content-Type"] = "application/json"
         localVariableHeaders["Accept"] = "*/*"
         val localVariableConfig = RequestConfig(

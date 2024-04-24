@@ -51,9 +51,7 @@ class AuthControllerApi(basePath: String = ApiUrl.url, context: Context) : ApiCl
      */
     fun logout(authorization: kotlin.String): Unit {
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
-        authorization.apply {
-            localVariableHeaders["Authorization"] = this.toString()
-        }
+localVariableHeaders["Authorization"] = "Bearer $authorization"
         localVariableHeaders["Accept"] = "*/*"
         val localVariableConfig = RequestConfig(
                 RequestMethod.POST,

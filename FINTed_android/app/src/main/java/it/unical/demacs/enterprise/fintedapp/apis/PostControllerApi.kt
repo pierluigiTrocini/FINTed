@@ -12,9 +12,11 @@
 package it.unical.demacs.enterprise.fintedapp.apis
 
 import android.content.Context
+import android.util.Log
 import it.unical.demacs.enterprise.fintedapp.models.PostDto
 
 import it.unical.demacs.enterprise.fintedapp.infrastructure.*
+import it.unical.demacs.enterprise.fintedapp.viewmodels.AuthValues
 
 class PostControllerApi(basePath: String = ApiUrl.url, context: Context) : ApiClient(basePath) {
 
@@ -28,9 +30,7 @@ class PostControllerApi(basePath: String = ApiUrl.url, context: Context) : ApiCl
      */
     fun delete2(postId: kotlin.Long, username: kotlin.String, authorization: kotlin.String): Unit {
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
-        authorization.apply {
-            localVariableHeaders["Authorization"] = this.toString()
-        }
+localVariableHeaders["Authorization"] = "Bearer $authorization"
         localVariableHeaders["Accept"] = "*/*"
         val localVariableConfig = RequestConfig(
                 RequestMethod.DELETE,
@@ -129,11 +129,13 @@ class PostControllerApi(basePath: String = ApiUrl.url, context: Context) : ApiCl
      */
     @Suppress("UNCHECKED_CAST")
     fun save2(body: PostDto, authorization: kotlin.String): PostDto {
+        Log.d("PIERLUIGI", body.toString())
+        Log.d("PIERLUIGI", AuthValues.accessToken.value.accessToken!!)
+        Log.d("PIERLUIGI", authorization.toString())
+
         val localVariableBody: kotlin.Any? = body
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
-        authorization.apply {
-            localVariableHeaders["Authorization"] = this.toString()
-        }
+        localVariableHeaders["Authorization"] = "Bearer $authorization"
         localVariableHeaders["Content-Type"] = "application/json"
         localVariableHeaders["Accept"] = "*/*"
         val localVariableConfig = RequestConfig(
@@ -148,7 +150,10 @@ class PostControllerApi(basePath: String = ApiUrl.url, context: Context) : ApiCl
             ResponseType.Success -> (response as Success<*>).data as PostDto
             ResponseType.Informational -> TODO()
             ResponseType.Redirection -> TODO()
-            ResponseType.ClientError -> throw ClientException((response as ClientError<*>).body as? String ?: "Client error")
+            ResponseType.ClientError -> throw ClientException(
+                "Client error with status code ${response.statusCode}: ${(response as ClientError<*>).body as? String ?: "Unknown error"}"
+            )
+
             ResponseType.ServerError -> throw ServerException((response as ServerError<*>).message ?: "Server error")
         }
     }

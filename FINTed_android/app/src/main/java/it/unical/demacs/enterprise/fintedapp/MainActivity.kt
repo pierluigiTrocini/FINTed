@@ -71,21 +71,32 @@ fun Homepage() {
     val offerViewModel = remember { mutableStateOf(OfferViewModel(context = context)) }
     val reviewViewModel = remember { mutableStateOf(ReviewViewModel(context = context)) }
 
-    if(AuthValues.accessToken.value.accessToken == null) {
-        LoginActivity(authViewModel = authViewModel, userViewModel = userViewModel, context = context, appIndex = appIndex)
-    }
-    else {
+    if (AuthValues.accessToken.value.accessToken == null) {
+        LoginActivity(
+            authViewModel = authViewModel,
+            userViewModel = userViewModel,
+            context = context,
+            appIndex = appIndex
+        )
+    } else {
         Scaffold(
-            bottomBar = { BottomBar( appIndex = appIndex ) }
+            bottomBar = { BottomBar(appIndex = appIndex) }
         ) {
-            Box(modifier = Modifier.padding(it)){
-                if(appIndex.value == AppIndex.HOMEPAGE){
+            Box(modifier = Modifier.padding(it)) {
+                if (appIndex.value == AppIndex.HOMEPAGE) {
                     HomepageActivity(
                         context = context,
                         appIndex = appIndex,
                         userViewModel = userViewModel,
                         postViewModel = postViewModel,
                         offerViewModel = offerViewModel
+                    )
+                }
+                if (appIndex.value == AppIndex.SELL) {
+                    SellingActivity(
+                        userViewModel = userViewModel,
+                        postViewModel = postViewModel,
+                        appIndex = appIndex
                     )
                 }
             }

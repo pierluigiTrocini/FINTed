@@ -19,7 +19,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import it.unical.demacs.enterprise.fintedapp.models.PostDto
@@ -47,11 +46,19 @@ fun PostActivity(
             Spacer(modifier = Modifier.height(8.dp))
             Text(
                 text = post.title ?: stringResource(id = R.string.unavailable),
-                style = MaterialTheme.typography.bodyLarge
+                style = MaterialTheme.typography.titleLarge
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
-                text = stringResource(id = R.string.postStartingPrice) + post.startingPrice
+                text = stringResource(id = R.string.seller) + (post.sellerUsername
+                    ?: stringResource(
+                        id = R.string.unavailable
+                    )),
+                style = MaterialTheme.typography.titleSmall
+            )
+            Spacer(modifier = Modifier.height(4.dp))
+            Text(
+                text = stringResource(id = R.string.postStartingPrice) + " : " + post.startingPrice
                     ?: stringResource(id = R.string.unavailable),
                 style = MaterialTheme.typography.bodySmall
             )
@@ -73,7 +80,7 @@ fun PostActivity(
                 modifier = Modifier.padding(16.dp),
                 shape = RoundedCornerShape(8.dp)
             ) {
-                Box(modifier = Modifier.padding(10.dp)){
+                Box(modifier = Modifier.padding(10.dp)) {
                     Column {
                         Text(
                             text = stringResource(id = R.string.makeOffer),
