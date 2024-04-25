@@ -35,6 +35,7 @@ public class SecurityConfig {
 					"/posts/search/{content}",
 					"/reviews/target/{username}").permitAll();
 			req.requestMatchers(HttpMethod.POST, "/users/").permitAll();
+			req.requestMatchers(HttpMethod.GET, "/users/{username}").permitAll();
 			req.requestMatchers(HttpMethod.POST, "/auth/login").permitAll();
 			req.requestMatchers(HttpMethod.POST, "/auth/logout").permitAll();
 

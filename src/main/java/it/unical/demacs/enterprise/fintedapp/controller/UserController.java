@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import it.unical.demacs.enterprise.fintedapp.data.services.UserService;
 import it.unical.demacs.enterprise.fintedapp.dto.UserDto;
 import it.unical.demacs.enterprise.fintedapp.dto.UserPersonalProfileDto;
+import it.unical.demacs.enterprise.fintedapp.dto.UserProfileDto;
 import it.unical.demacs.enterprise.fintedapp.dto.UserRegistrationDto;
 import it.unical.demacs.enterprise.fintedapp.exception.CredentialsAlreadyUsedException;
 import it.unical.demacs.enterprise.fintedapp.exception.ElementNotFoundException;
@@ -65,6 +66,12 @@ public class UserController {
 	@GetMapping("/search/{content}")
 	public ResponseEntity<List<UserDto>> searchUser(@PathVariable("content") String content){
 		return ResponseEntity.ok(userService.searchByUsername(content));
+	}
+	
+	@GetMapping("/{username}")
+	@PreAuthorize("isAuthenticated()")
+	public ResponseEntity<UserProfileDto> get(@PathVariable("username") String username) throws ElementNotFoundException {
+		return ResponseEntity.ok(userService.get(username));
 	}
 
 }

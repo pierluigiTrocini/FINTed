@@ -67,7 +67,7 @@ fun PostActivity(
             )
             Spacer(modifier = Modifier.height(8.dp))
 
-            if (scope == PostActivityScope.HOMEPAGE) {
+            if (scope == PostActivityScope.HOMEPAGE && post.sellerUsername != AuthValues.username.value) {
                 Button(onClick = {
                     offerState.value = true
                 }) {
