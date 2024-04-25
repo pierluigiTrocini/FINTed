@@ -14,6 +14,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -22,14 +23,16 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import it.unical.demacs.enterprise.fintedapp.models.PostDto
+import it.unical.demacs.enterprise.fintedapp.viewmodels.AuthValues
 import it.unical.demacs.enterprise.fintedapp.viewmodels.OfferViewModel
 import it.unical.demacs.enterprise.fintedapp.viewmodels.PostViewModel
 
 @Composable
 fun PostActivity(
     post: PostDto,
-    postViewModel: PostViewModel,
-    offerViewModel: OfferViewModel
+    postViewModel: MutableState<PostViewModel>,
+    offerViewModel: MutableState<OfferViewModel>,
+    scope: PostActivityScope
 ) {
     val offerState = remember { mutableStateOf(false) }
 
@@ -64,10 +67,12 @@ fun PostActivity(
             )
             Spacer(modifier = Modifier.height(8.dp))
 
-            Button(onClick = {
-                offerState.value = true
-            }) {
-                Text(text = stringResource(id = R.string.makeOffer))
+            if (scope == PostActivityScope.HOMEPAGE) {
+                Button(onClick = {
+                    offerState.value = true
+                }) {
+                    Text(text = stringResource(id = R.string.makeOffer))
+                }
             }
         }
     }
@@ -93,9 +98,13 @@ fun PostActivity(
                             label = { Text(stringResource(id = R.string.makeOffer)) }
                         )
                         Spacer(modifier = Modifier.height(8.dp))
-
                         Button(onClick = {
                             offerState.value = false
+                            offerViewModel.value.save(
+                                postId = post.id!!,
+                                userUsername = AuthValues.username.value!!,
+                                offerLong = offerText.value.toLong()
+                            )
                         }) {
                             Text(text = stringResource(id = R.string.publish))
                         }
@@ -105,4 +114,8 @@ fun PostActivity(
         }
     }
 
+}
+
+enum class PostActivityScope {
+    HOMEPAGE, PERSONAL_PROFILE
 }

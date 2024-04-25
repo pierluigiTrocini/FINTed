@@ -5,9 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import it.unical.demacs.enterprise.fintedapp.models.AccessTokenResponse
 import it.unical.demacs.enterprise.fintedapp.models.UserPersonalProfileDto
 
-class AuthValues {
-    companion object{
+object AuthValues {
         var accessToken: MutableState<AccessTokenResponse> = mutableStateOf(AccessTokenResponse())
         var username: MutableState<String> = mutableStateOf("")
-    }
 }

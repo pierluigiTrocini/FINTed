@@ -83,20 +83,28 @@ fun Homepage() {
             bottomBar = { BottomBar(appIndex = appIndex) }
         ) {
             Box(modifier = Modifier.padding(it)) {
-                if (appIndex.value == AppIndex.HOMEPAGE) {
+                if (CurrentIndex.appIndex.value == AppIndex.HOMEPAGE) {
                     HomepageActivity(
                         context = context,
-                        appIndex = appIndex,
+                        appIndex = CurrentIndex.appIndex,
                         userViewModel = userViewModel,
                         postViewModel = postViewModel,
                         offerViewModel = offerViewModel
                     )
                 }
-                if (appIndex.value == AppIndex.SELL) {
+                if (CurrentIndex.appIndex.value == AppIndex.SELL) {
                     SellingActivity(
                         userViewModel = userViewModel,
                         postViewModel = postViewModel,
                         appIndex = appIndex
+                    )
+                }
+                if (CurrentIndex.appIndex.value == AppIndex.PROFILE) {
+                    ProfileActivity(
+                        userViewModel = userViewModel,
+                        postViewModel = postViewModel,
+                        offerViewModel = offerViewModel,
+                        scope = ProfileActivityScope.PERSONAL_PROFILE
                     )
                 }
             }
@@ -110,8 +118,8 @@ fun BottomBar(appIndex: MutableState<AppIndex>) {
     BottomAppBar {
         NavigationBar {
             NavigationBarItem(
-                selected = appIndex.value == AppIndex.HOMEPAGE,
-                onClick = { appIndex.value = AppIndex.HOMEPAGE },
+                selected = CurrentIndex.appIndex.value == AppIndex.HOMEPAGE,
+                onClick = { CurrentIndex.appIndex.value = AppIndex.HOMEPAGE },
                 icon = {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         Icon(Icons.Filled.Home, contentDescription = stringResource(R.string.home))
@@ -120,8 +128,8 @@ fun BottomBar(appIndex: MutableState<AppIndex>) {
                 }
             )
             NavigationBarItem(
-                selected = appIndex.value == AppIndex.SELL,
-                onClick = { appIndex.value = AppIndex.SELL },
+                selected = CurrentIndex.appIndex.value == AppIndex.SELL,
+                onClick = { CurrentIndex.appIndex.value = AppIndex.SELL },
                 icon = {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         Icon(
@@ -133,8 +141,8 @@ fun BottomBar(appIndex: MutableState<AppIndex>) {
                 }
             )
             NavigationBarItem(
-                selected = appIndex.value == AppIndex.OFFERS,
-                onClick = { appIndex.value = AppIndex.OFFERS },
+                selected = CurrentIndex.appIndex.value == AppIndex.OFFERS,
+                onClick = { CurrentIndex.appIndex.value = AppIndex.OFFERS },
                 icon = {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         Icon(
@@ -146,8 +154,8 @@ fun BottomBar(appIndex: MutableState<AppIndex>) {
                 }
             )
             NavigationBarItem(
-                selected = appIndex.value == AppIndex.PROFILE,
-                onClick = { appIndex.value = AppIndex.PROFILE },
+                selected = CurrentIndex.appIndex.value == AppIndex.PROFILE,
+                onClick = { CurrentIndex.appIndex.value = AppIndex.PROFILE },
                 icon = {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         Icon(

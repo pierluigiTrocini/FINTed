@@ -83,4 +83,12 @@
 <![CDATA[Registrandomi confermo di aver letto e accettato i Termini e Condizioni e l\'Informativa sulla Privacy di Finted. Confermo di avere almeno 18 anni e accetto di ricevere offerte speciali e promozioni Finted.]]></string>
     <string name="unavailable">[non disponibile]</string>
     <string name="seller">"Venduto da: "</string>
+    <string name="profilePostList">Post</string>
+    <string name="profileReviewList">Recensioni</string>
+    <string name="profileSentReviews">Recensioni pubblicate</string>
+    <string name="profileRecvReviews">Recensioni ricevute</string>
+    <string name="profileOfferList">Offerte pubblicate</string>
+    <string name="offerPostTitle">"Titolo: "</string>
+    <string name="offerPostedBy">"Post di: "</string>
+    <string name="offerOfferLong">"Offerta: "</string>
 </resources>

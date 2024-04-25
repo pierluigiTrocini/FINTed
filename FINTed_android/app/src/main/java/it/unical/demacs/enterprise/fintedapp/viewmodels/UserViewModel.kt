@@ -8,6 +8,7 @@ import it.unical.demacs.enterprise.fintedapp.apis.AuthControllerApi
 import it.unical.demacs.enterprise.fintedapp.apis.UserControllerApi
 import it.unical.demacs.enterprise.fintedapp.models.UserDto
 import it.unical.demacs.enterprise.fintedapp.models.UserPersonalProfileDto
+import it.unical.demacs.enterprise.fintedapp.models.UserProfileDto
 import it.unical.demacs.enterprise.fintedapp.models.UserRegistrationDto
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -18,6 +19,9 @@ class UserViewModel(context: Context) : ViewModel() {
     private val authControllerApi: AuthControllerApi = AuthControllerApi(context = context)
 
     val userList: MutableState<List<UserDto>> = mutableStateOf(listOf())
+
+    val personalProfile: MutableState<UserPersonalProfileDto> = mutableStateOf(UserPersonalProfileDto())
+    val basicUser: MutableState<UserProfileDto> = mutableStateOf(UserProfileDto())
 
     fun registration(
         firstName: String,
@@ -47,12 +51,21 @@ class UserViewModel(context: Context) : ViewModel() {
         }
     }
 
+    fun get(username: String) {
+        CoroutineScope(Dispatchers.IO).launch {
+            basicUser.value = userControllerApi.get(
+                username = username,
+                authorization = AuthValues.accessToken.value.accessToken!!
+            )
+        }
+    }
+
     fun getPersonal(username: String){
         CoroutineScope(Dispatchers.IO).launch {
-//            AuthValues.personalProfile.value = userControllerApi.getPersonal(
-//                username = username,
-//                authorization = AuthValues.accessToken.value.accessToken!!
-//            ) as UserPersonalProfileDto
+            personalProfile.value = userControllerApi.getPersonal(
+                username = username,
+                authorization = AuthValues.accessToken.value.accessToken!!
+            )
         }
     }
 

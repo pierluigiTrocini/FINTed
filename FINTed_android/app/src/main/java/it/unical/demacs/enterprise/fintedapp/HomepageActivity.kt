@@ -67,8 +67,9 @@ fun HomepageActivity(
                         key = { post: PostDto -> post.id!! }) { post: PostDto ->
                         PostActivity(
                             post = post,
-                            postViewModel = postViewModel.value,
-                            offerViewModel = offerViewModel.value
+                            postViewModel = postViewModel,
+                            offerViewModel = offerViewModel,
+                            scope = PostActivityScope.HOMEPAGE
                         )
                     }
                 }

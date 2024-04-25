@@ -103,7 +103,7 @@ fun LoginActivity(
                         username = username.value, password = password.value,
                         context = context
                     )
-                    appIndex.value = AppIndex.HOMEPAGE
+                    CurrentIndex.appIndex.value = AppIndex.HOMEPAGE
                 }) {
                     Text(text = stringResource(id = R.string.loginLabel))
                 }
@@ -270,7 +270,7 @@ fun LoginActivity(
                         addressRoute = addressRoute.value
                     )
 
-                    appIndex.value = AppIndex.HOMEPAGE
+                    CurrentIndex.appIndex.value = AppIndex.HOMEPAGE
                 }) {
                     androidx.wear.compose.material.Text(text = stringResource(id = R.string.registration))
                 }

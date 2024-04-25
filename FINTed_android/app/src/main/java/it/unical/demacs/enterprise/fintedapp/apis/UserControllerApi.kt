@@ -18,6 +18,7 @@ import it.unical.demacs.enterprise.fintedapp.models.UserPersonalProfileDto
 import it.unical.demacs.enterprise.fintedapp.models.UserRegistrationDto
 
 import it.unical.demacs.enterprise.fintedapp.infrastructure.*
+import it.unical.demacs.enterprise.fintedapp.models.UserProfileDto
 
 
 class ClientException : Exception {
@@ -26,6 +27,34 @@ class ClientException : Exception {
 }
 
 class UserControllerApi(basePath: String = ApiUrl.url, context: Context) : ApiClient(basePath) {
+    /**
+     *
+     *
+     * @param username
+     * @return UserProfileDto
+     */
+    @Suppress("UNCHECKED_CAST")
+    fun get(username: kotlin.String, authorization: kotlin.String): UserProfileDto {
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Authorization"] = "Bearer $authorization"
+        localVariableHeaders["Accept"] = "*/*"
+        val localVariableConfig = RequestConfig(
+            RequestMethod.GET,
+            "/users/{username}".replace("{" + "username" + "}", "$username"), headers = localVariableHeaders
+        )
+        val response = request<UserProfileDto>(
+            localVariableConfig
+        )
+
+        return when (response.responseType) {
+            ResponseType.Success -> (response as Success<*>).data as UserProfileDto
+            ResponseType.Informational -> TODO()
+            ResponseType.Redirection -> TODO()
+            ResponseType.ClientError -> throw ClientException((response as ClientError<*>).body as? String ?: "Client error")
+            ResponseType.ServerError -> throw ServerException((response as ServerError<*>).message ?: "Server error")
+        }
+    }
+
 
     /**
      * 
