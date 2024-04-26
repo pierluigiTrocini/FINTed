@@ -91,4 +91,5 @@
     <string name="offerPostTitle">"Titolo: "</string>
     <string name="offerPostedBy">"Post di: "</string>
     <string name="offerOfferLong">"Offerta: "</string>
+    <string name="reviewAuthor">"Autore: "</string>
 </resources>

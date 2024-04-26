@@ -37,7 +37,6 @@ import it.unical.demacs.enterprise.fintedapp.viewmodels.UserViewModel
 fun SellingActivity(
     userViewModel: MutableState<UserViewModel>,
     postViewModel: MutableState<PostViewModel>,
-    appIndex: MutableState<AppIndex>
 ){
     val context = LocalContext.current
     val imageUri = remember { mutableStateOf<Uri?>(null) }
@@ -99,9 +98,9 @@ fun SellingActivity(
             postViewModel.value.save(
                 title = title.value,
                 startingPrice = startingPrice.value.toLong(),
-                postImage = postViewModel.value.convertImageToBase64(imageUri = imageUri.value!!, context = context)
+                postImage = if (imageUri.value != null) postViewModel.value.convertImageToBase64(imageUri = imageUri.value!!, context = context) else ""
             )
-            appIndex.value = AppIndex.HOMEPAGE
+            CurrentIndex.appIndex.value = AppIndex.HOMEPAGE
         }) {
             Text(stringResource(id = R.string.publish))
         }

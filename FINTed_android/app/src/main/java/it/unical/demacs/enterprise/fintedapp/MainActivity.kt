@@ -89,14 +89,14 @@ fun Homepage() {
                         appIndex = CurrentIndex.appIndex,
                         userViewModel = userViewModel,
                         postViewModel = postViewModel,
-                        offerViewModel = offerViewModel
+                        offerViewModel = offerViewModel,
+                        reviewViewModel = reviewViewModel
                     )
                 }
                 if (CurrentIndex.appIndex.value == AppIndex.SELL) {
                     SellingActivity(
                         userViewModel = userViewModel,
                         postViewModel = postViewModel,
-                        appIndex = appIndex
                     )
                 }
                 if (CurrentIndex.appIndex.value == AppIndex.PROFILE) {
@@ -104,6 +104,7 @@ fun Homepage() {
                         userViewModel = userViewModel,
                         postViewModel = postViewModel,
                         offerViewModel = offerViewModel,
+                        reviewViewModel = reviewViewModel,
                         scope = ProfileActivityScope.PERSONAL_PROFILE
                     )
                 }

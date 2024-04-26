@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -23,6 +24,7 @@ import it.unical.demacs.enterprise.fintedapp.models.OfferDto
 import it.unical.demacs.enterprise.fintedapp.ui.utility.AppIndex
 import it.unical.demacs.enterprise.fintedapp.viewmodels.OfferViewModel
 import it.unical.demacs.enterprise.fintedapp.viewmodels.PostViewModel
+import it.unical.demacs.enterprise.fintedapp.viewmodels.ReviewViewModel
 import it.unical.demacs.enterprise.fintedapp.viewmodels.UserViewModel
 
 @Composable
@@ -31,6 +33,7 @@ fun OfferActivity(
     offerViewModel: MutableState<OfferViewModel>,
     userViewModel: MutableState<UserViewModel>,
     postViewModel: MutableState<PostViewModel>,
+    reviewViewModel: MutableState<ReviewViewModel>,
     scope: OfferActivityScope
 ) {
     val showPost = remember { mutableStateOf(false) }
@@ -61,7 +64,6 @@ fun OfferActivity(
                 text = (stringResource(id = R.string.offerOfferLong) + offer.offer),
                 style = MaterialTheme.typography.bodyLarge
             )
-
         }
     }
 
@@ -73,6 +75,8 @@ fun OfferActivity(
                 post = postViewModel.value.post.value,
                 postViewModel = postViewModel,
                 offerViewModel = offerViewModel,
+                userViewModel = userViewModel,
+                reviewViewModel = reviewViewModel,
                 scope = PostActivityScope.PERSONAL_PROFILE
             )
         }
@@ -86,10 +90,10 @@ fun OfferActivity(
                 userViewModel = userViewModel,
                 postViewModel = postViewModel,
                 offerViewModel = offerViewModel,
+                reviewViewModel = reviewViewModel,
                 scope = ProfileActivityScope.BASIC_USER
             )
         }
-
     }
 }
 

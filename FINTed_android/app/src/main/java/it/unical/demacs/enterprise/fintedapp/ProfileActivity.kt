@@ -31,13 +31,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
 import it.unical.demacs.enterprise.fintedapp.models.OfferDto
 import it.unical.demacs.enterprise.fintedapp.models.PostDto
 import it.unical.demacs.enterprise.fintedapp.models.UserPersonalProfileDto
+import it.unical.demacs.enterprise.fintedapp.models.UserProfileDto
 import it.unical.demacs.enterprise.fintedapp.ui.utility.AppIndex
 import it.unical.demacs.enterprise.fintedapp.viewmodels.AuthValues
 import it.unical.demacs.enterprise.fintedapp.viewmodels.OfferViewModel
 import it.unical.demacs.enterprise.fintedapp.viewmodels.PostViewModel
+import it.unical.demacs.enterprise.fintedapp.viewmodels.ReviewViewModel
 import it.unical.demacs.enterprise.fintedapp.viewmodels.UserViewModel
 
 @Composable
@@ -46,12 +49,15 @@ fun ProfileActivity(
     userViewModel: MutableState<UserViewModel>,
     postViewModel: MutableState<PostViewModel>,
     offerViewModel: MutableState<OfferViewModel>,
+    reviewViewModel: MutableState<ReviewViewModel>,
     scope: ProfileActivityScope
 ) {
     userViewModel.value.getPersonal(username = AuthValues.username.value)
 
     val profile: MutableState<UserPersonalProfileDto> = userViewModel.value.personalProfile
     val profileIndex = remember { mutableStateOf(PersonalProfileIndex.POSTS) }
+    val basicUser: MutableState<UserProfileDto> = userViewModel.value.basicUser
+    val showReviewForm = remember { mutableStateOf(false) }
 
     Column(
         modifier = Modifier.fillMaxWidth(),
@@ -72,7 +78,9 @@ fun ProfileActivity(
                     modifier = Modifier.size(70.dp)
                 )
                 Text(
-                    text = profile.value.username ?: stringResource(id = R.string.unavailable),
+                    text = if (scope == ProfileActivityScope.PERSONAL_PROFILE) profile.value.username
+                        ?: stringResource(id = R.string.unavailable)
+                    else basicUser.value.username ?: stringResource(id = R.string.unavailable),
                     style = MaterialTheme.typography.titleLarge
                 )
 
@@ -80,12 +88,16 @@ fun ProfileActivity(
 
                 Row {
                     Text(
-                        text = profile.value.firstName ?: stringResource(id = R.string.unavailable),
+                        text = if (scope == ProfileActivityScope.PERSONAL_PROFILE) profile.value.firstName
+                            ?: stringResource(id = R.string.unavailable)
+                        else basicUser.value.firstName ?: stringResource(id = R.string.unavailable),
                         style = MaterialTheme.typography.titleMedium
                     )
                     Spacer(modifier = Modifier.width(4.dp))
                     Text(
-                        text = profile.value.lastName ?: stringResource(id = R.string.unavailable),
+                        text = if (scope == ProfileActivityScope.PERSONAL_PROFILE) profile.value.lastName
+                            ?: stringResource(id = R.string.unavailable)
+                        else basicUser.value.lastName ?: stringResource(id = R.string.unavailable),
                         style = MaterialTheme.typography.titleMedium
                     )
                 }
@@ -93,13 +105,15 @@ fun ProfileActivity(
                 Spacer(modifier = Modifier.height(4.dp))
 
                 Text(
-                    text = profile.value.credentialsEmail
+                    text = if (scope == ProfileActivityScope.PERSONAL_PROFILE) profile.value.credentialsEmail
+                        ?: stringResource(id = R.string.unavailable)
+                    else basicUser.value.credentialsEmail
                         ?: stringResource(id = R.string.unavailable),
                     style = MaterialTheme.typography.titleSmall
                 )
             }
         }
-        if(scope == ProfileActivityScope.PERSONAL_PROFILE) {
+        if (scope == ProfileActivityScope.PERSONAL_PROFILE) {
             Row(modifier = Modifier.horizontalScroll(rememberScrollState())) {
                 Button(
                     modifier = Modifier.padding(8.dp),
@@ -155,6 +169,8 @@ fun ProfileActivity(
                                         post = post,
                                         postViewModel = postViewModel,
                                         offerViewModel = offerViewModel,
+                                        userViewModel = userViewModel,
+                                        reviewViewModel = reviewViewModel,
                                         scope = PostActivityScope.PERSONAL_PROFILE
                                     )
                                 }
@@ -185,11 +201,29 @@ fun ProfileActivity(
                                         offerViewModel = offerViewModel,
                                         scope = OfferActivityScope.PUBLISHED_OFFERS,
                                         userViewModel = userViewModel,
-                                        postViewModel = postViewModel
+                                        postViewModel = postViewModel,
+                                        reviewViewModel = reviewViewModel
                                     )
                                 }
                             }
                         }
+                    }
+                }
+            }
+        } else {
+            if (scope == ProfileActivityScope.BASIC_USER && basicUser.value.username != AuthValues.username.value) {
+                Spacer(modifier = Modifier.height(64.dp))
+                Button(onClick = { showReviewForm.value = true }) {
+                    Text(text = stringResource(id = R.string.makeReview))
+                }
+
+                if (showReviewForm.value) {
+                    Dialog(onDismissRequest = { showReviewForm.value = false }) {
+                        ReviewFormActivity(
+                            showReviewForm = showReviewForm,
+                            reviewViewModel = reviewViewModel,
+                            targetUsername = basicUser.value.username!!
+                        )
                     }
                 }
             }
