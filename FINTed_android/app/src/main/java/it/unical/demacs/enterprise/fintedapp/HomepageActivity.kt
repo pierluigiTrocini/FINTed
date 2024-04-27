@@ -54,7 +54,7 @@ fun HomepageActivity(
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         Icon(
                             imageVector = Icons.Filled.Warning,
-                            contentDescription = "Icona di avviso"
+                            contentDescription = ""
                         )
                         Text(stringResource(id = R.string.noPosts))
                     }

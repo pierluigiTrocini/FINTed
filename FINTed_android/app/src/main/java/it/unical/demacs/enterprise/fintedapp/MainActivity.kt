@@ -61,7 +61,6 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun Homepage() {
     val context = LocalContext.current
-    val coroutineScope = rememberCoroutineScope()
 
     val appIndex = remember { mutableStateOf(AppIndex.HOMEPAGE) }
 

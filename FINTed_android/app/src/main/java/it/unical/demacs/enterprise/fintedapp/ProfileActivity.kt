@@ -34,6 +34,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import it.unical.demacs.enterprise.fintedapp.models.OfferDto
 import it.unical.demacs.enterprise.fintedapp.models.PostDto
+import it.unical.demacs.enterprise.fintedapp.models.ReviewDto
 import it.unical.demacs.enterprise.fintedapp.models.UserPersonalProfileDto
 import it.unical.demacs.enterprise.fintedapp.models.UserProfileDto
 import it.unical.demacs.enterprise.fintedapp.ui.utility.AppIndex
@@ -203,6 +204,69 @@ fun ProfileActivity(
                                         userViewModel = userViewModel,
                                         postViewModel = postViewModel,
                                         reviewViewModel = reviewViewModel
+                                    )
+                                }
+                            }
+                        }
+                    }
+                } else if (profileIndex.value == PersonalProfileIndex.RECV_REVIEWS) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.Center
+                    ) {
+                        if (profile.value.receivedReviews == null || profile.value.receivedReviews!!.isEmpty()) {
+                            Icon(
+                                imageVector = Icons.Filled.List,
+                                contentDescription = stringResource(id = R.string.profileRecvReviews),
+                                modifier = Modifier.size(75.dp)
+                            )
+                            Text(text = stringResource(id = R.string.noReviews))
+                        } else {
+                            LazyColumn(
+                                verticalArrangement = Arrangement.SpaceEvenly,
+                                horizontalAlignment = Alignment.CenterHorizontally
+                            ) {
+                                items(items = profile.value.receivedReviews!!,
+                                    key = { review: ReviewDto -> review.id!! }) { review: ReviewDto ->
+                                    ReviewActivity(
+                                        review,
+                                        reviewViewModel,
+                                        userViewModel,
+                                        postViewModel,
+                                        offerViewModel,
+                                        scope = ReviewActivityScope.RECEIVED_REVIEWS
+                                    )
+                                }
+                            }
+                        }
+                    }
+                }
+                else if (profileIndex.value == PersonalProfileIndex.SENT_REVIEWS) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.Center
+                    ) {
+                        if (profile.value.publishedReviews == null || profile.value.publishedReviews!!.isEmpty()) {
+                            Icon(
+                                imageVector = Icons.Filled.List,
+                                contentDescription = stringResource(id = R.string.profileRecvReviews),
+                                modifier = Modifier.size(75.dp)
+                            )
+                            Text(text = stringResource(id = R.string.noReviews))
+                        } else {
+                            LazyColumn(
+                                verticalArrangement = Arrangement.SpaceEvenly,
+                                horizontalAlignment = Alignment.CenterHorizontally
+                            ) {
+                                items(items = profile.value.publishedReviews!!,
+                                    key = { review: ReviewDto -> review.id!! }) { review: ReviewDto ->
+                                    ReviewActivity(
+                                        review,
+                                        reviewViewModel,
+                                        userViewModel,
+                                        postViewModel,
+                                        offerViewModel,
+                                        scope = ReviewActivityScope.PUBLISHED_REVIEWS
                                     )
                                 }
                             }

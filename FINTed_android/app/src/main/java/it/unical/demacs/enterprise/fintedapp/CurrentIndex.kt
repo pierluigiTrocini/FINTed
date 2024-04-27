@@ -6,4 +6,6 @@ import it.unical.demacs.enterprise.fintedapp.ui.utility.AppIndex
 
 object CurrentIndex {
     val appIndex: MutableState<AppIndex> = mutableStateOf(AppIndex.HOMEPAGE)
+
+    val currentDialogOpen: MutableState<Long?> = mutableStateOf(null)
 }

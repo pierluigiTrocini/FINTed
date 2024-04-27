@@ -110,6 +110,13 @@ fun PostActivity(
                 Box(modifier = Modifier.padding(10.dp)) {
                     Column {
                         Text(
+                            text = post.title!!,
+                            style = MaterialTheme.typography.titleMedium
+                        )
+
+                        Spacer(modifier = Modifier.height(16.dp))
+
+                        Text(
                             text = stringResource(id = R.string.makeOffer),
                             style = MaterialTheme.typography.bodyLarge
                         )

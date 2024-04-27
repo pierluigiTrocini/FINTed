@@ -31,7 +31,8 @@ fun ReviewActivity(
     reviewViewModel: MutableState<ReviewViewModel>,
     userViewModel: MutableState<UserViewModel>,
     postViewModel: MutableState<PostViewModel>,
-    offerViewModel: MutableState<OfferViewModel>
+    offerViewModel: MutableState<OfferViewModel>,
+    scope: ReviewActivityScope
 ){
     val showProfile = remember { mutableStateOf(false) }
     
@@ -44,6 +45,15 @@ fun ReviewActivity(
                 .padding(16.dp)
                 .fillMaxWidth()
         ) {
+            if(scope != ReviewActivityScope.RECEIVED_REVIEWS) {
+                Text(
+                    text = (review.targetUsername ?: stringResource(id = R.string.unavailable)),
+                    style = MaterialTheme.typography.titleLarge
+                )
+
+                Spacer(modifier = Modifier.height(8.dp))
+            }
+
             ClickableText(
                 text = AnnotatedString(stringResource(id = R.string.reviewAuthor) + review.authorUsername ?: stringResource(
                     id = R.string.unavailable
