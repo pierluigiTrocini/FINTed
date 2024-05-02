@@ -100,6 +100,9 @@ fun SellingActivity(
                 startingPrice = startingPrice.value.toLong(),
                 postImage = if (imageUri.value != null) postViewModel.value.convertImageToBase64(imageUri = imageUri.value!!, context = context) else ""
             )
+
+            postViewModel.value.getAll(0)
+
             CurrentIndex.appIndex.value = AppIndex.HOMEPAGE
         }) {
             Text(stringResource(id = R.string.publish))

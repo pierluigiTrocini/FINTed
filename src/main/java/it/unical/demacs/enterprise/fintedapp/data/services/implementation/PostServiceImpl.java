@@ -57,7 +57,17 @@ public class PostServiceImpl implements it.unical.demacs.enterprise.fintedapp.da
 	@Override
 	public List<PostDto> searchByTitle(String title){
 		return postDao.findAllByTitleLike(title).stream()
-				.map(post -> modelMapper.map(post, PostDto.class)).collect(Collectors.toList());
+				.map(post -> {
+					PostDto postDto = modelMapper.map(post, PostDto.class);
+					
+					try {
+						postDto.setPostImage(imageService.decompress(postDto.getPostImage()));
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					
+					return postDto;
+				}).collect(Collectors.toList());
 	}
 
 	@Override
@@ -68,13 +78,33 @@ public class PostServiceImpl implements it.unical.demacs.enterprise.fintedapp.da
 	@Override
 	public List<PostDto> getByUser(String username) throws ElementNotFoundException {
 		User user = userDao.findByUsername(username).orElseThrow(() -> new ElementNotFoundException("user not found"));
-		return user.getPublishedPosts().stream().map(post -> modelMapper.map(post, PostDto.class)).collect(Collectors.toList());
+		return user.getPublishedPosts().stream().map(post -> {
+			PostDto postDto = modelMapper.map(post, PostDto.class);
+			
+			try {
+				postDto.setPostImage(imageService.decompress(postDto.getPostImage()));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			return postDto;
+		}).collect(Collectors.toList());
 	}
 
 	@Override
 	public List<PostDto> getAll(Integer page) {
 		return postDao.findAll(PageRequest.of((page != null) ? page : 0, 10)).stream()
-				.map(post -> modelMapper.map(post, PostDto.class)).collect(Collectors.toList());
+				.map(post -> {
+					PostDto postDto = modelMapper.map(post, PostDto.class);
+					
+					try {
+						postDto.setPostImage(imageService.decompress(postDto.getPostImage()));
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					
+					return postDto;
+				}).collect(Collectors.toList());
 	}
 
 }

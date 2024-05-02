@@ -37,7 +37,7 @@ public class UserPersonalProfileDto {
 	
 	private String addressCity;
 	
-    private List<PostDto> publishedPosts;
+    private List<PostBasicInfoDto> publishedPosts;
 
     private List<ReviewDto> receivedReviews;
     

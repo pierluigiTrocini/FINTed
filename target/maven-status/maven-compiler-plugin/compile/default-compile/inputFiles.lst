@@ -24,6 +24,7 @@ E:\Workspace\FINTed\src\main\java\it\unical\demacs\enterprise\fintedapp\config\K
 E:\Workspace\FINTed\src\main\java\it\unical\demacs\enterprise\fintedapp\controller\OfferController.java
 E:\Workspace\FINTed\src\main\java\it\unical\demacs\enterprise\fintedapp\dto\PostDto.java
 E:\Workspace\FINTed\src\main\java\it\unical\demacs\enterprise\fintedapp\dto\UserRegistrationDto.java
+E:\Workspace\FINTed\src\main\java\it\unical\demacs\enterprise\fintedapp\dto\PostBasicInfoDto.java
 E:\Workspace\FINTed\src\main\java\it\unical\demacs\enterprise\fintedapp\data\services\SpeditionService.java
 E:\Workspace\FINTed\src\main\java\it\unical\demacs\enterprise\fintedapp\dto\security\RefreshTokenRequest.java
 E:\Workspace\FINTed\src\main\java\it\unical\demacs\enterprise\fintedapp\controller\AuthController.java

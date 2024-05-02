@@ -7,6 +7,8 @@ import android.net.Uri
 import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.asImageBitmap
 import androidx.lifecycle.ViewModel
 import it.unical.demacs.enterprise.fintedapp.apis.PostControllerApi
 import it.unical.demacs.enterprise.fintedapp.models.PostDto
@@ -29,6 +31,11 @@ class PostViewModel(context: Context) : ViewModel() {
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream)
         val byteArray = byteArrayOutputStream.toByteArray()
         return Base64.getEncoder().encodeToString(byteArray)
+    }
+
+    fun base64ToImageBitmap(base64String: String): ImageBitmap {
+        val decodedString = Base64.getDecoder().decode(base64String)
+        return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size).asImageBitmap()
     }
 
     fun save(

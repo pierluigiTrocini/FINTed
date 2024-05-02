@@ -55,6 +55,7 @@ it\unical\demacs\enterprise\fintedapp\data\services\implementation\PostServiceIm
 it\unical\demacs\enterprise\fintedapp\dto\UserPersonalProfileDto.class
 it\unical\demacs\enterprise\fintedapp\exception\NoFundException.class
 it\unical\demacs\enterprise\fintedapp\handler\DateManager.class
+it\unical\demacs\enterprise\fintedapp\dto\PostBasicInfoDto.class
 it\unical\demacs\enterprise\fintedapp\data\services\ReviewService.class
 it\unical\demacs\enterprise\fintedapp\data\services\implementation\SpeditionServiceImpl.class
 it\unical\demacs\enterprise\fintedapp\dto\ReviewDto.class

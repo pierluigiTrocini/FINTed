@@ -6,6 +6,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import it.unical.demacs.enterprise.fintedapp.handler.DateManager;
+import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -44,6 +45,8 @@ public class Post {
 	@Column(name = "starting_price")
 	private Long startingPrice;
 	
+	@Lob
+	@Basic(fetch = FetchType.EAGER)
 	@Column(name = "post_image")
 	private String postImage;
 	

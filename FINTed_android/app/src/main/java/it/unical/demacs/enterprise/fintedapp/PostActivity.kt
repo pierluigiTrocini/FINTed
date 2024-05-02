@@ -1,5 +1,6 @@
 package it.unical.demacs.enterprise.fintedapp
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -19,6 +20,7 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.input.KeyboardType
@@ -52,18 +54,35 @@ fun PostActivity(
                 .padding(16.dp)
                 .fillMaxWidth()
         ) {
-            //TODO image
-            Spacer(modifier = Modifier.height(8.dp))
+            if (post.postImage != null) {
+                Image(
+                    bitmap = postViewModel.value.base64ToImageBitmap(post.postImage),
+                    contentDescription = stringResource(
+                        id = R.string.postImage
+                    ),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(180.dp),
+                    contentScale = ContentScale.Crop
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+            }
+            else {
+                Text(text = stringResource(id = R.string.unavailable))
+                Spacer(modifier = Modifier.height(8.dp))
+            }
             Text(
                 text = post.title ?: stringResource(id = R.string.unavailable),
                 style = MaterialTheme.typography.titleLarge
             )
             Spacer(modifier = Modifier.height(4.dp))
             ClickableText(
-                text = AnnotatedString(stringResource(id = R.string.seller) + (post.sellerUsername
-                    ?: stringResource(
-                        id = R.string.unavailable
-                    ))),
+                text = AnnotatedString(
+                    stringResource(id = R.string.seller) + (post.sellerUsername
+                        ?: stringResource(
+                            id = R.string.unavailable
+                        ))
+                ),
                 onClick = { showProfile.value = true },
                 style = MaterialTheme.typography.titleSmall
             )

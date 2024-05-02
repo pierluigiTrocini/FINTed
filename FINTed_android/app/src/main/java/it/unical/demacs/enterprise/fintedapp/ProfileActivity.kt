@@ -33,6 +33,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import it.unical.demacs.enterprise.fintedapp.models.OfferDto
+import it.unical.demacs.enterprise.fintedapp.models.PostBasicInfoDto
 import it.unical.demacs.enterprise.fintedapp.models.PostDto
 import it.unical.demacs.enterprise.fintedapp.models.ReviewDto
 import it.unical.demacs.enterprise.fintedapp.models.UserPersonalProfileDto
@@ -165,14 +166,11 @@ fun ProfileActivity(
                                 horizontalAlignment = Alignment.CenterHorizontally
                             ) {
                                 items(items = profile.value.publishedPosts!!,
-                                    key = { post: PostDto -> post.id!! }) { post: PostDto ->
-                                    PostActivity(
+                                    key = { post: PostBasicInfoDto -> post.id!! }) { post: PostBasicInfoDto ->
+                                    PostBasicInfoActivity(
                                         post = post,
                                         postViewModel = postViewModel,
-                                        offerViewModel = offerViewModel,
                                         userViewModel = userViewModel,
-                                        reviewViewModel = reviewViewModel,
-                                        scope = PostActivityScope.PERSONAL_PROFILE
                                     )
                                 }
                             }
