@@ -16,6 +16,7 @@ import it.unical.demacs.enterprise.fintedapp.data.entities.Post;
 import it.unical.demacs.enterprise.fintedapp.data.entities.PostStatus;
 import it.unical.demacs.enterprise.fintedapp.data.entities.User;
 import it.unical.demacs.enterprise.fintedapp.data.services.ImageService;
+import it.unical.demacs.enterprise.fintedapp.data.services.PostService;
 import it.unical.demacs.enterprise.fintedapp.dto.PostDto;
 import it.unical.demacs.enterprise.fintedapp.exception.ElementNotFoundException;
 import it.unical.demacs.enterprise.fintedapp.handler.DateManager;
@@ -23,8 +24,8 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class PostServiceImpl implements it.unical.demacs.enterprise.fintedapp.data.services.PostService {
-
+public class PostServiceImpl implements PostService {
+	
 	private final PostDao postDao;
 	private final UserDao userDao;
 	private final ImageService imageService;
@@ -105,6 +106,11 @@ public class PostServiceImpl implements it.unical.demacs.enterprise.fintedapp.da
 					
 					return postDto;
 				}).collect(Collectors.toList());
+	}
+
+	@Override
+	public String getImage(Long postId) throws IOException {
+		return imageService.decompress(postDao.findPostImageById(postId));
 	}
 
 }

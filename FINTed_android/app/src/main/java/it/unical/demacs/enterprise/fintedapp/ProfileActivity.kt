@@ -1,6 +1,7 @@
 package it.unical.demacs.enterprise.fintedapp
 
 import android.content.Context
+import android.util.Log
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -171,6 +172,7 @@ fun ProfileActivity(
                                         post = post,
                                         postViewModel = postViewModel,
                                         userViewModel = userViewModel,
+                                        offerViewModel, reviewViewModel
                                     )
                                 }
                             }

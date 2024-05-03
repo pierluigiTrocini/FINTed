@@ -59,4 +59,9 @@ public class PostController {
 	public ResponseEntity<List<PostDto>> searchByTitle(@PathVariable("content") String content){
 		return ResponseEntity.ok(postService.searchByTitle(content));
 	}
+	
+	@GetMapping("/img/{postId}")
+	public ResponseEntity<String> getImage(@PathVariable("postId") Long id) throws IOException{
+		return ResponseEntity.ok(postService.getImage(id));
+	}
 }

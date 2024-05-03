@@ -10,8 +10,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -28,7 +32,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import it.unical.demacs.enterprise.fintedapp.models.PostBasicInfoDto
 import it.unical.demacs.enterprise.fintedapp.viewmodels.AuthValues
+import it.unical.demacs.enterprise.fintedapp.viewmodels.OfferViewModel
 import it.unical.demacs.enterprise.fintedapp.viewmodels.PostViewModel
+import it.unical.demacs.enterprise.fintedapp.viewmodels.ReviewViewModel
 import it.unical.demacs.enterprise.fintedapp.viewmodels.UserViewModel
 
 @Composable
@@ -36,6 +42,8 @@ fun PostBasicInfoActivity(
     post: PostBasicInfoDto,
     postViewModel: MutableState<PostViewModel>,
     userViewModel: MutableState<UserViewModel>,
+    offerViewModel: MutableState<OfferViewModel>,
+    reviewViewModel: MutableState<ReviewViewModel>
 ){
     Card(
         modifier = Modifier.padding(16.dp),
@@ -58,6 +66,10 @@ fun PostBasicInfoActivity(
                 style = MaterialTheme.typography.bodySmall
             )
             Spacer(modifier = Modifier.height(8.dp))
+            
+            Button(onClick = { postViewModel.value.delete(AuthValues.username.value, post.id!!) }) {
+                Text(text = stringResource(id = R.string.deletePost))
+            }
         }
     }
 }

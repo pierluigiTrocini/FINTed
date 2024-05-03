@@ -19,5 +19,8 @@ public interface PostService {
 	
 	List<PostDto> getAll(Integer page);
 
-	List<PostDto> searchByTitle(String title);
+    List<PostDto> searchByTitle(String title);
+    
+    String getImage(Long postId) throws IOException;
+    
 }

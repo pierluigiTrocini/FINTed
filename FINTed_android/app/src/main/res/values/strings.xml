@@ -92,4 +92,7 @@
     <string name="offerPostedBy">"Post di: "</string>
     <string name="offerOfferLong">"Offerta: "</string>
     <string name="reviewAuthor">"Autore: "</string>
+    <string name="showImage">immagine</string>
+    <string name="moreInfo">more info</string>
+    <string name="deletePost">Elimina post</string>
 </resources>

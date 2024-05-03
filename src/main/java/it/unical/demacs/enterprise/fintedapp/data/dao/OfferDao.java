@@ -33,5 +33,7 @@ public interface OfferDao extends JpaRepository<Offer, Long> {
 //	
 //	@Query("UPDATE Offer o SET o.offerStatus = :status WHERE o.post.id = :id AND o.offerStatus != ACCEPTED")
 //	void postDeleted(@Param("status") OfferStatus status, @Param("id") Long postId);
+
+	List<Offer> findAllByUserId(Long id);
 	
 }

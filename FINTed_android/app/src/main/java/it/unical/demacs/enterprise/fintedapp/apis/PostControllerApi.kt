@@ -158,6 +158,30 @@ localVariableHeaders["Authorization"] = "Bearer $authorization"
         }
     }
     /**
+     *
+     *
+     * @param postId
+     * @return kotlin.String
+     */
+    @Suppress("UNCHECKED_CAST")
+    fun getImage(postId: kotlin.Long): kotlin.String {
+        val localVariableConfig = RequestConfig(
+            RequestMethod.GET,
+            "/posts/img/{postId}".replace("{" + "postId" + "}", "$postId")
+        )
+        val response = request<kotlin.String>(
+            localVariableConfig
+        )
+
+        return when (response.responseType) {
+            ResponseType.Success -> (response as Success<*>).data as kotlin.String
+            ResponseType.Informational -> TODO()
+            ResponseType.Redirection -> TODO()
+            ResponseType.ClientError -> throw ClientException((response as ClientError<*>).body as? String ?: "Client error")
+            ResponseType.ServerError -> throw ServerException((response as ServerError<*>).message ?: "Server error")
+        }
+    }
+    /**
      * 
      * 
      * @param content  

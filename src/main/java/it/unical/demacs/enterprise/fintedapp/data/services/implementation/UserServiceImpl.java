@@ -5,15 +5,22 @@ import java.net.MalformedURLException;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.hibernate.Hibernate;
 import org.keycloak.representations.AccessTokenResponse;
 import org.mindrot.jbcrypt.BCrypt;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import it.unical.demacs.enterprise.fintedapp.data.dao.OfferDao;
+import it.unical.demacs.enterprise.fintedapp.data.dao.PostDao;
+import it.unical.demacs.enterprise.fintedapp.data.dao.ReviewDao;
 import it.unical.demacs.enterprise.fintedapp.data.dao.UserDao;
 import it.unical.demacs.enterprise.fintedapp.data.entities.User;
 import it.unical.demacs.enterprise.fintedapp.data.services.KeycloakService;
+import it.unical.demacs.enterprise.fintedapp.data.services.OfferService;
+import it.unical.demacs.enterprise.fintedapp.data.services.PostService;
+import it.unical.demacs.enterprise.fintedapp.data.services.ReviewService;
 import it.unical.demacs.enterprise.fintedapp.data.services.UserService;
 import it.unical.demacs.enterprise.fintedapp.dto.UserDto;
 import it.unical.demacs.enterprise.fintedapp.dto.UserPersonalProfileDto;
@@ -81,12 +88,11 @@ public class UserServiceImpl implements UserService {
 				userDao.findByUsername(username).orElseThrow(() -> new ElementNotFoundException("user not found")),
 				UserProfileDto.class);
 	}
-
+	
 	@Override
 	public UserPersonalProfileDto getPersonal(String username) throws ElementNotFoundException {
-		return modelMapper.map(
-				userDao.findByUsername(username).orElseThrow(() -> new ElementNotFoundException("user not found")),
-				UserPersonalProfileDto.class);
+	    User user = userDao.findByUsername(username).orElseThrow(() -> new ElementNotFoundException("user not found"));
+	    return modelMapper.map(user, UserPersonalProfileDto.class);
 	}
 
 	@Override

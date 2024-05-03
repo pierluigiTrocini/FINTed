@@ -14,4 +14,8 @@ public interface ReviewDao extends JpaRepository<Review, Long>{
 	
 	List<Review> findAllByAuthor(User author);
 
+	List<Review> findAllByTargetId(Long id);
+
+	List<Review> findAllByAuthorId(Long id);
+
 }

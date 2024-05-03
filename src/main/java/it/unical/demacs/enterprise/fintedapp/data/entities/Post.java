@@ -36,7 +36,7 @@ public class Post {
 	@Column
 	private String title;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	private User seller;
 	
 	@Column(name = "published_date")
@@ -46,7 +46,7 @@ public class Post {
 	private Long startingPrice;
 	
 	@Lob
-	@Basic(fetch = FetchType.EAGER)
+	@Basic(fetch = FetchType.LAZY)
 	@Column(name = "post_image")
 	private String postImage;
 	
