@@ -33,7 +33,8 @@ public class SecurityConfig {
 					"/posts/user/{username}",
 					"/posts/all/{page}",
 					"/posts/search/{content}",
-					"/reviews/target/{username}").permitAll();
+					"/reviews/target/{username}",
+					"/posts/img/{postId}").permitAll();
 			req.requestMatchers(HttpMethod.POST, "/users/").permitAll();
 			req.requestMatchers(HttpMethod.GET, "/users/{username}").permitAll();
 			req.requestMatchers(HttpMethod.POST, "/auth/login").permitAll();
