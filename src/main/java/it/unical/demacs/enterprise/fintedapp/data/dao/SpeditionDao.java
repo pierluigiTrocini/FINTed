@@ -15,6 +15,6 @@ public interface SpeditionDao extends JpaRepository<Spedition, Long>{
 	
 	List<Spedition> findAllByPurchaser(User purchaser);
 
-	List<SpeditionDto> findAllBySellerUsername(String username);
+	List<Spedition> findAllBySellerUsername(String username);
 	
 }

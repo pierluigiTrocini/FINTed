@@ -16,6 +16,10 @@ public class SpeditionDto {
 	
 	private String sellerUsername;
 	
+	private String purchaserFirstName;
+	
+	private String purchaserLastName;
+	
 	private String purchaserUsername;
 	
 	private String purchaserAddressRoute;
