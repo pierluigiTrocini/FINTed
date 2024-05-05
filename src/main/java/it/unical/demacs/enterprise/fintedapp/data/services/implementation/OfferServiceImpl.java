@@ -12,6 +12,8 @@ import it.unical.demacs.enterprise.fintedapp.data.dao.PostDao;
 import it.unical.demacs.enterprise.fintedapp.data.dao.UserDao;
 import it.unical.demacs.enterprise.fintedapp.data.entities.Offer;
 import it.unical.demacs.enterprise.fintedapp.data.entities.OfferStatus;
+import it.unical.demacs.enterprise.fintedapp.data.entities.Post;
+import it.unical.demacs.enterprise.fintedapp.data.entities.PostStatus;
 import it.unical.demacs.enterprise.fintedapp.data.entities.User;
 import it.unical.demacs.enterprise.fintedapp.data.services.OfferService;
 import it.unical.demacs.enterprise.fintedapp.data.services.SpeditionService;
@@ -73,8 +75,9 @@ public class OfferServiceImpl implements OfferService {
 	@Override
 	public SpeditionDto acceptOffer(OfferDto offer, String sellerUsername) throws ElementNotFoundException {
 		Offer o = offerDao.findById(offer.getId()).orElseThrow(() -> new ElementNotFoundException("offer not found"));	
+		Post p = postDao.findById(offer.getPostId()).orElseThrow(() -> new ElementNotFoundException("post not found"));	
 		
-		if(!o.getPost().getSeller().getUsername().equals(sellerUsername))
+		if(!p.getSeller().getUsername().equals(sellerUsername))
 			throw new AuthorizationDeniedException("unauthorized", null);
 		
 		if(o.getOfferStatus().equals(OfferStatus.DENIED))
@@ -82,7 +85,11 @@ public class OfferServiceImpl implements OfferService {
 
 		o.setOfferStatus(OfferStatus.ACCEPTED);
 		offerDao.save(o);
-		offerDao.setStatus(o.getPost().getId(), OfferStatus.DENIED, o.getId());
+		
+		p.setStatus(PostStatus.UNAVAILABLE);
+		postDao.save(p);
+		
+		offerDao.deleteAllByPostExceptOne(p.getId(), o.getId());	
 		
 		return speditionService.save(o);
 	}
@@ -94,8 +101,7 @@ public class OfferServiceImpl implements OfferService {
 		if(!o.getPost().getSeller().getUsername().equals(sellerUsername))
 			throw new AuthorizationDeniedException("unauthorized", null);
 		
-		o.setOfferStatus(OfferStatus.DENIED);		
-		offerDao.save(o);
+		offerDao.delete(o);
 	}
 
 	@Override

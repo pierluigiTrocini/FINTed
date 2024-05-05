@@ -107,6 +107,14 @@ fun Homepage() {
                         scope = ProfileActivityScope.PERSONAL_PROFILE
                     )
                 }
+                if (CurrentIndex.appIndex.value == AppIndex.OFFERS) {
+                    OfferAndSpeditionActivity(
+                        postViewModel = postViewModel,
+                        offerViewModel = offerViewModel,
+                        userViewModel = userViewModel,
+                        reviewViewModel = reviewViewModel
+                    )
+                }
             }
         }
     }

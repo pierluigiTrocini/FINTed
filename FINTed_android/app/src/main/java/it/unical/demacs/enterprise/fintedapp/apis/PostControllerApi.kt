@@ -28,7 +28,7 @@ class PostControllerApi(basePath: String = ApiUrl.url, context: Context) : ApiCl
      * @param authorization  
      * @return void
      */
-    fun delete2(postId: kotlin.Long, username: kotlin.String, authorization: kotlin.String): Unit {
+    fun delete2(postId: kotlin.Long, username: kotlin.String, authorization: kotlin.String) {
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
 localVariableHeaders["Authorization"] = "Bearer $authorization"
         localVariableHeaders["Accept"] = "*/*"

@@ -46,7 +46,7 @@ fun LoginActivity(
 ) {
     val loginIndex = remember { mutableStateOf(LoginIndex.LOGIN) }
 
-    val username = remember { mutableStateOf("pierluigitrc") }
+    val username = remember { mutableStateOf("alessioaceto123") }
     val password = remember { mutableStateOf("1234") }
 
     Scaffold(bottomBar = {

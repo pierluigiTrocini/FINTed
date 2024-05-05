@@ -61,13 +61,13 @@
     <string name="showPostValue">show post</string>
     <string name="deniedOffer">Offerta rifiutata!</string>
     <string name="denyOffer">Rifiuta</string>
-    <string name="yourOfferList">Offerte pubblicate</string>
+    <string name="yourOfferList">Offerte</string>
     <string name="offerStatus">"stato: "</string>
     <string name="offerPrice">"offerta di: "</string>
-    <string name="offerStatusAccepted">Accettata </string>
-    <string name="offerStatusDenied">Rifiutata </string>
+    <string name="offerStatusAccepted">OFFERTA ACCETTATA </string>
+    <string name="offerStatusDenied">OFFERTA RIFIUTATA </string>
     <string name="offerStatusPostDeleted">Post cancellato</string>
-    <string name="offerStatusPending">in attesa</string>
+    <string name="offerStatusPending">OFFERTA IN ATTESA</string>
     <string name="offerStatusUnavailable">Non disponibile</string>
     <string name="delivering">  [in consegna al tuo indirizzo!] </string>
     <string name="creditedBack">  [importo riaccreditato]</string>
@@ -95,4 +95,9 @@
     <string name="showImage">immagine</string>
     <string name="moreInfo">more info</string>
     <string name="deletePost">Elimina post</string>
+    <string name="yourSpeditionList">Spedizioni</string>
+    <string name="showSpeditionCodeTitle">Offerta Accettata!</string>
+    <string name="showSpeditionCode">Codice di spedizione:</string>
+    <string name="deliveryTo">"Invia il prodotto a: "</string>
+    <string name="offerUserUsername">"Offerta di: "</string>
 </resources>

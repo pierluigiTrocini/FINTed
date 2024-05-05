@@ -50,7 +50,7 @@ class OfferViewModel(context: Context) : ViewModel() {
 
     fun getOffersOnYouPosts(){
         CoroutineScope(Dispatchers.IO).launch {
-            offerList.value = offerControllerApi.getPersonalOffers(
+            offerList.value = offerControllerApi.getSellsOffers(
                 username = AuthValues.username.value,
                 authorization = AuthValues.accessToken.value.accessToken!!
             ).toList()

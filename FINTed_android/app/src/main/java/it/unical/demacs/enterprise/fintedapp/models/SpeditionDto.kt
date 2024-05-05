@@ -27,6 +27,8 @@ data class SpeditionDto (
 
     val id: kotlin.Long? = null,
     val sellerUsername: kotlin.String? = null,
+    val purchaserFirstName: kotlin.String? = null,
+    val purchaserLastName: kotlin.String? = null,
     val purchaserUsername: kotlin.String? = null,
     val purchaserAddressRoute: kotlin.String? = null,
     val purchaserAddressNumber: kotlin.String? = null,
