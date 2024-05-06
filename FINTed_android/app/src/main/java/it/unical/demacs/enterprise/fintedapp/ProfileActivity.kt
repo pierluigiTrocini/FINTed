@@ -1,7 +1,6 @@
 package it.unical.demacs.enterprise.fintedapp
 
 import android.content.Context
-import android.util.Log
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -35,7 +34,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import it.unical.demacs.enterprise.fintedapp.models.OfferDto
 import it.unical.demacs.enterprise.fintedapp.models.PostBasicInfoDto
-import it.unical.demacs.enterprise.fintedapp.models.PostDto
 import it.unical.demacs.enterprise.fintedapp.models.ReviewDto
 import it.unical.demacs.enterprise.fintedapp.models.UserPersonalProfileDto
 import it.unical.demacs.enterprise.fintedapp.models.UserProfileDto
@@ -240,8 +238,7 @@ fun ProfileActivity(
                             }
                         }
                     }
-                }
-                else if (profileIndex.value == PersonalProfileIndex.SENT_REVIEWS) {
+                } else if (profileIndex.value == PersonalProfileIndex.SENT_REVIEWS) {
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.Center
@@ -271,23 +268,6 @@ fun ProfileActivity(
                                 }
                             }
                         }
-                    }
-                }
-            }
-        } else {
-            if (scope == ProfileActivityScope.BASIC_USER && basicUser.value.username != AuthValues.username.value) {
-                Spacer(modifier = Modifier.height(64.dp))
-                Button(onClick = { showReviewForm.value = true }) {
-                    Text(text = stringResource(id = R.string.makeReview))
-                }
-
-                if (showReviewForm.value) {
-                    Dialog(onDismissRequest = { showReviewForm.value = false }) {
-                        ReviewFormActivity(
-                            showReviewForm = showReviewForm,
-                            reviewViewModel = reviewViewModel,
-                            targetUsername = basicUser.value.username!!
-                        )
                     }
                 }
             }
