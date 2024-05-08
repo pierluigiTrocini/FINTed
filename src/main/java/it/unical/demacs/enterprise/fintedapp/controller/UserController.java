@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.unical.demacs.enterprise.fintedapp.data.services.UserService;
@@ -25,6 +26,7 @@ import it.unical.demacs.enterprise.fintedapp.dto.UserProfileDto;
 import it.unical.demacs.enterprise.fintedapp.dto.UserRegistrationDto;
 import it.unical.demacs.enterprise.fintedapp.exception.CredentialsAlreadyUsedException;
 import it.unical.demacs.enterprise.fintedapp.exception.ElementNotFoundException;
+import it.unical.demacs.enterprise.fintedapp.exception.InvalidArgumentException;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -66,6 +68,12 @@ public class UserController {
 	@GetMapping("/search/{content}")
 	public ResponseEntity<List<UserDto>> searchUser(@PathVariable("content") String content){
 		return ResponseEntity.ok(userService.searchByUsername(content));
+	}
+	
+	@PostMapping("/rating/{username}/{target}")
+	@PreAuthorize("authentication.principal.claims['preferred_username'].equals(#username)")
+	public void updateRating(@RequestParam Integer ratingValue, @PathVariable("username") String username, @PathVariable("target") String target) throws ElementNotFoundException, InvalidArgumentException {
+		userService.updateRating(ratingValue, null, null);
 	}
 	
 	@GetMapping("/{username}")

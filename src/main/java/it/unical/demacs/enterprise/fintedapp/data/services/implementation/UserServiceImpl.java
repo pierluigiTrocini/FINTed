@@ -5,22 +5,15 @@ import java.net.MalformedURLException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.hibernate.Hibernate;
 import org.keycloak.representations.AccessTokenResponse;
 import org.mindrot.jbcrypt.BCrypt;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import it.unical.demacs.enterprise.fintedapp.data.dao.OfferDao;
-import it.unical.demacs.enterprise.fintedapp.data.dao.PostDao;
-import it.unical.demacs.enterprise.fintedapp.data.dao.ReviewDao;
 import it.unical.demacs.enterprise.fintedapp.data.dao.UserDao;
 import it.unical.demacs.enterprise.fintedapp.data.entities.User;
 import it.unical.demacs.enterprise.fintedapp.data.services.KeycloakService;
-import it.unical.demacs.enterprise.fintedapp.data.services.OfferService;
-import it.unical.demacs.enterprise.fintedapp.data.services.PostService;
-import it.unical.demacs.enterprise.fintedapp.data.services.ReviewService;
 import it.unical.demacs.enterprise.fintedapp.data.services.UserService;
 import it.unical.demacs.enterprise.fintedapp.dto.UserDto;
 import it.unical.demacs.enterprise.fintedapp.dto.UserPersonalProfileDto;
@@ -28,7 +21,9 @@ import it.unical.demacs.enterprise.fintedapp.dto.UserProfileDto;
 import it.unical.demacs.enterprise.fintedapp.dto.UserRegistrationDto;
 import it.unical.demacs.enterprise.fintedapp.exception.CredentialsAlreadyUsedException;
 import it.unical.demacs.enterprise.fintedapp.exception.ElementNotFoundException;
+import it.unical.demacs.enterprise.fintedapp.exception.InvalidArgumentException;
 import it.unical.demacs.enterprise.fintedapp.handler.DateManager;
+import jakarta.ws.rs.ForbiddenException;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -106,5 +101,26 @@ public class UserServiceImpl implements UserService {
 	public List<UserDto> getAll(Integer page) {
 		return userDao.findAll(PageRequest.of((page != null) ? page : 0, 10)).stream()
 				.map(user -> modelMapper.map(user, UserDto.class)).collect(Collectors.toList());
+	}
+
+	@Override
+	public void updateRating(Integer ratingValue, String username, String target) throws ElementNotFoundException, InvalidArgumentException {
+		User userTarget = userDao.findByUsername(target).orElseThrow(() -> new ElementNotFoundException("user not found"));
+		
+		if(userTarget.getUsername().equals(username))
+			throw new ForbiddenException("you cannot rate yourself!");
+	
+		if(ratingValue < 0 || ratingValue > 5)
+			throw new InvalidArgumentException("rating value must be between 0 an 5");
+		
+		userTarget.getRating().setAvgRating(
+				(userTarget.getRating().getAvgRating() * userTarget.getRating().getRates() + ratingValue) / (userTarget.getRating().getRates() + 1)
+				
+		);
+		
+		userTarget.getRating().setRates(userTarget.getRating().getRates() + 1); 
+		
+		userDao.save(userTarget);
+		
 	}
 }

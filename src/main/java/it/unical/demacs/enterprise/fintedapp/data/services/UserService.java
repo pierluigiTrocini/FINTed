@@ -12,6 +12,7 @@ import it.unical.demacs.enterprise.fintedapp.dto.UserProfileDto;
 import it.unical.demacs.enterprise.fintedapp.dto.UserRegistrationDto;
 import it.unical.demacs.enterprise.fintedapp.exception.CredentialsAlreadyUsedException;
 import it.unical.demacs.enterprise.fintedapp.exception.ElementNotFoundException;
+import it.unical.demacs.enterprise.fintedapp.exception.InvalidArgumentException;
 
 public interface UserService {
 	
@@ -28,5 +29,7 @@ public interface UserService {
 	List<UserDto> searchByUsername(String username);
 	
 	List<UserDto> getAll(Integer page);
+	
+	void updateRating(Integer ratingValue, String username, String target) throws ElementNotFoundException, InvalidArgumentException;
 	
 }

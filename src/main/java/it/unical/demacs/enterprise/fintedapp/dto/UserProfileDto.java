@@ -35,7 +35,9 @@ public class UserProfileDto {
 	
 	private String addressCity;
 	
+	private Long ratingAvgRating;
+	
+	private Integer ratingRates;
+	
     private List<PostDto> publishedPosts;
-
-    private List<ReviewDto> receivedReviews;
 }
