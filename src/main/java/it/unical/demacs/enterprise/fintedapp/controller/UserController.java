@@ -70,12 +70,6 @@ public class UserController {
 		return ResponseEntity.ok(userService.searchByUsername(content));
 	}
 	
-	@PostMapping("/rating/{username}/{target}")
-	@PreAuthorize("authentication.principal.claims['preferred_username'].equals(#username)")
-	public void updateRating(@RequestParam Integer ratingValue, @PathVariable("username") String username, @PathVariable("target") String target) throws ElementNotFoundException, InvalidArgumentException {
-		userService.updateRating(ratingValue, null, null);
-	}
-	
 	@GetMapping("/{username}")
 	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity<UserProfileDto> get(@PathVariable("username") String username) throws ElementNotFoundException {

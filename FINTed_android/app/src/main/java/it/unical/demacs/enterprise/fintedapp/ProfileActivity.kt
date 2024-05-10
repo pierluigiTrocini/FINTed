@@ -31,17 +31,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.Dialog
 import it.unical.demacs.enterprise.fintedapp.models.OfferDto
 import it.unical.demacs.enterprise.fintedapp.models.PostBasicInfoDto
-import it.unical.demacs.enterprise.fintedapp.models.ReviewDto
 import it.unical.demacs.enterprise.fintedapp.models.UserPersonalProfileDto
 import it.unical.demacs.enterprise.fintedapp.models.UserProfileDto
 import it.unical.demacs.enterprise.fintedapp.ui.utility.AppIndex
 import it.unical.demacs.enterprise.fintedapp.viewmodels.AuthValues
 import it.unical.demacs.enterprise.fintedapp.viewmodels.OfferViewModel
 import it.unical.demacs.enterprise.fintedapp.viewmodels.PostViewModel
-import it.unical.demacs.enterprise.fintedapp.viewmodels.ReviewViewModel
 import it.unical.demacs.enterprise.fintedapp.viewmodels.UserViewModel
 
 @Composable
@@ -50,7 +47,6 @@ fun ProfileActivity(
     userViewModel: MutableState<UserViewModel>,
     postViewModel: MutableState<PostViewModel>,
     offerViewModel: MutableState<OfferViewModel>,
-    reviewViewModel: MutableState<ReviewViewModel>,
     scope: ProfileActivityScope
 ) {
     userViewModel.value.getPersonal(username = AuthValues.username.value)
@@ -58,7 +54,6 @@ fun ProfileActivity(
     val profile: MutableState<UserPersonalProfileDto> = userViewModel.value.personalProfile
     val profileIndex = remember { mutableStateOf(PersonalProfileIndex.POSTS) }
     val basicUser: MutableState<UserProfileDto> = userViewModel.value.basicUser
-    val showReviewForm = remember { mutableStateOf(false) }
 
     Column(
         modifier = Modifier.fillMaxWidth(),
@@ -127,18 +122,6 @@ fun ProfileActivity(
                     onClick = { profileIndex.value = PersonalProfileIndex.OFFERS }) {
                     Text(text = stringResource(id = R.string.profileOfferList))
                 }
-
-                Button(
-                    modifier = Modifier.padding(8.dp),
-                    onClick = { profileIndex.value = PersonalProfileIndex.RECV_REVIEWS }) {
-                    Text(text = stringResource(id = R.string.profileRecvReviews))
-                }
-
-                Button(
-                    modifier = Modifier.padding(8.dp),
-                    onClick = { profileIndex.value = PersonalProfileIndex.SENT_REVIEWS }) {
-                    Text(text = stringResource(id = R.string.profileSentReviews))
-                }
             }
             Row(horizontalArrangement = Arrangement.Center) {
                 if (profileIndex.value == PersonalProfileIndex.POSTS) {
@@ -170,7 +153,7 @@ fun ProfileActivity(
                                         post = post,
                                         postViewModel = postViewModel,
                                         userViewModel = userViewModel,
-                                        offerViewModel, reviewViewModel
+                                        offerViewModel
                                     )
                                 }
                             }
@@ -201,69 +184,6 @@ fun ProfileActivity(
                                         scope = OfferActivityScope.PUBLISHED_OFFERS,
                                         userViewModel = userViewModel,
                                         postViewModel = postViewModel,
-                                        reviewViewModel = reviewViewModel
-                                    )
-                                }
-                            }
-                        }
-                    }
-                } else if (profileIndex.value == PersonalProfileIndex.RECV_REVIEWS) {
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.Center
-                    ) {
-                        if (profile.value.receivedReviews == null || profile.value.receivedReviews!!.isEmpty()) {
-                            Icon(
-                                imageVector = Icons.Filled.List,
-                                contentDescription = stringResource(id = R.string.profileRecvReviews),
-                                modifier = Modifier.size(75.dp)
-                            )
-                            Text(text = stringResource(id = R.string.noReviews))
-                        } else {
-                            LazyColumn(
-                                verticalArrangement = Arrangement.SpaceEvenly,
-                                horizontalAlignment = Alignment.CenterHorizontally
-                            ) {
-                                items(items = profile.value.receivedReviews!!,
-                                    key = { review: ReviewDto -> review.id!! }) { review: ReviewDto ->
-                                    ReviewActivity(
-                                        review,
-                                        reviewViewModel,
-                                        userViewModel,
-                                        postViewModel,
-                                        offerViewModel,
-                                        scope = ReviewActivityScope.RECEIVED_REVIEWS
-                                    )
-                                }
-                            }
-                        }
-                    }
-                } else if (profileIndex.value == PersonalProfileIndex.SENT_REVIEWS) {
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.Center
-                    ) {
-                        if (profile.value.publishedReviews == null || profile.value.publishedReviews!!.isEmpty()) {
-                            Icon(
-                                imageVector = Icons.Filled.List,
-                                contentDescription = stringResource(id = R.string.profileRecvReviews),
-                                modifier = Modifier.size(75.dp)
-                            )
-                            Text(text = stringResource(id = R.string.noReviews))
-                        } else {
-                            LazyColumn(
-                                verticalArrangement = Arrangement.SpaceEvenly,
-                                horizontalAlignment = Alignment.CenterHorizontally
-                            ) {
-                                items(items = profile.value.publishedReviews!!,
-                                    key = { review: ReviewDto -> review.id!! }) { review: ReviewDto ->
-                                    ReviewActivity(
-                                        review,
-                                        reviewViewModel,
-                                        userViewModel,
-                                        postViewModel,
-                                        offerViewModel,
-                                        scope = ReviewActivityScope.PUBLISHED_REVIEWS
                                     )
                                 }
                             }
@@ -282,8 +202,5 @@ enum class ProfileActivityScope {
 
 enum class PersonalProfileIndex {
     POSTS,
-    SENT_REVIEWS,
-    RECV_REVIEWS,
     OFFERS
-
 }

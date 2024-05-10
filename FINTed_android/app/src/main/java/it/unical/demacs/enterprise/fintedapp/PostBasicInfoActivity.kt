@@ -19,7 +19,6 @@ import it.unical.demacs.enterprise.fintedapp.models.PostBasicInfoDto
 import it.unical.demacs.enterprise.fintedapp.viewmodels.AuthValues
 import it.unical.demacs.enterprise.fintedapp.viewmodels.OfferViewModel
 import it.unical.demacs.enterprise.fintedapp.viewmodels.PostViewModel
-import it.unical.demacs.enterprise.fintedapp.viewmodels.ReviewViewModel
 import it.unical.demacs.enterprise.fintedapp.viewmodels.UserViewModel
 
 @Composable
@@ -27,8 +26,7 @@ fun PostBasicInfoActivity(
     post: PostBasicInfoDto,
     postViewModel: MutableState<PostViewModel>,
     userViewModel: MutableState<UserViewModel>,
-    offerViewModel: MutableState<OfferViewModel>,
-    reviewViewModel: MutableState<ReviewViewModel>
+    offerViewModel: MutableState<OfferViewModel>
 ) {
     Card(
         modifier = Modifier.padding(16.dp),

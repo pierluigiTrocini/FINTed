@@ -28,8 +28,5 @@ public interface UserService {
 	
 	List<UserDto> searchByUsername(String username);
 	
-	List<UserDto> getAll(Integer page);
-	
-	void updateRating(Integer ratingValue, String username, String target) throws ElementNotFoundException, InvalidArgumentException;
-	
+	List<UserDto> getAll(Integer page);	
 }

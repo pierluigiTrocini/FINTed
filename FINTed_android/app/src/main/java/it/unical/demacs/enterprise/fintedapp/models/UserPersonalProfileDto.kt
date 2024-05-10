@@ -11,11 +11,6 @@
  */
 package it.unical.demacs.enterprise.fintedapp.models
 
-import com.squareup.moshi.Json
-import it.unical.demacs.enterprise.fintedapp.models.OfferDto
-import it.unical.demacs.enterprise.fintedapp.models.PostDto
-import it.unical.demacs.enterprise.fintedapp.models.ReviewDto
-
 /**
  * 
  * @param id 
@@ -47,8 +42,6 @@ data class UserPersonalProfileDto (
     val addressNumber: kotlin.String? = null,
     val addressCity: kotlin.String? = null,
     val publishedPosts: kotlin.Array<PostBasicInfoDto>? = null,
-    val receivedReviews: kotlin.Array<ReviewDto>? = null,
-    val publishedReviews: kotlin.Array<ReviewDto>? = null,
     val publishedOffers: kotlin.Array<OfferDto>? = null
 ) {
 }

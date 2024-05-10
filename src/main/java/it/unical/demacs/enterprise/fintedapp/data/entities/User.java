@@ -59,13 +59,6 @@ public class User {
         @AttributeOverride(name = "city", column = @Column(name = "user_address_city"))
     })
     private Address address;
-    
-    @Embedded
-    @AttributeOverrides({
-    	@AttributeOverride(name = "avgRating", column = @Column(name = "rating_avg_rating")),
-    	@AttributeOverride(name = "rates", column = @Column(name = "rating_rates"))
-    })
-    private Rating rating;
 
     @JsonManagedReference
     @OneToMany(mappedBy = "seller", cascade = CascadeType.ALL, orphanRemoval = true)

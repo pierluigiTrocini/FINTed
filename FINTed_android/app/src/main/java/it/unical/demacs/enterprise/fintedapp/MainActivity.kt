@@ -36,7 +36,6 @@ import it.unical.demacs.enterprise.fintedapp.viewmodels.AuthValues
 import it.unical.demacs.enterprise.fintedapp.viewmodels.AuthViewModel
 import it.unical.demacs.enterprise.fintedapp.viewmodels.OfferViewModel
 import it.unical.demacs.enterprise.fintedapp.viewmodels.PostViewModel
-import it.unical.demacs.enterprise.fintedapp.viewmodels.ReviewViewModel
 import it.unical.demacs.enterprise.fintedapp.viewmodels.UserViewModel
 
 class MainActivity : ComponentActivity() {
@@ -68,7 +67,6 @@ fun Homepage() {
     val userViewModel = remember { mutableStateOf(UserViewModel(context = context)) }
     val postViewModel = remember { mutableStateOf(PostViewModel(context = context)) }
     val offerViewModel = remember { mutableStateOf(OfferViewModel(context = context)) }
-    val reviewViewModel = remember { mutableStateOf(ReviewViewModel(context = context)) }
 
     if (AuthValues.accessToken.value.accessToken == null) {
         LoginActivity(
@@ -88,8 +86,7 @@ fun Homepage() {
                         appIndex = CurrentIndex.appIndex,
                         userViewModel = userViewModel,
                         postViewModel = postViewModel,
-                        offerViewModel = offerViewModel,
-                        reviewViewModel = reviewViewModel
+                        offerViewModel = offerViewModel
                     )
                 }
                 if (CurrentIndex.appIndex.value == AppIndex.SELL) {
@@ -103,7 +100,6 @@ fun Homepage() {
                         userViewModel = userViewModel,
                         postViewModel = postViewModel,
                         offerViewModel = offerViewModel,
-                        reviewViewModel = reviewViewModel,
                         scope = ProfileActivityScope.PERSONAL_PROFILE
                     )
                 }
@@ -112,7 +108,6 @@ fun Homepage() {
                         postViewModel = postViewModel,
                         offerViewModel = offerViewModel,
                         userViewModel = userViewModel,
-                        reviewViewModel = reviewViewModel
                     )
                 }
                 if (CurrentIndex.appIndex.value == AppIndex.SEARCH) {

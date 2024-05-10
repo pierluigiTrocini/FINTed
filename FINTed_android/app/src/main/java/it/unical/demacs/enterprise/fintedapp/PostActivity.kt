@@ -30,7 +30,6 @@ import it.unical.demacs.enterprise.fintedapp.models.PostDto
 import it.unical.demacs.enterprise.fintedapp.viewmodels.AuthValues
 import it.unical.demacs.enterprise.fintedapp.viewmodels.OfferViewModel
 import it.unical.demacs.enterprise.fintedapp.viewmodels.PostViewModel
-import it.unical.demacs.enterprise.fintedapp.viewmodels.ReviewViewModel
 import it.unical.demacs.enterprise.fintedapp.viewmodels.UserViewModel
 
 @Composable
@@ -39,7 +38,6 @@ fun PostActivity(
     postViewModel: MutableState<PostViewModel>,
     offerViewModel: MutableState<OfferViewModel>,
     userViewModel: MutableState<UserViewModel>,
-    reviewViewModel: MutableState<ReviewViewModel>,
     scope: PostActivityScope
 ) {
     val showProfile = remember { mutableStateOf(false) }
@@ -112,7 +110,6 @@ fun PostActivity(
                 userViewModel = userViewModel,
                 postViewModel = postViewModel,
                 offerViewModel = offerViewModel,
-                reviewViewModel = reviewViewModel,
                 scope = ProfileActivityScope.BASIC_USER
             )
         }

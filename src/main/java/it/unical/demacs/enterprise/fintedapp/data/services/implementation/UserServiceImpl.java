@@ -102,25 +102,4 @@ public class UserServiceImpl implements UserService {
 		return userDao.findAll(PageRequest.of((page != null) ? page : 0, 10)).stream()
 				.map(user -> modelMapper.map(user, UserDto.class)).collect(Collectors.toList());
 	}
-
-	@Override
-	public void updateRating(Integer ratingValue, String username, String target) throws ElementNotFoundException, InvalidArgumentException {
-		User userTarget = userDao.findByUsername(target).orElseThrow(() -> new ElementNotFoundException("user not found"));
-		
-		if(userTarget.getUsername().equals(username))
-			throw new ForbiddenException("you cannot rate yourself!");
-	
-		if(ratingValue < 0 || ratingValue > 5)
-			throw new InvalidArgumentException("rating value must be between 0 an 5");
-		
-		userTarget.getRating().setAvgRating(
-				(userTarget.getRating().getAvgRating() * userTarget.getRating().getRates() + ratingValue) / (userTarget.getRating().getRates() + 1)
-				
-		);
-		
-		userTarget.getRating().setRates(userTarget.getRating().getRates() + 1); 
-		
-		userDao.save(userTarget);
-		
-	}
 }

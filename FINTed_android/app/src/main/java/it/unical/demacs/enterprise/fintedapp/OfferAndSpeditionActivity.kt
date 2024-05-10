@@ -3,14 +3,10 @@ package it.unical.demacs.enterprise.fintedapp
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
@@ -25,15 +21,13 @@ import it.unical.demacs.enterprise.fintedapp.models.OfferDto
 import it.unical.demacs.enterprise.fintedapp.models.SpeditionDto
 import it.unical.demacs.enterprise.fintedapp.viewmodels.OfferViewModel
 import it.unical.demacs.enterprise.fintedapp.viewmodels.PostViewModel
-import it.unical.demacs.enterprise.fintedapp.viewmodels.ReviewViewModel
 import it.unical.demacs.enterprise.fintedapp.viewmodels.UserViewModel
 
 @Composable
 fun OfferAndSpeditionActivity(
     postViewModel: MutableState<PostViewModel>,
     offerViewModel: MutableState<OfferViewModel>,
-    userViewModel: MutableState<UserViewModel>,
-    reviewViewModel: MutableState<ReviewViewModel>
+    userViewModel: MutableState<UserViewModel>
 ){
     val index = remember { mutableStateOf(OfferAndSpeditionActivityIndex.OFFER_LIST) }
 
@@ -72,7 +66,6 @@ fun OfferAndSpeditionActivity(
                             scope = OfferActivityScope.RECV_OFFERS,
                             userViewModel = userViewModel,
                             postViewModel = postViewModel,
-                            reviewViewModel = reviewViewModel
                         )
                     }
                 }

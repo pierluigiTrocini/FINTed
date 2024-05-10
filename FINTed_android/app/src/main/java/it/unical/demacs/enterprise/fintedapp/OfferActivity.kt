@@ -28,7 +28,6 @@ import androidx.compose.ui.window.Dialog
 import it.unical.demacs.enterprise.fintedapp.models.OfferDto
 import it.unical.demacs.enterprise.fintedapp.viewmodels.OfferViewModel
 import it.unical.demacs.enterprise.fintedapp.viewmodels.PostViewModel
-import it.unical.demacs.enterprise.fintedapp.viewmodels.ReviewViewModel
 import it.unical.demacs.enterprise.fintedapp.viewmodels.UserViewModel
 
 @Composable
@@ -37,7 +36,6 @@ fun OfferActivity(
     offerViewModel: MutableState<OfferViewModel>,
     userViewModel: MutableState<UserViewModel>,
     postViewModel: MutableState<PostViewModel>,
-    reviewViewModel: MutableState<ReviewViewModel>,
     scope: OfferActivityScope
 ) {
     val showPost = remember { mutableStateOf(false) }
@@ -151,7 +149,6 @@ fun OfferActivity(
                 postViewModel = postViewModel,
                 offerViewModel = offerViewModel,
                 userViewModel = userViewModel,
-                reviewViewModel = reviewViewModel,
                 scope = PostActivityScope.PERSONAL_PROFILE
             )
         }
@@ -165,7 +162,6 @@ fun OfferActivity(
                 userViewModel = userViewModel,
                 postViewModel = postViewModel,
                 offerViewModel = offerViewModel,
-                reviewViewModel = reviewViewModel,
                 scope = ProfileActivityScope.BASIC_USER
             )
         }
@@ -179,7 +175,6 @@ fun OfferActivity(
                 userViewModel = userViewModel,
                 postViewModel = postViewModel,
                 offerViewModel = offerViewModel,
-                reviewViewModel = reviewViewModel,
                 scope = ProfileActivityScope.BASIC_USER
             )
         }

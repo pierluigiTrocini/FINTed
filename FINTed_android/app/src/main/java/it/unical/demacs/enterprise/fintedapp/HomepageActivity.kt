@@ -25,7 +25,6 @@ import it.unical.demacs.enterprise.fintedapp.ui.utility.AppIndex
 import it.unical.demacs.enterprise.fintedapp.viewmodels.AuthValues
 import it.unical.demacs.enterprise.fintedapp.viewmodels.OfferViewModel
 import it.unical.demacs.enterprise.fintedapp.viewmodels.PostViewModel
-import it.unical.demacs.enterprise.fintedapp.viewmodels.ReviewViewModel
 import it.unical.demacs.enterprise.fintedapp.viewmodels.UserViewModel
 
 @Composable
@@ -34,8 +33,7 @@ fun HomepageActivity(
     appIndex: MutableState<AppIndex>,
     userViewModel: MutableState<UserViewModel>,
     postViewModel: MutableState<PostViewModel>,
-    offerViewModel: MutableState<OfferViewModel>,
-    reviewViewModel: MutableState<ReviewViewModel>
+    offerViewModel: MutableState<OfferViewModel>
 ) {
     val page = remember { mutableStateOf(0) }
     postViewModel.value.getAll(page.value)
@@ -72,7 +70,6 @@ fun HomepageActivity(
                             postViewModel = postViewModel,
                             offerViewModel = offerViewModel,
                             userViewModel = userViewModel,
-                            reviewViewModel = reviewViewModel,
                             scope = PostActivityScope.HOMEPAGE
                         )
                     }
