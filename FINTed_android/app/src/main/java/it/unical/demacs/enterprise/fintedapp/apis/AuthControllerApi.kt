@@ -16,6 +16,7 @@ import it.unical.demacs.enterprise.fintedapp.models.AccessTokenResponse
 import it.unical.demacs.enterprise.fintedapp.models.Credentials
 
 import it.unical.demacs.enterprise.fintedapp.infrastructure.*
+import okhttp3.ResponseBody
 
 class AuthControllerApi(basePath: String = ApiUrl.url, context: Context) : ApiClient(basePath) {
     /**
@@ -57,16 +58,13 @@ localVariableHeaders["Authorization"] = "Bearer $authorization"
                 RequestMethod.POST,
                 "/auth/logout", headers = localVariableHeaders
         )
-        val response = request<Any?>(
-                localVariableConfig
-        )
 
-        return when (response.responseType) {
-            ResponseType.Success -> {}
-            ResponseType.Informational -> TODO()
-            ResponseType.Redirection -> TODO()
-            ResponseType.ClientError -> throw ClientException((response as ClientError<*>).body as? String ?: "Client error")
-            ResponseType.ServerError -> throw ServerException((response as ServerError<*>).message ?: "Server error")
+        try {
+            val response = request<ResponseBody?>(
+                localVariableConfig
+            )
+        } catch (e: Exception) {
+            // Gestisci qui le eccezioni
         }
     }
 }

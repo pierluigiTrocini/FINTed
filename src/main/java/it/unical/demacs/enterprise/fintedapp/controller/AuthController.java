@@ -31,8 +31,9 @@ public class AuthController {
 	}
 	
 	@PostMapping("/logout")
-	public void logout(@RequestHeader(value="Authorization") String token) {
-		keycloakService.logout(token);
+	public void logout(@RequestHeader(value="Authorization") String authHeader) {
+	    String token = authHeader.replace("Bearer ", "");
+	    keycloakService.logout(token);
 	}
 	
 }

@@ -66,10 +66,12 @@ class UserViewModel(context: Context) : ViewModel() {
 
     fun getPersonal(username: String){
         CoroutineScope(Dispatchers.IO).launch {
-            personalProfile.value = userControllerApi.getPersonal(
-                username = username,
-                authorization = AuthValues.accessToken.value.accessToken!!
-            )
+            if(AuthValues.accessToken.value.accessToken != null){
+                personalProfile.value = userControllerApi.getPersonal(
+                    username = username,
+                    authorization = AuthValues.accessToken.value.accessToken!!
+                )
+            }
         }
     }
 

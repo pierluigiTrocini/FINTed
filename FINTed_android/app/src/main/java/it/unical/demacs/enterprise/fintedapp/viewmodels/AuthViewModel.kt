@@ -41,6 +41,8 @@ class AuthViewModel(context: Context) : ViewModel() {
 
             AuthValues.username.value = ""
             AuthValues.accessToken.value = AccessTokenResponse()
+
+            CurrentIndex.appIndex.value = AppIndex.LOGIN
         }
     }
 
