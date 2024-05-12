@@ -49,7 +49,7 @@ class AuthControllerApi(basePath: String = ApiUrl.url, context: Context) : ApiCl
      * @param authorization  
      * @return void
      */
-    fun logout(authorization: kotlin.String): Unit {
+    fun logout(authorization: kotlin.String) {
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
 localVariableHeaders["Authorization"] = "Bearer $authorization"
         localVariableHeaders["Accept"] = "*/*"
@@ -62,7 +62,7 @@ localVariableHeaders["Authorization"] = "Bearer $authorization"
         )
 
         return when (response.responseType) {
-            ResponseType.Success -> Unit
+            ResponseType.Success -> {}
             ResponseType.Informational -> TODO()
             ResponseType.Redirection -> TODO()
             ResponseType.ClientError -> throw ClientException((response as ClientError<*>).body as? String ?: "Client error")

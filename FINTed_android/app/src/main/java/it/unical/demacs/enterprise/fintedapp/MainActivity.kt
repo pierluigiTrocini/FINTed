@@ -23,7 +23,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -32,7 +31,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import it.unical.demacs.enterprise.fintedapp.ui.theme.FINTed_androidTheme
 import it.unical.demacs.enterprise.fintedapp.ui.utility.AppIndex
-import it.unical.demacs.enterprise.fintedapp.viewmodels.AuthValues
 import it.unical.demacs.enterprise.fintedapp.viewmodels.AuthViewModel
 import it.unical.demacs.enterprise.fintedapp.viewmodels.OfferViewModel
 import it.unical.demacs.enterprise.fintedapp.viewmodels.PostViewModel
@@ -41,6 +39,9 @@ import it.unical.demacs.enterprise.fintedapp.viewmodels.UserViewModel
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        CurrentIndex.appIndex.value = AppIndex.LOGIN
+
         setContent {
             FINTed_androidTheme {
                 // A surface container using the 'background' color from the theme
@@ -61,23 +62,22 @@ class MainActivity : ComponentActivity() {
 fun Homepage() {
     val context = LocalContext.current
 
-    val appIndex = remember { mutableStateOf(AppIndex.HOMEPAGE) }
-
     val authViewModel = remember { mutableStateOf(AuthViewModel(context = context)) }
     val userViewModel = remember { mutableStateOf(UserViewModel(context = context)) }
     val postViewModel = remember { mutableStateOf(PostViewModel(context = context)) }
     val offerViewModel = remember { mutableStateOf(OfferViewModel(context = context)) }
 
-    if (AuthValues.accessToken.value.accessToken == null) {
+    if (CurrentIndex.appIndex.value == AppIndex.LOGIN) {
         LoginActivity(
             authViewModel = authViewModel,
             userViewModel = userViewModel,
-            context = context,
-            appIndex = appIndex
+            context = context
         )
-    } else {
+    }
+
+    if (CurrentIndex.appIndex.value != AppIndex.LOGIN) {
         Scaffold(
-            bottomBar = { BottomBar(appIndex = appIndex) }
+            bottomBar = { BottomBar() }
         ) {
             Box(modifier = Modifier.padding(it)) {
                 if (CurrentIndex.appIndex.value == AppIndex.HOMEPAGE) {
@@ -100,6 +100,7 @@ fun Homepage() {
                         userViewModel = userViewModel,
                         postViewModel = postViewModel,
                         offerViewModel = offerViewModel,
+                        authViewModel = authViewModel,
                         scope = ProfileActivityScope.PERSONAL_PROFILE
                     )
                 }
@@ -113,17 +114,19 @@ fun Homepage() {
                 if (CurrentIndex.appIndex.value == AppIndex.SEARCH) {
                     SearchActivity(
                         userViewModel = userViewModel,
-                        postViewModel = postViewModel
+                        postViewModel = postViewModel,
+                        offerViewModel = offerViewModel
                     )
                 }
             }
         }
     }
 
+
 }
 
 @Composable
-fun BottomBar(appIndex: MutableState<AppIndex>) {
+fun BottomBar() {
     BottomAppBar {
         NavigationBar {
             NavigationBarItem(

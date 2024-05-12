@@ -182,19 +182,43 @@ localVariableHeaders["Authorization"] = "Bearer $authorization"
         }
     }
     /**
-     * 
-     * 
-     * @param content  
+     *
+     *
+     * @param content
+     * @return kotlin.Array<PostDto>
+     */
+    @Suppress("UNCHECKED_CAST")
+    fun searchBySellerUsername(content: kotlin.String): kotlin.Array<PostDto> {
+        val localVariableConfig = RequestConfig(
+            RequestMethod.GET,
+            "/posts/search/user/{content}".replace("{" + "content" + "}", "$content")
+        )
+        val response = request<kotlin.Array<PostDto>>(
+            localVariableConfig
+        )
+
+        return when (response.responseType) {
+            ResponseType.Success -> (response as Success<*>).data as kotlin.Array<PostDto>
+            ResponseType.Informational -> TODO()
+            ResponseType.Redirection -> TODO()
+            ResponseType.ClientError -> throw ClientException((response as ClientError<*>).body as? String ?: "Client error")
+            ResponseType.ServerError -> throw ServerException((response as ServerError<*>).message ?: "Server error")
+        }
+    }
+    /**
+     *
+     *
+     * @param content
      * @return kotlin.Array<PostDto>
      */
     @Suppress("UNCHECKED_CAST")
     fun searchByTitle(content: kotlin.String): kotlin.Array<PostDto> {
         val localVariableConfig = RequestConfig(
-                RequestMethod.GET,
-                "/posts/search/{content}".replace("{" + "content" + "}", "$content")
+            RequestMethod.GET,
+            "/posts/search/title/{content}".replace("{" + "content" + "}", "$content")
         )
         val response = request<kotlin.Array<PostDto>>(
-                localVariableConfig
+            localVariableConfig
         )
 
         return when (response.responseType) {

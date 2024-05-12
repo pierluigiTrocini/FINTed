@@ -100,4 +100,7 @@
     <string name="showSpeditionCode">Codice di spedizione:</string>
     <string name="deliveryTo">"Invia il prodotto a: "</string>
     <string name="offerUserUsername">"Offerta di: "</string>
+    <string name="search_profiles">Cerca Profili</string>
+    <string name="noPosts_title">Nessun post \'%s\' trovato!</string>
+    <string name="noPosts_user">Nessun post di \'%s\' trovato!</string>
 </resources>

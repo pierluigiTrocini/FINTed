@@ -38,6 +38,10 @@ class PostViewModel(context: Context) : ViewModel() {
         return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size).asImageBitmap()
     }
 
+    fun resetList() {
+        postList.value = listOf()
+    }
+
     fun save(
         title: String,
         startingPrice: Long,
@@ -71,9 +75,21 @@ class PostViewModel(context: Context) : ViewModel() {
         }
     }
 
-    fun search(content: String) {
+    fun searchByTitle(content: String) {
         CoroutineScope(Dispatchers.IO).launch {
+            resetList()
             postList.value = postControllerApi.searchByTitle(content = content).toList()
+
+            Log.d("PIERLUIGI", postList.value.toString())
+        }
+    }
+
+    fun searchByUser(content: String) {
+        CoroutineScope(Dispatchers.IO).launch {
+            resetList()
+            postList.value = postControllerApi.searchBySellerUsername(content = content).toList()
+
+            Log.d("PIERLUIGI", postList.value.toString())
         }
     }
 

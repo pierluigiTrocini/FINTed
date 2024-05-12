@@ -1,5 +1,5 @@
 package it.unical.demacs.enterprise.fintedapp.ui.utility
 
 enum class AppIndex {
-    HOMEPAGE, SELL, PROFILE, OFFERS, SEARCH
+    HOMEPAGE, SELL, PROFILE, OFFERS, SEARCH, LOGIN
 }

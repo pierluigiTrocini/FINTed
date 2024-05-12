@@ -3,11 +3,13 @@ package it.unical.demacs.enterprise.fintedapp.viewmodels
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.ViewModel
+import it.unical.demacs.enterprise.fintedapp.CurrentIndex
 import it.unical.demacs.enterprise.fintedapp.apis.AuthControllerApi
 import it.unical.demacs.enterprise.fintedapp.apis.UserControllerApi
 import it.unical.demacs.enterprise.fintedapp.models.AccessTokenResponse
 import it.unical.demacs.enterprise.fintedapp.models.Credentials
 import it.unical.demacs.enterprise.fintedapp.models.UserPersonalProfileDto
+import it.unical.demacs.enterprise.fintedapp.ui.utility.AppIndex
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -24,6 +26,8 @@ class AuthViewModel(context: Context) : ViewModel() {
                 )
             )
             AuthValues.username.value = username
+
+            CurrentIndex.appIndex.value = AppIndex.HOMEPAGE
 
             Log.d("PIERLUIGI", AuthValues.accessToken.value.accessToken!!)
         }

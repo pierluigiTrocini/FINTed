@@ -55,9 +55,14 @@ public class PostController {
 		return ResponseEntity.ok(postService.getAll(page));
 	}
 	
-	@GetMapping("/search/{content}")
+	@GetMapping("/search/title/{content}")
 	public ResponseEntity<List<PostDto>> searchByTitle(@PathVariable("content") String content){
 		return ResponseEntity.ok(postService.searchByTitle(content));
+	}
+	
+	@GetMapping("/search/user/{content}")
+	public ResponseEntity<List<PostDto>> searchBySellerUsername(@PathVariable("content") String content){
+		return ResponseEntity.ok(postService.searchBySellerUsername(content));
 	}
 	
 	@GetMapping("/img/{postId}")

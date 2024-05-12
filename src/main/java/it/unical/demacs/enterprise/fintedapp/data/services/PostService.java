@@ -21,6 +21,8 @@ public interface PostService {
 
     List<PostDto> searchByTitle(String title);
     
+    List<PostDto> searchBySellerUsername(String username);
+    
     String getImage(Long postId) throws IOException;
     
 }

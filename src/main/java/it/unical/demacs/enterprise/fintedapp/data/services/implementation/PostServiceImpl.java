@@ -54,22 +54,6 @@ public class PostServiceImpl implements PostService {
 		
 		postDao.delete(post);
 	}
-	
-	@Override
-	public List<PostDto> searchByTitle(String title){
-		return postDao.findAllByTitleLike(title).stream()
-				.map(post -> {
-					PostDto postDto = modelMapper.map(post, PostDto.class);
-					
-					try {
-						postDto.setPostImage(imageService.decompress(postDto.getPostImage()));
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-					
-					return postDto;
-				}).collect(Collectors.toList());
-	}
 
 	@Override
 	public PostDto get(Long postId) throws ElementNotFoundException {
@@ -111,6 +95,38 @@ public class PostServiceImpl implements PostService {
 	@Override
 	public String getImage(Long postId) throws IOException {
 		return imageService.decompress(postDao.findPostImageById(postId));
+	}
+
+	@Override
+	public List<PostDto> searchBySellerUsername(String username) {
+		return postDao.findAllBySellerUsernameLike(username).stream()
+				.map(post -> {
+					PostDto postDto = modelMapper.map(post, PostDto.class);
+					
+					try {
+						postDto.setPostImage(imageService.decompress(postDto.getPostImage()));
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					
+					return postDto;
+				}).collect(Collectors.toList());
+	}
+	
+	@Override
+	public List<PostDto> searchByTitle(String title){
+		return postDao.findAllByTitleLike(title).stream()
+				.map(post -> {
+					PostDto postDto = modelMapper.map(post, PostDto.class);
+					
+					try {
+						postDto.setPostImage(imageService.decompress(postDto.getPostImage()));
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					
+					return postDto;
+				}).collect(Collectors.toList());
 	}
 
 }

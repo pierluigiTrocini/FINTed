@@ -4,12 +4,14 @@ import android.content.Context
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import it.unical.demacs.enterprise.fintedapp.CurrentIndex
 import it.unical.demacs.enterprise.fintedapp.apis.AuthControllerApi
 import it.unical.demacs.enterprise.fintedapp.apis.UserControllerApi
 import it.unical.demacs.enterprise.fintedapp.models.UserDto
 import it.unical.demacs.enterprise.fintedapp.models.UserPersonalProfileDto
 import it.unical.demacs.enterprise.fintedapp.models.UserProfileDto
 import it.unical.demacs.enterprise.fintedapp.models.UserRegistrationDto
+import it.unical.demacs.enterprise.fintedapp.ui.utility.AppIndex
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -48,6 +50,8 @@ class UserViewModel(context: Context) : ViewModel() {
                 ))
 
             AuthValues.username.value = username
+
+            CurrentIndex.appIndex.value = AppIndex.HOMEPAGE
         }
     }
 

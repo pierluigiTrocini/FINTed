@@ -37,6 +37,7 @@ import it.unical.demacs.enterprise.fintedapp.models.UserPersonalProfileDto
 import it.unical.demacs.enterprise.fintedapp.models.UserProfileDto
 import it.unical.demacs.enterprise.fintedapp.ui.utility.AppIndex
 import it.unical.demacs.enterprise.fintedapp.viewmodels.AuthValues
+import it.unical.demacs.enterprise.fintedapp.viewmodels.AuthViewModel
 import it.unical.demacs.enterprise.fintedapp.viewmodels.OfferViewModel
 import it.unical.demacs.enterprise.fintedapp.viewmodels.PostViewModel
 import it.unical.demacs.enterprise.fintedapp.viewmodels.UserViewModel
@@ -47,6 +48,7 @@ fun ProfileActivity(
     userViewModel: MutableState<UserViewModel>,
     postViewModel: MutableState<PostViewModel>,
     offerViewModel: MutableState<OfferViewModel>,
+    authViewModel: MutableState<AuthViewModel>? = null,
     scope: ProfileActivityScope
 ) {
     userViewModel.value.getPersonal(username = AuthValues.username.value)
@@ -107,6 +109,17 @@ fun ProfileActivity(
                         ?: stringResource(id = R.string.unavailable),
                     style = MaterialTheme.typography.titleSmall
                 )
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                if(scope == ProfileActivityScope.PERSONAL_PROFILE){
+                    Button(onClick = {
+                        authViewModel?.value?.logout()
+                    }) {
+                        Text(text = stringResource(id = R.string.logout))
+                    }
+                }
+
             }
         }
         if (scope == ProfileActivityScope.PERSONAL_PROFILE) {

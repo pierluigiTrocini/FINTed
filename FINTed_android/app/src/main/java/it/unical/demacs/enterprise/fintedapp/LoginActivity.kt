@@ -41,8 +41,7 @@ import it.unical.demacs.enterprise.fintedapp.viewmodels.UserViewModel
 fun LoginActivity(
     authViewModel: MutableState<AuthViewModel>,
     userViewModel: MutableState<UserViewModel>,
-    context: Context,
-    appIndex: MutableState<AppIndex>
+    context: Context
 ) {
     val loginIndex = remember { mutableStateOf(LoginIndex.LOGIN) }
 
@@ -103,7 +102,6 @@ fun LoginActivity(
                         username = username.value, password = password.value,
                         context = context
                     )
-                    CurrentIndex.appIndex.value = AppIndex.HOMEPAGE
                 }) {
                     Text(text = stringResource(id = R.string.loginLabel))
                 }
@@ -269,8 +267,6 @@ fun LoginActivity(
                         addressNumber = addressNumber.value,
                         addressRoute = addressRoute.value
                     )
-
-                    CurrentIndex.appIndex.value = AppIndex.HOMEPAGE
                 }) {
                     androidx.wear.compose.material.Text(text = stringResource(id = R.string.registration))
                 }
