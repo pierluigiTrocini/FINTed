@@ -65,13 +65,15 @@ fun HomepageActivity(
                 ) {
                     items(items = postViewModel.value.postList.value,
                         key = { post: PostDto -> post.id!! }) { post: PostDto ->
-                        PostActivity(
-                            post = post,
-                            postViewModel = postViewModel,
-                            offerViewModel = offerViewModel,
-                            userViewModel = userViewModel,
-                            scope = PostActivityScope.HOMEPAGE
-                        )
+                        if(post.status == PostDto.Status.AVAILABLE){
+                            PostActivity(
+                                post = post,
+                                postViewModel = postViewModel,
+                                offerViewModel = offerViewModel,
+                                userViewModel = userViewModel,
+                                scope = PostActivityScope.HOMEPAGE
+                            )
+                        }
                     }
                 }
             }

@@ -16,8 +16,8 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://keycloak:8090/realms/finted
-          jwk-set-uri: http://keycloak:8090/realms/finted/protocol/openid-connect/certs
+          issuer-uri: http://keycloak:8080/realms/finted
+          jwk-set-uri: http://keycloak:8080/realms/finted/protocol/openid-connect/certs
 
 jwt:
   auth:
@@ -27,12 +27,12 @@ jwt:
 
 keycloak:
   realm: finted
-  domain: http://keycloak:8090
+  domain: http://keycloak:8080
   adminClientId: admin-cli
   adminClientSecret: qUeaGpCmKJPe2iTdnFk9FSEf8bD3HLCv
   client: finted
   secret: rJnaRxhqI0V2uUwl3j4bca1MahnbjgKg
   urls:
-    auth: http://keycloak:8090
+    auth: http://keycloak:8080
 
 

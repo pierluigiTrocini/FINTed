@@ -14,7 +14,6 @@ it\unical\demacs\enterprise\fintedapp\config\SecurityConfig.class
 it\unical\demacs\enterprise\fintedapp\dto\security\AccessTokenRequest.class
 it\unical\demacs\enterprise\fintedapp\data\dao\PostDao.class
 it\unical\demacs\enterprise\fintedapp\handler\GlobalExceptionHandler.class
-it\unical\demacs\enterprise\fintedapp\data\entities\Rating.class
 it\unical\demacs\enterprise\fintedapp\dto\UserRegistrationDto.class
 it\unical\demacs\enterprise\fintedapp\data\services\OfferService.class
 it\unical\demacs\enterprise\fintedapp\data\services\implementation\ImageServiceImpl.class
