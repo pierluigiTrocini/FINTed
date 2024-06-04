@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">FINTed_android</string>
+    <string name="app_name">FINTed</string>
     <string name="home">home</string>
     <string name="sell">vendi</string>
     <string name="chat">chat</string>
